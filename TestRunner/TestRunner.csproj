@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PKHeX.Core" Version="26.8.26" />
+    <ProjectReference Include="..\PKHeX_LivingDex_Polisher_v4_7_MetLevelEvolutionChain\_build\src\PKHeX-Plugins-cherrytree\PKHeX.Core.AutoMod\PKHeX.Core.AutoMod.csproj" />
+    <ProjectReference Include="..\PKHeX_LivingDex_Polisher_v4_7_MetLevelEvolutionChain\_build\src\PKHeX-Plugins-cherrytree\PKHeX.Core.Enhancements\PKHeX.Core.Enhancements.csproj" />
+  </ItemGroup>
+
+</Project>

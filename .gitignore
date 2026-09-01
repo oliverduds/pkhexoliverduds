@@ -1,0 +1,12 @@
+# Build and temporary files
+**/_build/
+**/bin/
+**/obj/
+*.log
+*.backup-*
+*.zip
+
+# PKHeX runtime files
+pkhex/bak/
+pkhex/tmp/
+pkhex/sounds/

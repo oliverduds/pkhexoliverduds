@@ -1,0 +1,35 @@
+v3 design notes
+
+- Uses PKHeX LegalityAnalysis as the source of truth.
+- SameEncounterIdentity guard compares encounter type/species/form/version/generation/context/location/level range/egg/fixed ball.
+- Master Ball is the only legal-but-conspicuous ball normalized automatically.
+- ALM regeneration is last resort and all regenerated entries are explicitly reported.
+- Final audit always runs.
+
+
+v4.5:
+- SAV7b PokeListHeader.STARTER / StorageSlotSource.Starter is treated as untouchable.
+- LGPE party pointers are also preserved even though Party flags are not generic
+  IsOverwriteProtected flags.
+- PB7.IsStarter identifies Pikachu form 8 / Eevee form 1 for generator filtering.
+
+
+v4.6:
+- Do not use encounter-aware EvoCriteria.LevelMin as the Living Dex canonical
+  evolution floor.
+- Build the stage chain from EvolutionTree.Reverse.GetPreEvolutions.
+- Resolve each edge from EvolutionTree.Forward.GetForward and propagate:
+    max(previous + method.LevelUp, method.Level)
+- CurrentLevel is allowed to increase when an earlier bad pass produced an
+  under-level evolved species.
+- Final audit separately checks canonical evolution-floor policy.
+
+
+v4.7:
+- For a direct evolved encounter, do NOT propagate the canonical chain from
+  level 1 and clamp to MetLevel afterward.
+- Instead propagate the entire normal chain FROM actual MetLevel:
+    max(previous + method.LevelUp, method.Level)
+- This distinguishes:
+    Slowbro Met39 -> 40 (level-up)
+    Arcanine Met11 -> 11 (item)

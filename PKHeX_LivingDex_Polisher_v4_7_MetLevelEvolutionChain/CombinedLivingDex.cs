@@ -1,0 +1,1220 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using PKHeX.Core;
+using PKHeX.Core.AutoMod;
+
+namespace AutoModPlugins;
+
+public enum LivingDexMode
+{
+    Normal,
+    Shiny,
+    Combined,
+    BaseSpeciesOnly
+}
+
+public enum BallSelectionPreference
+{
+    ThematicAuto,
+    StandardPokeBall,
+    PremierBall,
+    LuxuryBall,
+    UltraBall,
+    RandomApriball,
+    KeepOriginal
+}
+
+public enum IVOptimizationPreference
+{
+    SmartIVs,
+    All31,
+    KeepEncounter
+}
+
+public enum LevelPreference
+{
+    CanonicalFloor,
+    EncounterNative,
+    Level100
+}
+
+public enum BoxPlacementPreference
+{
+    Overwrite,
+    EmptySlotsOnly,
+    ClearBoxesFirst
+}
+
+public sealed class LivingDexCustomOptions
+{
+    public LivingDexMode Mode { get; set; } = LivingDexMode.Normal;
+    public bool IncludeForms { get; set; } = true;
+    public bool RespectShinyLocks { get; set; } = true;
+    public BallSelectionPreference BallPreference { get; set; } = BallSelectionPreference.ThematicAuto;
+    public IVOptimizationPreference IVPreference { get; set; } = IVOptimizationPreference.SmartIVs;
+    public LevelPreference LevelPref { get; set; } = LevelPreference.CanonicalFloor;
+    public bool EnableGigantamax { get; set; } = true;
+    public int StartBox { get; set; } = 1;
+    public BoxPlacementPreference BoxPreference { get; set; } = BoxPlacementPreference.Overwrite;
+    public bool ExportReport { get; set; } = true;
+}
+
+/// <summary>
+/// Universal Living Dex Generator & Customizer for Nintendo Switch games (LGPE, SWSH, BDSP, PLA, SV, ZA).
+/// Provides full customization:
+/// 1) Mode selection (Normal, Shiny, Combined, Base Species).
+/// 2) Starting Box and Box placement behavior (Overwrite, Empty slots only, Clear first).
+/// 3) Ball selection (Thematic Auto, Standard, Premier, Luxury, Apriballs, Keep).
+/// 4) IV optimization (Smart 6x31/0 Atk, All 31, Keep native).
+/// 5) Level options (Canonical Evolution Floor, Native Encounter, Level 100).
+/// 6) Real-time visual progress bar with detailed stats, Pokémon card, and cancel support.
+/// 7) Full safe capacity management and overflow export.
+/// </summary>
+public sealed class CombinedLivingDex : AutoModPlugin
+{
+    public override string Name => "Living Dex Generator (Switch)";
+    public override int Priority => 1;
+
+    protected override void AddPluginControl(ToolStripDropDownItem modmenu)
+    {
+        var root = new ToolStripMenuItem("Living Dex Generator (Switch)")
+        {
+            Name = "Menu_LivingDexGenerator"
+        };
+
+        var customItem = new ToolStripMenuItem("⭐ Configure & Generate Living Dex (Custom Wizard)...");
+        customItem.Font = new Font(customItem.Font, FontStyle.Bold);
+        customItem.Click += async (_, _) => await OpenCustomWizard();
+
+        var quickNormal = new ToolStripMenuItem("📦 Quick: Generate Normal Living Dex");
+        quickNormal.Click += async (_, _) => await GenerateQuick(LivingDexMode.Normal);
+
+        var quickShiny = new ToolStripMenuItem("✨ Quick: Generate Shiny Living Dex");
+        quickShiny.Click += async (_, _) => await GenerateQuick(LivingDexMode.Shiny);
+
+        var quickCombined = new ToolStripMenuItem("🌟 Quick: Generate Normal + Shiny Living Dex (Combined)");
+        quickCombined.Click += async (_, _) => await GenerateQuick(LivingDexMode.Combined);
+
+        root.DropDownItems.Add(customItem);
+        root.DropDownItems.Add(new ToolStripSeparator());
+        root.DropDownItems.Add(quickNormal);
+        root.DropDownItems.Add(quickShiny);
+        root.DropDownItems.Add(quickCombined);
+
+        modmenu.DropDownItems.Add(root);
+    }
+
+    private async Task OpenCustomWizard()
+    {
+        var sav = SaveFileEditor.SAV;
+        using var form = new LivingDexOptionsForm(sav);
+        if (form.ShowDialog() == DialogResult.OK)
+        {
+            await ExecuteGeneration(form.Options);
+        }
+    }
+
+    private async Task GenerateQuick(LivingDexMode mode)
+    {
+        var sav = SaveFileEditor.SAV;
+        var options = new LivingDexCustomOptions
+        {
+            Mode = mode,
+            IncludeForms = true,
+            RespectShinyLocks = true,
+            BallPreference = BallSelectionPreference.ThematicAuto,
+            IVPreference = IVOptimizationPreference.SmartIVs,
+            LevelPref = LevelPreference.CanonicalFloor,
+            EnableGigantamax = true,
+            StartBox = 1,
+            BoxPreference = BoxPlacementPreference.Overwrite,
+            ExportReport = true
+        };
+
+        int totalCapacity = sav.BoxCount * sav.BoxSlotCount;
+        if (mode == LivingDexMode.Combined)
+        {
+            int estimatedCount = (sav.Version is GameVersion.SW or GameVersion.SH) ? 1520 : (sav.Version is GameVersion.SL or GameVersion.VL) ? 1450 : 0;
+            if (estimatedCount > totalCapacity)
+            {
+                var prompt = MessageBox.Show(
+                    $"Atenção: A coleção Normal + Shiny completa possui ~{estimatedCount} Pokémon, mas o jogo suporta {totalCapacity} slots ({sav.BoxCount} caixas).\n\n" +
+                    "Deseja abrir o Assistente de Configuração para personalizar caixas e opções?",
+                    "Capacidade de Caixas",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (prompt == DialogResult.Yes)
+                {
+                    await OpenCustomWizard();
+                    return;
+                }
+            }
+        }
+
+        await ExecuteGeneration(options);
+    }
+
+    private async Task ExecuteGeneration(LivingDexCustomOptions options)
+    {
+        var sav = SaveFileEditor.SAV;
+        int totalCapacity = sav.BoxCount * sav.BoxSlotCount;
+
+        bool oldUseTrainerData = APILegality.UseTrainerData;
+        bool oldMatchingBalls = APILegality.SetMatchingBalls;
+        bool oldRibbons = APILegality.SetAllLegalRibbons;
+        bool oldForce100 = APILegality.ForceLevel100for50;
+        bool oldBattleVersion = APILegality.SetBattleVersion;
+        var oldPriority = APILegality.GameVersionPriority;
+
+        try
+        {
+            TrainerSettings.Register(sav);
+            APILegality.UseTrainerData = true;
+            APILegality.GameVersionPriority = GameVersionPriorityType.NativeOnly;
+            APILegality.SetMatchingBalls = false;
+            APILegality.SetAllLegalRibbons = false;
+            APILegality.ForceLevel100for50 = false;
+            APILegality.SetBattleVersion = false;
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            List<PKM> normalList = [];
+            List<PKM> shinyList = [];
+
+            if (options.Mode is LivingDexMode.Normal or LivingDexMode.Combined or LivingDexMode.BaseSpeciesOnly)
+            {
+                var normalCfg = new LivingDexConfig
+                {
+                    IncludeForms = options.Mode != LivingDexMode.BaseSpeciesOnly && options.IncludeForms,
+                    SetShiny = false,
+                    SetAlpha = false,
+                    TransferVersion = sav.Version,
+                };
+                var gen = await Task.Run(() => sav.GenerateLivingDex(sav.Personal, normalCfg));
+                normalList = FilterValidBoxPokemon(gen, sav).ToList();
+            }
+
+            if (options.Mode is LivingDexMode.Shiny or LivingDexMode.Combined or LivingDexMode.BaseSpeciesOnly)
+            {
+                var shinyCfg = new LivingDexConfig
+                {
+                    IncludeForms = options.Mode != LivingDexMode.BaseSpeciesOnly && options.IncludeForms,
+                    SetShiny = true,
+                    SetAlpha = false,
+                    TransferVersion = sav.Version,
+                };
+                var gen = await Task.Run(() => sav.GenerateLivingDex(sav.Personal, shinyCfg).Where(z => z.IsShiny));
+                shinyList = FilterValidBoxPokemon(gen, sav).ToList();
+            }
+
+            List<PKM> targetList = options.Mode switch
+            {
+                LivingDexMode.Normal => normalList,
+                LivingDexMode.Shiny => shinyList,
+                LivingDexMode.Combined => [.. normalList, .. shinyList],
+                LivingDexMode.BaseSpeciesOnly => normalList,
+                _ => normalList,
+            };
+
+            int startSlot = Math.Max(0, (options.StartBox - 1) * sav.BoxSlotCount);
+            if (sav.Version is GameVersion.GP or GameVersion.GE && startSlot == 0)
+            {
+                startSlot = GetLivingDexStartSlot(sav);
+            }
+
+            // Plan slots based on BoxPreference
+            var plannedSlots = new List<int>();
+            int maxSlot = sav.BoxCount * sav.BoxSlotCount;
+
+            for (int idx = startSlot; idx < maxSlot && plannedSlots.Count < targetList.Count; idx++)
+            {
+                if (IsProtectedGameplaySlot(sav, idx))
+                    continue;
+
+                if (options.BoxPreference == BoxPlacementPreference.EmptySlotsOnly)
+                {
+                    if (sav.GetBoxSlotAtIndex(idx).Species != 0)
+                        continue;
+                }
+
+                plannedSlots.Add(idx);
+            }
+
+            if (plannedSlots.Count == 0)
+            {
+                WinFormsUtil.Alert("Nenhum slot gravável disponível no intervalo selecionado.");
+                return;
+            }
+
+            int toPlaceCount = Math.Min(targetList.Count, plannedSlots.Count);
+            var overflowList = targetList.Skip(toPlaceCount).ToList();
+
+            if (options.BoxPreference == BoxPlacementPreference.ClearBoxesFirst)
+            {
+                int endBox = (plannedSlots[^1] / sav.BoxSlotCount) + 1;
+                for (int b = options.StartBox - 1; b < endBox && b < sav.BoxCount; b++)
+                {
+                    for (int s = 0; s < sav.BoxSlotCount; s++)
+                    {
+                        if (!IsProtectedGameplaySlot(sav, (b * sav.BoxSlotCount) + s))
+                            sav.SetBoxSlotAtIndex(sav.BlankPKM, b, s);
+                    }
+                }
+            }
+
+            using var cts = new CancellationTokenSource();
+            string modeName = options.Mode switch
+            {
+                LivingDexMode.Normal => "Normal Living Dex",
+                LivingDexMode.Shiny => "Shiny Living Dex",
+                LivingDexMode.Combined => "Normal + Shiny Living Dex",
+                LivingDexMode.BaseSpeciesOnly => "Base Species Living Dex",
+                _ => "Living Dex",
+            };
+
+            var progressForm = new LivingDexProgressForm($"Gerando {modeName} — {sav.Version}", toPlaceCount, cts);
+            progressForm.Show();
+
+            int placed = 0;
+            int themedBallsCount = 0;
+            int gmaxCount = 0;
+            var logLines = new List<string>();
+
+            await Task.Run(() =>
+            {
+                var random = new Random();
+                for (int i = 0; i < toPlaceCount; i++)
+                {
+                    if (cts.IsCancellationRequested)
+                        break;
+
+                    var pk = targetList[i];
+                    int targetIndex = plannedSlots[i];
+                    int box = targetIndex / sav.BoxSlotCount;
+                    int slot = targetIndex % sav.BoxSlotCount;
+
+                    // 1. Level adjustment
+                    if (options.LevelPref == LevelPreference.Level100)
+                    {
+                        pk.CurrentLevel = 100;
+                        LivingDexPolisher.RefreshLevelDependentData(pk);
+                    }
+                    else if (options.LevelPref == LevelPreference.CanonicalFloor)
+                    {
+                        var la = new LegalityAnalysis(pk, sav.Personal);
+                        int targetLevel = LivingDexPolisher.GetEvolutionMinimumLevel(pk, la, sav.Personal);
+                        pk.CurrentLevel = (byte)targetLevel;
+
+                        if (pk.CurrentLevel < 100 && pk is IHyperTrain ht)
+                            ht.HyperTrainFlags = 0;
+
+                        LivingDexPolisher.TryApplyNaturalMoves(pk, sav.Personal);
+
+                        var testLA = new LegalityAnalysis(pk, sav.Personal);
+                        if (!testLA.Valid)
+                        {
+                            for (int lvl = targetLevel + 1; lvl <= 100; lvl++)
+                            {
+                                pk.CurrentLevel = (byte)lvl;
+                                LivingDexPolisher.TryApplyNaturalMoves(pk, sav.Personal);
+                                if (new LegalityAnalysis(pk, sav.Personal).Valid)
+                                    break;
+                            }
+                        }
+                    }
+
+                    if (pk.CurrentLevel < 100 && pk is IHyperTrain ht2)
+                        ht2.HyperTrainFlags = 0;
+
+                    LivingDexPolisher.TryApplyNaturalMoves(pk, sav.Personal);
+
+                    // 2. Pokéball selection
+                    ApplyCustomBall(pk, options.BallPreference, random, sav.Personal);
+                    if (options.BallPreference == BallSelectionPreference.ThematicAuto)
+                        themedBallsCount++;
+
+                    // 3. IVs
+                    ApplyCustomIVs(pk, options.IVPreference, sav.Personal);
+
+                    // 4. Gigantamax
+                    if (options.EnableGigantamax && LivingDexPolisher.TryApplyGigantamax(pk, sav))
+                        gmaxCount++;
+
+                    // 5. Reset CP (LGPE)
+                    LivingDexPolisher.RefreshLevelDependentData(pk);
+
+                    sav.SetBoxSlotAtIndex(pk, box, slot);
+                    placed++;
+
+                    string logEntry = $"Box {box + 1,2}, Slot {slot + 1,2}: {pk.Species,3} {GameInfo.Strings.Species[pk.Species],-16} {(pk.IsShiny ? "★" : " ")} Lv.{pk.CurrentLevel,3} | Ball: {(Ball)pk.Ball,-10} | IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE}";
+                    logLines.Add(logEntry);
+
+                    progressForm.UpdateProgress(placed, toPlaceCount, pk, box, slot);
+                }
+            });
+
+            progressForm.Close();
+            SaveFileEditor.ReloadSlots();
+
+            if (cts.IsCancellationRequested)
+            {
+                WinFormsUtil.Alert("Geração cancelada pelo usuário.", $"Foram inseridos {placed} Pokémon antes do cancelamento.");
+                return;
+            }
+
+            int firstBoxNum = (plannedSlots[0] / sav.BoxSlotCount) + 1;
+            int lastBoxNum = (plannedSlots[placed - 1] / sav.BoxSlotCount) + 1;
+
+            if (options.ExportReport)
+            {
+                ExportGenerationReport(sav, logLines, firstBoxNum, lastBoxNum, placed, themedBallsCount, gmaxCount);
+            }
+
+            if (overflowList.Count > 0)
+            {
+                var saveExtra = MessageBox.Show(
+                    $"As caixas do save foram preenchidas com {placed} Pokémon (Caixas {firstBoxNum} a {lastBoxNum}).\n" +
+                    $"Restaram {overflowList.Count} Pokémon que não couberam nos slots disponíveis.\n\n" +
+                    "Deseja salvar os Pokémon excedentes em uma pasta de arquivos?",
+                    "Salvar Pokémon Excedentes",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (saveExtra == DialogResult.Yes)
+                {
+                    using var fbd = new FolderBrowserDialog();
+                    if (fbd.ShowDialog() == DialogResult.OK)
+                    {
+                        Span<byte> pokeData = stackalloc byte[sav.SIZE_PARTY];
+                        foreach (var pk in overflowList)
+                        {
+                            pk.WriteDecryptedDataParty(pokeData);
+                            string shinyStr = pk.IsShiny ? " ★" : "";
+                            string fileName = $"{pk.Species:D3} - {GameInfo.Strings.Species[pk.Species]}{shinyStr}.{sav.Extension}";
+                            File.WriteAllBytes(Path.Combine(fbd.SelectedPath, fileName), pokeData.ToArray());
+                        }
+                        WinFormsUtil.Alert("Exportação Concluída", $"{overflowList.Count} Pokémon salvos em:\n{fbd.SelectedPath}");
+                    }
+                }
+            }
+            else
+            {
+                WinFormsUtil.Alert(
+                    $"{modeName} gerada com sucesso!",
+                    $"Total de Pokémon inseridos: {placed} (Caixas {firstBoxNum} a {lastBoxNum})",
+                    $"Pokébolas atribuídas com base na preferência ({options.BallPreference}).",
+                    $"Gigantamax Factor habilitados: {gmaxCount}",
+                    "Slots de Gameplay e Party preservados intactos.");
+            }
+        }
+        catch (Exception ex)
+        {
+            WinFormsUtil.Error("Falha na geração da Living Dex.", ex.Message);
+        }
+        finally
+        {
+            APILegality.UseTrainerData = oldUseTrainerData;
+            APILegality.SetMatchingBalls = oldMatchingBalls;
+            APILegality.SetAllLegalRibbons = oldRibbons;
+            APILegality.ForceLevel100for50 = oldForce100;
+            APILegality.SetBattleVersion = oldBattleVersion;
+            APILegality.GameVersionPriority = oldPriority;
+        }
+    }
+
+    private static void ApplyCustomBall(PKM pk, BallSelectionPreference pref, Random random, IPersonalTable personal)
+    {
+        var la = new LegalityAnalysis(pk, personal);
+        if (!la.Valid) return;
+
+        Span<Ball> legal = stackalloc Ball[BallApplicator.MaxBallSpanAlloc];
+        int count = BallApplicator.GetLegalBalls(legal, pk, la);
+        if (count <= 0) return;
+        legal = legal[..count];
+
+        if (pref == BallSelectionPreference.ThematicAuto)
+        {
+            LivingDexPolisher.TryApplyThematicBall(pk, la, out _);
+            return;
+        }
+
+        if (pref == BallSelectionPreference.KeepOriginal)
+            return;
+
+        Ball targetBall = pref switch
+        {
+            BallSelectionPreference.StandardPokeBall => Ball.Poke,
+            BallSelectionPreference.PremierBall => Ball.Premier,
+            BallSelectionPreference.LuxuryBall => Ball.Luxury,
+            BallSelectionPreference.UltraBall => Ball.Ultra,
+            BallSelectionPreference.RandomApriball => GetRandomApriball(legal, random),
+            _ => Ball.Poke,
+        };
+
+        if (legal.Contains(targetBall))
+        {
+            byte old = pk.Ball;
+            pk.Ball = (byte)targetBall;
+            var testLA = new LegalityAnalysis(pk, personal);
+            if (!testLA.Valid)
+                pk.Ball = old;
+        }
+    }
+
+    private static Ball GetRandomApriball(ReadOnlySpan<Ball> legal, Random random)
+    {
+        var apriballs = new[] { Ball.Fast, Ball.Level, Ball.Lure, Ball.Heavy, Ball.Love, Ball.Friend, Ball.Moon, Ball.Sport, Ball.Safari, Ball.Dream, Ball.Beast };
+        var available = new List<Ball>();
+        foreach (var b in apriballs)
+        {
+            if (legal.Contains(b))
+                available.Add(b);
+        }
+        return available.Count > 0 ? available[random.Next(available.Count)] : (legal.Contains(Ball.Premier) ? Ball.Premier : legal[0]);
+    }
+
+    private static void ApplyCustomIVs(PKM pk, IVOptimizationPreference pref, IPersonalTable personal)
+    {
+        if (pref == IVOptimizationPreference.KeepEncounter)
+            return;
+
+        if (pref == IVOptimizationPreference.SmartIVs)
+        {
+            LivingDexPolisher.TryOptimizeIVs(pk, personal);
+            return;
+        }
+
+        if (pref == IVOptimizationPreference.All31)
+        {
+            Span<int> target = stackalloc int[6] { 31, 31, 31, 31, 31, 31 };
+            var candidate = pk.Clone();
+            candidate.SetIVs(target);
+            LivingDexPolisher.RefreshLevelDependentData(candidate);
+            if (new LegalityAnalysis(candidate, personal).Valid)
+            {
+                pk.SetIVs(target);
+                LivingDexPolisher.RefreshLevelDependentData(pk);
+            }
+        }
+    }
+
+    private static void ExportGenerationReport(SaveFile sav, List<string> logLines, int firstBox, int lastBox, int placed, int balls, int gmax)
+    {
+        try
+        {
+            string dir = Path.GetDirectoryName(Application.ExecutablePath) ?? AppDomain.CurrentDomain.BaseDirectory;
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string txtPath = Path.Combine(dir, $"LivingDex_Report_{sav.Version}_{timestamp}.txt");
+
+            var sb = new StringBuilder();
+            sb.AppendLine("===============================================================================");
+            sb.AppendLine("                 LIVING DEX GENERATION & AUDIT REPORT");
+            sb.AppendLine("===============================================================================");
+            sb.AppendLine($"Date & Time : {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+            sb.AppendLine($"Game Version: {sav.Version} (Context: {sav.Context})");
+            sb.AppendLine($"Trainer Info: OT = {sav.OT}, TID = {sav.TID16}, SID = {sav.SID16}");
+            sb.AppendLine($"Boxes Used  : Caixa {firstBox} a Caixa {lastBox} ({placed} Pokémon colocados)");
+            sb.AppendLine($"Themed Balls: {balls} | Gigantamax Factor: {gmax}");
+            sb.AppendLine("-------------------------------------------------------------------------------");
+            sb.AppendLine("DETALHES DOS SLOTS GRAVADOS:");
+            foreach (var line in logLines)
+                sb.AppendLine(line);
+            sb.AppendLine("===============================================================================");
+
+            File.WriteAllText(txtPath, sb.ToString(), Encoding.UTF8);
+        }
+        catch
+        {
+            // Report export failure is non-blocking
+        }
+    }
+
+    public static IEnumerable<PKM> FilterValidBoxPokemon(IEnumerable<PKM> list, SaveFile sav)
+    {
+        foreach (var pk in list)
+        {
+            if (pk is PB7 { IsStarter: true })
+                continue;
+
+            if (pk.Species == (ushort)Species.Silvally && pk.Form > 0)
+                continue;
+
+            if (FormInfo.IsBattleOnlyForm(pk.Species, pk.Form, sav.Generation) ||
+                FormInfo.IsFusedForm(pk.Species, pk.Form, sav.Generation))
+                continue;
+
+            yield return pk;
+        }
+    }
+
+    private static int AlignToNextBox(int slot, int boxSize)
+    {
+        if (slot <= 0) return 0;
+        return ((slot + boxSize - 1) / boxSize) * boxSize;
+    }
+
+    private static bool IsProtectedGameplaySlot(SaveFile sav, int index)
+    {
+        var flags = sav.GetBoxSlotFlags(index);
+        if (flags.IsOverwriteProtected())
+            return true;
+
+        if (sav.Version is GameVersion.GP or GameVersion.GE)
+            return flags.IsParty() >= 0;
+
+        return false;
+    }
+
+    private static int GetLivingDexStartSlot(SaveFile sav)
+    {
+        if (sav.Version is not (GameVersion.GP or GameVersion.GE))
+            return 0;
+
+        int capacity = sav.BoxCount * sav.BoxSlotCount;
+        int highestProtected = -1;
+        for (int i = 0; i < capacity; i++)
+        {
+            if (IsProtectedGameplaySlot(sav, i))
+                highestProtected = i;
+        }
+
+        return highestProtected < 0
+            ? 0
+            : AlignToNextBox(highestProtected + 1, sav.BoxSlotCount);
+    }
+}
+
+/// <summary>
+/// Customization Dialog Form with live capacity and box preview calculation.
+/// </summary>
+public sealed class LivingDexOptionsForm : Form
+{
+    private readonly SaveFile _sav;
+    public LivingDexCustomOptions Options { get; } = new();
+
+    private readonly ComboBox _cbMode;
+    private readonly CheckBox _chkIncludeForms;
+    private readonly CheckBox _chkRespectShinyLocks;
+    private readonly ComboBox _cbBallPref;
+    private readonly ComboBox _cbIVPref;
+    private readonly ComboBox _cbLevelPref;
+    private readonly CheckBox _chkGMax;
+    private readonly NumericUpDown _nudStartBox;
+    private readonly ComboBox _cbBoxPref;
+    private readonly CheckBox _chkExportReport;
+    private readonly Label _lblEstimation;
+    private readonly Label _lblCapacityStatus;
+
+    public LivingDexOptionsForm(SaveFile sav)
+    {
+        _sav = sav;
+
+        Text = "Configurador Avançado de Living Dex (Nintendo Switch)";
+        ClientSize = new Size(620, 610);
+        FormBorderStyle = FormBorderStyle.FixedDialog;
+        StartPosition = FormStartPosition.CenterScreen;
+        MaximizeBox = false;
+        MinimizeBox = false;
+        ShowInTaskbar = true;
+
+        var pnlHeader = new Panel
+        {
+            Dock = DockStyle.Top,
+            Height = 65,
+            BackColor = Color.FromArgb(24, 40, 72),
+        };
+
+        var lblHeaderTitle = new Label
+        {
+            Text = "Living Dex Generator & Customizer",
+            ForeColor = Color.White,
+            Font = new Font(Font.FontFamily, 12f, FontStyle.Bold),
+            Location = new Point(15, 10),
+            AutoSize = true,
+        };
+
+        var lblHeaderSub = new Label
+        {
+            Text = $"Jogo: {sav.Version} | Treinador: {sav.OT} (TID: {sav.TID16}) | Armazenamento: {sav.BoxCount} Caixas ({sav.BoxCount * sav.BoxSlotCount} slots)",
+            ForeColor = Color.FromArgb(200, 220, 255),
+            Font = new Font(Font.FontFamily, 9f, FontStyle.Regular),
+            Location = new Point(15, 36),
+            AutoSize = true,
+        };
+
+        pnlHeader.Controls.Add(lblHeaderTitle);
+        pnlHeader.Controls.Add(lblHeaderSub);
+
+        // Group 1: Conteúdo e Modo
+        var grpMode = new GroupBox
+        {
+            Text = " 📦 1. Modo & Conteúdo da Living Dex ",
+            Font = new Font(Font.FontFamily, 9f, FontStyle.Bold),
+            Location = new Point(15, 75),
+            Size = new Size(590, 115),
+        };
+
+        var lblMode = new Label { Text = "Modo de Coleção:", Location = new Point(15, 25), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular) };
+        _cbMode = new ComboBox
+        {
+            Location = new Point(140, 22),
+            Size = new Size(430, 24),
+            DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+        };
+        _cbMode.Items.AddRange([
+            "Normal Living Dex (Todas as espécies normais + expansões)",
+            "Shiny Living Dex (Todas as espécies brilhantes legais)",
+            "Normal + Shiny Living Dex (Coleção Combinada)",
+            "Base Species Only (Apenas espécies base sem variantes cosméticas)"
+        ]);
+        _cbMode.SelectedIndex = 0;
+        _cbMode.SelectedIndexChanged += (_, _) => UpdateEstimations();
+
+        _chkIncludeForms = new CheckBox
+        {
+            Text = "Incluir Formas Regionais & Alternativas (Alola, Galar, Hisui, Paldea, Vivillon, Alcremie, etc.)",
+            Location = new Point(15, 55),
+            Size = new Size(560, 22),
+            Checked = true,
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+        };
+        _chkIncludeForms.CheckedChanged += (_, _) => UpdateEstimations();
+
+        _chkRespectShinyLocks = new CheckBox
+        {
+            Text = "Respeitar Shiny Locks Oficiais (Garante 100% de conformidade com Pokémon HOME)",
+            Location = new Point(15, 82),
+            Size = new Size(560, 22),
+            Checked = true,
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+        };
+
+        grpMode.Controls.Add(lblMode);
+        grpMode.Controls.Add(_cbMode);
+        grpMode.Controls.Add(_chkIncludeForms);
+        grpMode.Controls.Add(_chkRespectShinyLocks);
+
+        // Group 2: Personalização & Polimento
+        var grpPolish = new GroupBox
+        {
+            Text = " 🪄 2. Personalização & Polimento dos Pokémon ",
+            Font = new Font(Font.FontFamily, 9f, FontStyle.Bold),
+            Location = new Point(15, 200),
+            Size = new Size(590, 150),
+        };
+
+        var lblBall = new Label { Text = "Pokébolas:", Location = new Point(15, 25), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular) };
+        _cbBallPref = new ComboBox
+        {
+            Location = new Point(140, 22),
+            Size = new Size(430, 24),
+            DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+        };
+        _cbBallPref.Items.AddRange([
+            "🎨 Automático Temático / Smart Match (Tipo, Cor, Peso e Raridade)",
+            "🔴 Standard Poké Ball",
+            "⚪ Premier Ball",
+            "⚫ Luxury Ball",
+            "🟡 Ultra Ball",
+            "🦕 Apriballs Aleatórias (Fast, Level, Lure, Heavy, Love, Friend, Moon)",
+            "🔒 Manter Bola Original do Encontro"
+        ]);
+        _cbBallPref.SelectedIndex = 0;
+
+        var lblIV = new Label { Text = "Otimização de IVs:", Location = new Point(15, 55), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular) };
+        _cbIVPref = new ComboBox
+        {
+            Location = new Point(140, 52),
+            Size = new Size(430, 24),
+            DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+        };
+        _cbIVPref.Items.AddRange([
+            "⚡ Smart IVs (6x31 atacantes físicos / 0 Atk atacantes especiais) [Recomendado]",
+            "🌟 Todos 31 (6x31 Perfeitos)",
+            "🎲 Manter IVs Originais do Encontro"
+        ]);
+        _cbIVPref.SelectedIndex = 0;
+
+        var lblLevel = new Label { Text = "Nível de Evolução:", Location = new Point(15, 85), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular) };
+        _cbLevelPref = new ComboBox
+        {
+            Location = new Point(140, 82),
+            Size = new Size(430, 24),
+            DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+        };
+        _cbLevelPref.Items.AddRange([
+            "📈 Nível Canônico de Evolução (Progresso por MetLevel) [Recomendado]",
+            "🎯 Nível Original do Encontro",
+            "💯 Nível 100 Máximo"
+        ]);
+        _cbLevelPref.SelectedIndex = 0;
+
+        _chkGMax = new CheckBox
+        {
+            Text = "Habilitar Gigantamax Factor no SWSH para espécies elegíveis",
+            Location = new Point(15, 118),
+            Size = new Size(560, 22),
+            Checked = true,
+            Enabled = sav.Version is GameVersion.SW or GameVersion.SH,
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+        };
+
+        grpPolish.Controls.Add(lblBall);
+        grpPolish.Controls.Add(_cbBallPref);
+        grpPolish.Controls.Add(lblIV);
+        grpPolish.Controls.Add(_cbIVPref);
+        grpPolish.Controls.Add(lblLevel);
+        grpPolish.Controls.Add(_cbLevelPref);
+        grpPolish.Controls.Add(_chkGMax);
+
+        // Group 3: Caixas e Destino
+        var grpBox = new GroupBox
+        {
+            Text = " 🗄️ 3. Localização das Caixas & Gravação ",
+            Font = new Font(Font.FontFamily, 9f, FontStyle.Bold),
+            Location = new Point(15, 360),
+            Size = new Size(590, 110),
+        };
+
+        var lblStartBox = new Label { Text = "Caixa Inicial:", Location = new Point(15, 25), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular) };
+        _nudStartBox = new NumericUpDown
+        {
+            Location = new Point(140, 22),
+            Size = new Size(80, 24),
+            Minimum = 1,
+            Maximum = sav.BoxCount,
+            Value = 1,
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+        };
+        _nudStartBox.ValueChanged += (_, _) => UpdateEstimations();
+
+        var lblBoxPref = new Label { Text = "Preenchimento:", Location = new Point(240, 25), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular) };
+        _cbBoxPref = new ComboBox
+        {
+            Location = new Point(340, 22),
+            Size = new Size(230, 24),
+            DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+        };
+        _cbBoxPref.Items.AddRange([
+            "🔄 Sobrescrever slots necessários",
+            "📭 Apenas preencher slots vazios",
+            "🧹 Limpar caixas selecionadas primeiro"
+        ]);
+        _cbBoxPref.SelectedIndex = 0;
+
+        _chkExportReport = new CheckBox
+        {
+            Text = "Gerar relatório completo de auditoria (.txt) na pasta do PKHeX",
+            Location = new Point(15, 55),
+            Size = new Size(560, 22),
+            Checked = true,
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+        };
+
+        grpBox.Controls.Add(lblStartBox);
+        grpBox.Controls.Add(_nudStartBox);
+        grpBox.Controls.Add(lblBoxPref);
+        grpBox.Controls.Add(_cbBoxPref);
+        grpBox.Controls.Add(_chkExportReport);
+
+        // Previsão de Capacidade
+        var pnlPreview = new Panel
+        {
+            Location = new Point(15, 480),
+            Size = new Size(590, 60),
+            BackColor = Color.FromArgb(240, 244, 250),
+            BorderStyle = BorderStyle.FixedSingle,
+        };
+
+        _lblEstimation = new Label
+        {
+            Location = new Point(10, 8),
+            Size = new Size(570, 20),
+            Font = new Font(Font.FontFamily, 9f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(30, 50, 90),
+            Text = "Calculando estimativa...",
+        };
+
+        _lblCapacityStatus = new Label
+        {
+            Location = new Point(10, 30),
+            Size = new Size(570, 22),
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+            ForeColor = Color.DarkGreen,
+            Text = "",
+        };
+
+        pnlPreview.Controls.Add(_lblEstimation);
+        pnlPreview.Controls.Add(_lblCapacityStatus);
+
+        // Bottom buttons
+        var btnGenerate = new Button
+        {
+            Text = "🚀 Gerar Living Dex Agora",
+            Location = new Point(370, 555),
+            Size = new Size(235, 38),
+            Font = new Font(Font.FontFamily, 10f, FontStyle.Bold),
+            BackColor = Color.FromArgb(0, 120, 215),
+            ForeColor = Color.White,
+            UseVisualStyleBackColor = false,
+        };
+        btnGenerate.Click += (_, _) => OnGenerateClicked();
+
+        var btnCancel = new Button
+        {
+            Text = "Cancelar",
+            Location = new Point(255, 555),
+            Size = new Size(105, 38),
+            Font = new Font(Font.FontFamily, 9f, FontStyle.Regular),
+            UseVisualStyleBackColor = true,
+        };
+        btnCancel.Click += (_, _) => DialogResult = DialogResult.Cancel;
+
+        Controls.Add(pnlHeader);
+        Controls.Add(grpMode);
+        Controls.Add(grpPolish);
+        Controls.Add(grpBox);
+        Controls.Add(pnlPreview);
+        Controls.Add(btnGenerate);
+        Controls.Add(btnCancel);
+
+        UpdateEstimations();
+    }
+
+    private void UpdateEstimations()
+    {
+        int modeIdx = _cbMode.SelectedIndex;
+        bool includeForms = _chkIncludeForms.Checked;
+        int startBox = (int)_nudStartBox.Value;
+
+        int count = GetEstimatedCount(modeIdx, includeForms);
+        int neededBoxes = (count + _sav.BoxSlotCount - 1) / _sav.BoxSlotCount;
+        int endBox = startBox + neededBoxes - 1;
+        int totalCapacity = _sav.BoxCount * _sav.BoxSlotCount;
+        int availableSlotsFromStart = (_sav.BoxCount - startBox + 1) * _sav.BoxSlotCount;
+
+        _lblEstimation.Text = $"Estimativa: {count} Pokémon | Ocupará {neededBoxes} Caixas (Caixa {startBox} até Caixa {Math.Min(_sav.BoxCount, endBox)})";
+
+        if (count <= availableSlotsFromStart)
+        {
+            _lblCapacityStatus.ForeColor = Color.FromArgb(0, 130, 50);
+            int leftover = (_sav.BoxCount - endBox);
+            _lblCapacityStatus.Text = $"✅ Cabe perfeitamente no save! (Sobram {Math.Max(0, leftover)} caixas livres após a coleção)";
+        }
+        else
+        {
+            _lblCapacityStatus.ForeColor = Color.FromArgb(180, 80, 0);
+            int overflow = count - availableSlotsFromStart;
+            _lblCapacityStatus.Text = $"⚠️ Excede a capacidade a partir da Caixa {startBox} em {overflow} slots. (O excedente poderá ser salvo em pasta)";
+        }
+    }
+
+    private int GetEstimatedCount(int modeIdx, bool includeForms)
+    {
+        int baseCount = _sav.Version switch
+        {
+            GameVersion.GP or GameVersion.GE => 153,
+            GameVersion.SW or GameVersion.SH => 658,
+            GameVersion.BD or GameVersion.SP => 493,
+            GameVersion.PLA => 242,
+            GameVersion.SL or GameVersion.VL => 680,
+            _ => 400,
+        };
+
+        int formsCount = _sav.Version switch
+        {
+            GameVersion.GP or GameVersion.GE => 171,
+            GameVersion.SW or GameVersion.SH => 777,
+            GameVersion.BD or GameVersion.SP => 520,
+            GameVersion.PLA => 250,
+            GameVersion.SL or GameVersion.VL => 750,
+            _ => 450,
+        };
+
+        int perSection = includeForms ? formsCount : baseCount;
+
+        return modeIdx switch
+        {
+            0 => perSection,
+            1 => (int)(perSection * 0.95), // Shiny locks deduction
+            2 => perSection + (int)(perSection * 0.95),
+            3 => baseCount,
+            _ => perSection,
+        };
+    }
+
+    private void OnGenerateClicked()
+    {
+        Options.Mode = _cbMode.SelectedIndex switch
+        {
+            0 => LivingDexMode.Normal,
+            1 => LivingDexMode.Shiny,
+            2 => LivingDexMode.Combined,
+            3 => LivingDexMode.BaseSpeciesOnly,
+            _ => LivingDexMode.Normal,
+        };
+
+        Options.IncludeForms = _chkIncludeForms.Checked;
+        Options.RespectShinyLocks = _chkRespectShinyLocks.Checked;
+
+        Options.BallPreference = _cbBallPref.SelectedIndex switch
+        {
+            0 => BallSelectionPreference.ThematicAuto,
+            1 => BallSelectionPreference.StandardPokeBall,
+            2 => BallSelectionPreference.PremierBall,
+            3 => BallSelectionPreference.LuxuryBall,
+            4 => BallSelectionPreference.UltraBall,
+            5 => BallSelectionPreference.RandomApriball,
+            6 => BallSelectionPreference.KeepOriginal,
+            _ => BallSelectionPreference.ThematicAuto,
+        };
+
+        Options.IVPreference = _cbIVPref.SelectedIndex switch
+        {
+            0 => IVOptimizationPreference.SmartIVs,
+            1 => IVOptimizationPreference.All31,
+            2 => IVOptimizationPreference.KeepEncounter,
+            _ => IVOptimizationPreference.SmartIVs,
+        };
+
+        Options.LevelPref = _cbLevelPref.SelectedIndex switch
+        {
+            0 => LevelPreference.CanonicalFloor,
+            1 => LevelPreference.EncounterNative,
+            2 => LevelPreference.Level100,
+            _ => LevelPreference.CanonicalFloor,
+        };
+
+        Options.EnableGigantamax = _chkGMax.Checked;
+        Options.StartBox = (int)_nudStartBox.Value;
+        Options.BoxPreference = _cbBoxPref.SelectedIndex switch
+        {
+            0 => BoxPlacementPreference.Overwrite,
+            1 => BoxPlacementPreference.EmptySlotsOnly,
+            2 => BoxPlacementPreference.ClearBoxesFirst,
+            _ => BoxPlacementPreference.Overwrite,
+        };
+
+        Options.ExportReport = _chkExportReport.Checked;
+
+        DialogResult = DialogResult.OK;
+    }
+}
+
+/// <summary>
+/// Real-time progress bar dialog showing live placement and Pokémon information card.
+/// </summary>
+public sealed class LivingDexProgressForm : Form
+{
+    private readonly ProgressBar _progressBar;
+    private readonly Label _lblStage;
+    private readonly Label _lblPokemon;
+    private readonly Label _lblBox;
+    private readonly Label _lblBall;
+    private readonly Label _lblIVs;
+    private readonly Label _lblStats;
+    private readonly Button _btnCancel;
+    private readonly CancellationTokenSource _cts;
+    private readonly DateTime _startTime;
+    private int _shinyCount = 0;
+    private int _gmaxCount = 0;
+
+    public bool WasCancelled => _cts.IsCancellationRequested;
+    public CancellationToken Token => _cts.Token;
+
+    public LivingDexProgressForm(string title, int totalItems, CancellationTokenSource cts)
+    {
+        _cts = cts;
+        _startTime = DateTime.Now;
+
+        Text = title;
+        ClientSize = new Size(540, 240);
+        FormBorderStyle = FormBorderStyle.FixedDialog;
+        StartPosition = FormStartPosition.CenterScreen;
+        MaximizeBox = false;
+        MinimizeBox = false;
+        ShowInTaskbar = true;
+        TopMost = true;
+
+        _lblStage = new Label
+        {
+            Location = new Point(20, 15),
+            Size = new Size(500, 24),
+            Font = new Font(Font.FontFamily, 10f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(20, 40, 80),
+            Text = $"Iniciando processo... (0/{totalItems})",
+        };
+
+        _progressBar = new ProgressBar
+        {
+            Location = new Point(20, 42),
+            Size = new Size(500, 26),
+            Minimum = 0,
+            Maximum = Math.Max(1, totalItems),
+            Value = 0,
+            Style = ProgressBarStyle.Continuous,
+        };
+
+        var pnlCard = new Panel
+        {
+            Location = new Point(20, 75),
+            Size = new Size(500, 110),
+            BackColor = Color.FromArgb(245, 248, 253),
+            BorderStyle = BorderStyle.FixedSingle,
+        };
+
+        _lblPokemon = new Label
+        {
+            Location = new Point(12, 8),
+            Size = new Size(475, 22),
+            Font = new Font(Font.FontFamily, 9.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(10, 30, 70),
+            Text = "Preparando coleção...",
+        };
+
+        _lblBox = new Label
+        {
+            Location = new Point(12, 32),
+            Size = new Size(230, 20),
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(40, 60, 90),
+            Text = "📍 Localização: Aguardando...",
+        };
+
+        _lblBall = new Label
+        {
+            Location = new Point(250, 32),
+            Size = new Size(235, 20),
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(40, 60, 90),
+            Text = "⚽ Bola: Aguardando...",
+        };
+
+        _lblIVs = new Label
+        {
+            Location = new Point(12, 55),
+            Size = new Size(475, 20),
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+            ForeColor = Color.DarkSlateGray,
+            Text = "📊 IVs: Aguardando...",
+        };
+
+        _lblStats = new Label
+        {
+            Location = new Point(12, 78),
+            Size = new Size(475, 20),
+            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Italic),
+            ForeColor = Color.FromArgb(70, 90, 120),
+            Text = "⏱️ Tempo decorrido: 00:00",
+        };
+
+        pnlCard.Controls.Add(_lblPokemon);
+        pnlCard.Controls.Add(_lblBox);
+        pnlCard.Controls.Add(_lblBall);
+        pnlCard.Controls.Add(_lblIVs);
+        pnlCard.Controls.Add(_lblStats);
+
+        _btnCancel = new Button
+        {
+            Location = new Point(410, 195),
+            Size = new Size(110, 32),
+            Text = "Cancelar",
+            Font = new Font(Font.FontFamily, 9f, FontStyle.Regular),
+            UseVisualStyleBackColor = true,
+        };
+        _btnCancel.Click += (_, _) => RequestCancel();
+
+        Controls.Add(_lblStage);
+        Controls.Add(_progressBar);
+        Controls.Add(pnlCard);
+        Controls.Add(_btnCancel);
+
+        FormClosing += (_, e) =>
+        {
+            if (e.CloseReason == CloseReason.UserClosing && !_cts.IsCancellationRequested)
+            {
+                var res = MessageBox.Show(
+                    "Deseja cancelar a geração da Living Dex?",
+                    "Cancelar Geração",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (res == DialogResult.Yes)
+                {
+                    _cts.Cancel();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+        };
+    }
+
+    public void UpdateProgress(int current, int total, PKM pk, int box, int slot)
+    {
+        if (IsDisposed || !IsHandleCreated)
+            return;
+
+        if (InvokeRequired)
+        {
+            try
+            {
+                BeginInvoke(new Action(() => UpdateProgress(current, total, pk, box, slot)));
+            }
+            catch
+            {
+                // Form disposed
+            }
+            return;
+        }
+
+        int percent = total > 0 ? (int)((current / (double)total) * 100) : 0;
+        _progressBar.Value = Math.Min(current, _progressBar.Maximum);
+        _lblStage.Text = $"Progresso: [{current} / {total}] ({percent}%)";
+
+        if (pk.IsShiny) _shinyCount++;
+        if (pk is IGigantamax g && g.CanGigantamax) _gmaxCount++;
+
+        string shinyTag = pk.IsShiny ? " ★ (Shiny)" : "";
+        string speciesName = GameInfo.Strings.Species[pk.Species];
+        string gmaxTag = (pk is IGigantamax g2 && g2.CanGigantamax) ? " [G-Max]" : "";
+        
+        _lblPokemon.Text = $"{speciesName}{shinyTag}{gmaxTag} — Lv. {pk.CurrentLevel} (Met {pk.MetLevel})";
+        _lblBox.Text = $"📍 Caixa {box + 1}, Slot {slot + 1}";
+        _lblBall.Text = $"⚽ Bola: {(Ball)pk.Ball}";
+        _lblIVs.Text = $"📊 IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE} | Nature: {(Nature)pk.Nature}";
+
+        var elapsed = DateTime.Now - _startTime;
+        _lblStats.Text = $"⏱️ Tempo: {elapsed:mm\\:ss} | ✨ Shinies: {_shinyCount} | 🦖 G-Max: {_gmaxCount}";
+    }
+
+    private void RequestCancel()
+    {
+        var res = MessageBox.Show(
+            "Deseja cancelar a geração da Living Dex?",
+            "Cancelar Geração",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question);
+
+        if (res == DialogResult.Yes)
+        {
+            _cts.Cancel();
+            _btnCancel.Enabled = false;
+            _btnCancel.Text = "Cancelando...";
+        }
+    }
+}
