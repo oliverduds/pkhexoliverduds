@@ -390,6 +390,7 @@ public sealed class CombinedLivingDex : AutoModPlugin
                 }
             });
 
+            progressForm.IsCompleted = true;
             progressForm.Close();
             SaveFileEditor.ReloadSlots();
 
@@ -1349,6 +1350,7 @@ public sealed class LivingDexProgressForm : Form
 
     public bool WasCancelled => _cts.IsCancellationRequested;
     public CancellationToken Token => _cts.Token;
+    public bool IsCompleted { get; set; }
 
     public LivingDexProgressForm(string title, int totalItems, CancellationTokenSource cts)
     {
@@ -1459,6 +1461,9 @@ public sealed class LivingDexProgressForm : Form
 
         FormClosing += (_, e) =>
         {
+            if (IsCompleted)
+                return;
+
             if (e.CloseReason == CloseReason.UserClosing && !_cts.IsCancellationRequested)
             {
                 var res = MessageBox.Show(
