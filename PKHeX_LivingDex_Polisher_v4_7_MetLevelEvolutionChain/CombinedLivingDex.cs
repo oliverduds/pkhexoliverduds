@@ -188,7 +188,7 @@ public sealed class CombinedLivingDex : AutoModPlugin
         {
             TrainerSettings.Register(sav);
             APILegality.UseTrainerData = true;
-            APILegality.GameVersionPriority = GameVersionPriorityType.NativeOnly;
+            APILegality.GameVersionPriority = GameVersionPriorityType.NewestFirst;
             APILegality.SetMatchingBalls = false;
             APILegality.SetAllLegalRibbons = false;
             APILegality.ForceLevel100for50 = false;
@@ -482,7 +482,20 @@ public sealed class CombinedLivingDex : AutoModPlugin
             Region = (byte)region,
         };
 
-        var trORAS = new SimpleTrainerInfo(GameVersion.OR)
+        GameVersion mirrorVersion = sav.Version == GameVersion.US ? GameVersion.UM : GameVersion.US;
+        var trMirror = new SimpleTrainerInfo(mirrorVersion)
+        {
+            OT = sav.OT,
+            TID16 = sav.TID16,
+            SID16 = sav.SID16,
+            Language = sav.Language,
+            ConsoleRegion = (byte)consoleRegion,
+            Country = (byte)country,
+            Region = (byte)region,
+        };
+
+        GameVersion orasVersion = sav.Version == GameVersion.US ? GameVersion.OR : GameVersion.AS;
+        var trORAS = new SimpleTrainerInfo(orasVersion)
         {
             OT = sav.OT,
             TID16 = sav.TID16,
@@ -507,14 +520,32 @@ public sealed class CombinedLivingDex : AutoModPlugin
             // Direct encounter generation
             if (!isMythical)
             {
-                bool isBoxLegendary = IsUltraWormholeLegendary(species);
-                ITrainerInfo tr = (s <= 251 && !isBoxLegendary) ? trVC : (s <= 386 && !isBoxLegendary) ? trORAS : sav;
+                bool isMirror = sav.Version == GameVersion.US ? IsUltraMoonExclusive(species) : IsUltraSunExclusive(species);
+                ITrainerInfo tr;
+
+                if (isMirror)
+                {
+                    tr = trMirror; // Transferred from mirror counterpart version!
+                }
+                else if (s <= 251)
+                {
+                    tr = trVC; // VC Crystal
+                }
+                else if (s <= 386 && !IsUltraWormholeLegendary(species))
+                {
+                    tr = trORAS; // ORAS
+                }
+                else
+                {
+                    tr = sav; // Ultra Sun / Ultra Moon native!
+                }
+
                 bool allowShiny = isShiny && !SimpleEdits.IsShinyLockedSpeciesForm(s, 0) && !IsShinyLockedMythicalGen7(species);
 
                 if (tr.GetRandomEncounter(s, 0, allowShiny, false, out var pk) && pk is not null)
                 {
-                    resultPKM = EntityConverter.ConvertToType(pk, typeof(PK7), out _);
-                    if (resultPKM is not null)
+                    resultPKM = pk is PK7 ? pk : EntityConverter.ConvertToType(pk, typeof(PK7), out _);
+                    if (resultPKM is not null && !ReferenceEquals(tr, sav))
                     {
                         bool isVC = resultPKM.Version is GameVersion.RD or GameVersion.BU or GameVersion.YW or GameVersion.GD or GameVersion.SI or GameVersion.C;
                         if (isVC)
@@ -547,16 +578,23 @@ public sealed class CombinedLivingDex : AutoModPlugin
         return bag.OrderBy(z => z.Species).ToList();
     }
 
-    private static bool IsUltraWormholeLegendary(Species s) => s is
+    private static bool IsUltraMoonExclusive(Species s) => s is
+        Species.Lugia or Species.Entei or Species.Kyogre or Species.Latias or
+        Species.Palkia or Species.Regigigas or Species.Zekrom or Species.Thundurus or
+        Species.Yveltal or Species.Lunala or Species.Pheromosa or Species.Celesteela or Species.Stakataka;
+
+    private static bool IsUltraSunExclusive(Species s) => s is
+        Species.HoOh or Species.Raikou or Species.Groudon or Species.Latios or
+        Species.Dialga or Species.Heatran or Species.Reshiram or Species.Tornadus or
+        Species.Xerneas or Species.Solgaleo or Species.Buzzwole or Species.Kartana or Species.Blacephalon;
+
+    private static bool IsUltraWormholeLegendary(Species s) =>
+        IsUltraMoonExclusive(s) || IsUltraSunExclusive(s) || s is
         Species.Articuno or Species.Zapdos or Species.Moltres or Species.Mewtwo or
-        Species.Raikou or Species.Entei or Species.Suicune or Species.Lugia or Species.HoOh or
-        Species.Regirock or Species.Regice or Species.Registeel or Species.Latias or Species.Latios or
-        Species.Kyogre or Species.Groudon or Species.Rayquaza or
-        Species.Uxie or Species.Mesprit or Species.Azelf or Species.Dialga or Species.Palkia or
-        Species.Heatran or Species.Regigigas or Species.Giratina or Species.Cresselia or
-        Species.Cobalion or Species.Terrakion or Species.Virizion or Species.Tornadus or Species.Thundurus or
-        Species.Reshiram or Species.Zekrom or Species.Landorus or Species.Kyurem or
-        Species.Xerneas or Species.Yveltal;
+        Species.Suicune or Species.Regirock or Species.Regice or Species.Registeel or
+        Species.Rayquaza or Species.Uxie or Species.Mesprit or Species.Azelf or
+        Species.Giratina or Species.Cresselia or Species.Cobalion or Species.Terrakion or Species.Virizion or
+        Species.Landorus or Species.Kyurem;
 
     private static GameVersion GetCanonicalOriginVersion(Species species, GameVersion defaultVersion)
     {

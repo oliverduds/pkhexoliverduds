@@ -1,6 +1,6 @@
 {
   "Startup": {
-    "Version": "26.7.7",
+    "Version": "26.8.26",
     "DarkMode": true,
     "ForceHaXOnLaunch": false,
     "HighDpiText": false,
@@ -46,6 +46,9 @@
       "EggRandomAnyType4": false
     },
     "Game": {
+      "Gen3": {
+        "AllowBattleTowerTeamSwap": false
+      },
       "Gen7": {
         "Gen7TransferStarPID": 0
       },
