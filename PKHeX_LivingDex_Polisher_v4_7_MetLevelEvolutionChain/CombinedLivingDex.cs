@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -17,7 +18,9 @@ public enum LivingDexMode
     Normal,
     Shiny,
     Combined,
-    BaseSpeciesOnly
+    BaseSpeciesOnly,
+    Gen7CanonicalNormal,
+    Gen7CanonicalShiny
 }
 
 public enum BallSelectionPreference
@@ -67,24 +70,22 @@ public sealed class LivingDexCustomOptions
 }
 
 /// <summary>
-/// Universal Living Dex Generator & Customizer for Nintendo Switch games (LGPE, SWSH, BDSP, PLA, SV, ZA).
-/// Provides full customization:
-/// 1) Mode selection (Normal, Shiny, Combined, Base Species).
-/// 2) Starting Box and Box placement behavior (Overwrite, Empty slots only, Clear first).
-/// 3) Ball selection (Thematic Auto, Standard, Premier, Luxury, Apriballs, Keep).
-/// 4) IV optimization (Smart 6x31/0 Atk, All 31, Keep native).
-/// 5) Level options (Canonical Evolution Floor, Native Encounter, Level 100).
-/// 6) Real-time visual progress bar with detailed stats, Pokémon card, and cancel support.
-/// 7) Full safe capacity management and overflow export.
+/// Universal Living Dex Generator & Customizer for Nintendo Switch & 3DS games (Gen 7 USUM/SM, LGPE, SWSH, BDSP, PLA, SV, ZA).
+/// Features:
+/// 1) Dedicated Gen 7 Canonical Multi-Origin Living Dex (VC Gens 1/2 Game Boy mark, ORAS Gen 3 Pentagon mark, Gen 4/5/6/7, and Official Events).
+/// 2) Universal Switch generation (Normal, Shiny, Combined, Base Species).
+/// 3) Real-time visual progress bar with detailed Pokémon card, stats, and safe cancellation.
+/// 4) Full customization: Pokéballs (Thematic auto, standard, premier, luxury, apriballs), Smart IVs, Canonical evolution levels, G-Max.
+/// 5) Capacity preview & overflow handler.
 /// </summary>
 public sealed class CombinedLivingDex : AutoModPlugin
 {
-    public override string Name => "Living Dex Generator (Switch)";
+    public override string Name => "Living Dex Generator & Customizer";
     public override int Priority => 1;
 
     protected override void AddPluginControl(ToolStripDropDownItem modmenu)
     {
-        var root = new ToolStripMenuItem("Living Dex Generator (Switch)")
+        var root = new ToolStripMenuItem("Living Dex Generator")
         {
             Name = "Menu_LivingDexGenerator"
         };
@@ -92,6 +93,12 @@ public sealed class CombinedLivingDex : AutoModPlugin
         var customItem = new ToolStripMenuItem("⭐ Configure & Generate Living Dex (Custom Wizard)...");
         customItem.Font = new Font(customItem.Font, FontStyle.Bold);
         customItem.Click += async (_, _) => await OpenCustomWizard();
+
+        var gen7Normal = new ToolStripMenuItem("🎮 Gen 7: Generate Normal Canonical Origin Living Dex (VC + ORAS + Events)");
+        gen7Normal.Click += async (_, _) => await GenerateQuick(LivingDexMode.Gen7CanonicalNormal);
+
+        var gen7Shiny = new ToolStripMenuItem("✨ Gen 7: Generate Shiny Canonical Origin Living Dex (VC Shiny Celebi + Legal Shinies)");
+        gen7Shiny.Click += async (_, _) => await GenerateQuick(LivingDexMode.Gen7CanonicalShiny);
 
         var quickNormal = new ToolStripMenuItem("📦 Quick: Generate Normal Living Dex");
         quickNormal.Click += async (_, _) => await GenerateQuick(LivingDexMode.Normal);
@@ -103,6 +110,9 @@ public sealed class CombinedLivingDex : AutoModPlugin
         quickCombined.Click += async (_, _) => await GenerateQuick(LivingDexMode.Combined);
 
         root.DropDownItems.Add(customItem);
+        root.DropDownItems.Add(new ToolStripSeparator());
+        root.DropDownItems.Add(gen7Normal);
+        root.DropDownItems.Add(gen7Shiny);
         root.DropDownItems.Add(new ToolStripSeparator());
         root.DropDownItems.Add(quickNormal);
         root.DropDownItems.Add(quickShiny);
@@ -141,7 +151,7 @@ public sealed class CombinedLivingDex : AutoModPlugin
         int totalCapacity = sav.BoxCount * sav.BoxSlotCount;
         if (mode == LivingDexMode.Combined)
         {
-            int estimatedCount = (sav.Version is GameVersion.SW or GameVersion.SH) ? 1520 : (sav.Version is GameVersion.SL or GameVersion.VL) ? 1450 : 0;
+            int estimatedCount = (sav.Version is GameVersion.SW or GameVersion.SH) ? 1520 : (sav.Version is GameVersion.SL or GameVersion.VL) ? 1450 : sav.Generation == 7 ? 1700 : 0;
             if (estimatedCount > totalCapacity)
             {
                 var prompt = MessageBox.Show(
@@ -186,43 +196,53 @@ public sealed class CombinedLivingDex : AutoModPlugin
 
             Cursor.Current = Cursors.WaitCursor;
 
-            List<PKM> normalList = [];
-            List<PKM> shinyList = [];
+            List<PKM> targetList = [];
 
-            if (options.Mode is LivingDexMode.Normal or LivingDexMode.Combined or LivingDexMode.BaseSpeciesOnly)
+            if (options.Mode is LivingDexMode.Gen7CanonicalNormal or LivingDexMode.Gen7CanonicalShiny)
             {
-                var normalCfg = new LivingDexConfig
-                {
-                    IncludeForms = options.Mode != LivingDexMode.BaseSpeciesOnly && options.IncludeForms,
-                    SetShiny = false,
-                    SetAlpha = false,
-                    TransferVersion = sav.Version,
-                };
-                var gen = await Task.Run(() => sav.GenerateLivingDex(sav.Personal, normalCfg));
-                normalList = FilterValidBoxPokemon(gen, sav).ToList();
+                bool isShiny = options.Mode == LivingDexMode.Gen7CanonicalShiny;
+                targetList = await Task.Run(() => GenerateGen7CanonicalDexList(sav, isShiny, options));
             }
-
-            if (options.Mode is LivingDexMode.Shiny or LivingDexMode.Combined or LivingDexMode.BaseSpeciesOnly)
+            else
             {
-                var shinyCfg = new LivingDexConfig
+                List<PKM> normalList = [];
+                List<PKM> shinyList = [];
+
+                if (options.Mode is LivingDexMode.Normal or LivingDexMode.Combined or LivingDexMode.BaseSpeciesOnly)
                 {
-                    IncludeForms = options.Mode != LivingDexMode.BaseSpeciesOnly && options.IncludeForms,
-                    SetShiny = true,
-                    SetAlpha = false,
-                    TransferVersion = sav.Version,
-                };
-                var gen = await Task.Run(() => sav.GenerateLivingDex(sav.Personal, shinyCfg).Where(z => z.IsShiny));
-                shinyList = FilterValidBoxPokemon(gen, sav).ToList();
-            }
+                    var normalCfg = new LivingDexConfig
+                    {
+                        IncludeForms = options.Mode != LivingDexMode.BaseSpeciesOnly && options.IncludeForms,
+                        SetShiny = false,
+                        SetAlpha = false,
+                        TransferVersion = sav.Version,
+                    };
+                    var gen = await Task.Run(() => sav.GenerateLivingDex(sav.Personal, normalCfg));
+                    normalList = FilterValidBoxPokemon(gen, sav).ToList();
+                }
 
-            List<PKM> targetList = options.Mode switch
-            {
-                LivingDexMode.Normal => normalList,
-                LivingDexMode.Shiny => shinyList,
-                LivingDexMode.Combined => [.. normalList, .. shinyList],
-                LivingDexMode.BaseSpeciesOnly => normalList,
-                _ => normalList,
-            };
+                if (options.Mode is LivingDexMode.Shiny or LivingDexMode.Combined or LivingDexMode.BaseSpeciesOnly)
+                {
+                    var shinyCfg = new LivingDexConfig
+                    {
+                        IncludeForms = options.Mode != LivingDexMode.BaseSpeciesOnly && options.IncludeForms,
+                        SetShiny = true,
+                        SetAlpha = false,
+                        TransferVersion = sav.Version,
+                    };
+                    var gen = await Task.Run(() => sav.GenerateLivingDex(sav.Personal, shinyCfg).Where(z => z.IsShiny));
+                    shinyList = FilterValidBoxPokemon(gen, sav).ToList();
+                }
+
+                targetList = options.Mode switch
+                {
+                    LivingDexMode.Normal => normalList,
+                    LivingDexMode.Shiny => shinyList,
+                    LivingDexMode.Combined => [.. normalList, .. shinyList],
+                    LivingDexMode.BaseSpeciesOnly => normalList,
+                    _ => normalList,
+                };
+            }
 
             int startSlot = Math.Max(0, (options.StartBox - 1) * sav.BoxSlotCount);
             if (sav.Version is GameVersion.GP or GameVersion.GE && startSlot == 0)
@@ -230,7 +250,6 @@ public sealed class CombinedLivingDex : AutoModPlugin
                 startSlot = GetLivingDexStartSlot(sav);
             }
 
-            // Plan slots based on BoxPreference
             var plannedSlots = new List<int>();
             int maxSlot = sav.BoxCount * sav.BoxSlotCount;
 
@@ -273,6 +292,8 @@ public sealed class CombinedLivingDex : AutoModPlugin
             using var cts = new CancellationTokenSource();
             string modeName = options.Mode switch
             {
+                LivingDexMode.Gen7CanonicalNormal => "Gen 7 Normal Canonical Origin Living Dex",
+                LivingDexMode.Gen7CanonicalShiny => "Gen 7 Shiny Canonical Origin Living Dex",
                 LivingDexMode.Normal => "Normal Living Dex",
                 LivingDexMode.Shiny => "Shiny Living Dex",
                 LivingDexMode.Combined => "Normal + Shiny Living Dex",
@@ -336,15 +357,18 @@ public sealed class CombinedLivingDex : AutoModPlugin
 
                     LivingDexPolisher.TryApplyNaturalMoves(pk, sav.Personal);
 
-                    // 2. Pokéball selection
-                    ApplyCustomBall(pk, options.BallPreference, random, sav.Personal);
-                    if (options.BallPreference == BallSelectionPreference.ThematicAuto)
-                        themedBallsCount++;
+                    // 2. Pokéball selection (Preserve Cherish ball for event mythicals)
+                    if (pk.Ball != (byte)Ball.Cherish)
+                    {
+                        ApplyCustomBall(pk, options.BallPreference, random, sav.Personal);
+                        if (options.BallPreference == BallSelectionPreference.ThematicAuto)
+                            themedBallsCount++;
+                    }
 
                     // 3. IVs
                     ApplyCustomIVs(pk, options.IVPreference, sav.Personal);
 
-                    // 4. Gigantamax
+                    // 4. Gigantamax (SWSH)
                     if (options.EnableGigantamax && LivingDexPolisher.TryApplyGigantamax(pk, sav))
                         gmaxCount++;
 
@@ -354,7 +378,7 @@ public sealed class CombinedLivingDex : AutoModPlugin
                     sav.SetBoxSlotAtIndex(pk, box, slot);
                     placed++;
 
-                    string logEntry = $"Box {box + 1,2}, Slot {slot + 1,2}: {pk.Species,3} {GameInfo.Strings.Species[pk.Species],-16} {(pk.IsShiny ? "★" : " ")} Lv.{pk.CurrentLevel,3} | Ball: {(Ball)pk.Ball,-10} | IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE}";
+                    string logEntry = $"Box {box + 1,2}, Slot {slot + 1,2}: {pk.Species,3} {GameInfo.Strings.Species[pk.Species],-16} {(pk.IsShiny ? "★" : " ")} Lv.{pk.CurrentLevel,3} | Origin: {pk.Version,-6} | Ball: {(Ball)pk.Ball,-10} | IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE}";
                     logLines.Add(logEntry);
 
                     progressForm.UpdateProgress(placed, toPlaceCount, pk, box, slot);
@@ -410,8 +434,8 @@ public sealed class CombinedLivingDex : AutoModPlugin
                 WinFormsUtil.Alert(
                     $"{modeName} gerada com sucesso!",
                     $"Total de Pokémon inseridos: {placed} (Caixas {firstBoxNum} a {lastBoxNum})",
-                    $"Pokébolas atribuídas com base na preferência ({options.BallPreference}).",
-                    $"Gigantamax Factor habilitados: {gmaxCount}",
+                    $"Treinador Original: {sav.OT} (TID: {sav.TID16})",
+                    "Origens Canônicas aplicadas: VC (Game Boy Mark), ORAS (Pentágono), Alola (Trevo) e Eventos Oficiais.",
                     "Slots de Gameplay e Party preservados intactos.");
             }
         }
@@ -429,6 +453,167 @@ public sealed class CombinedLivingDex : AutoModPlugin
             APILegality.GameVersionPriority = oldPriority;
         }
     }
+
+    public static List<PKM> GenerateGen7CanonicalDexList(SaveFile sav, bool isShiny, LivingDexCustomOptions options)
+    {
+        var bag = new ConcurrentBag<PKM>();
+        var personal = sav.Personal;
+        int maxSpecies = Math.Min(807, (int)personal.MaxSpeciesID);
+
+        Parallel.For(1, maxSpecies + 1, id =>
+        {
+            var s = (ushort)id;
+            if (!personal.IsSpeciesInGame(s))
+                return;
+
+            var species = (Species)s;
+            var origin = GetCanonicalOriginVersion(species, sav.Version);
+            var pk = GenerateOriginPKM(sav, s, 0, isShiny, origin);
+            if (pk is not null)
+                bag.Add(pk);
+        });
+
+        return bag.OrderBy(z => z.Species).ToList();
+    }
+
+    private static GameVersion GetCanonicalOriginVersion(Species species, GameVersion defaultVersion)
+    {
+        ushort id = (ushort)species;
+
+        if (id <= 251) return GameVersion.C;  // VC Gen 1/2 (Crystal/Yellow)
+        if (id <= 386) return GameVersion.OR; // ORAS Gen 3
+        if (id <= 493) return GameVersion.Pt; // Gen 4
+        if (id <= 649) return GameVersion.B;  // Gen 5
+        if (id <= 721) return GameVersion.X;  // Gen 6
+        return defaultVersion;                // Gen 7 (USUM/SM)
+    }
+
+    private static PKM? GenerateOriginPKM(SaveFile targetSav, ushort species, byte form, bool isShiny, GameVersion originVersion)
+    {
+        int consoleRegion = (targetSav as SAV7)?.ConsoleRegion ?? 1;
+        int country = (targetSav as SAV7)?.Country ?? 49;
+        int region = (targetSav as SAV7)?.Region ?? 1;
+
+        bool isVC = originVersion is GameVersion.RD or GameVersion.BU or GameVersion.YW or GameVersion.GD or GameVersion.SI or GameVersion.C;
+        string otName = isVC && targetSav.OT.Length > 7 ? targetSav.OT[..7] : targetSav.OT;
+        ushort sid = isVC ? (ushort)0 : targetSav.SID16;
+
+        var tr = TrainerSettings.GetSavedTrainerData(originVersion, lang: (LanguageID)targetSav.Language)
+                 ?? new SimpleTrainerInfo(originVersion)
+                 {
+                     OT = otName,
+                     TID16 = targetSav.TID16,
+                     SID16 = sid,
+                     Language = targetSav.Language,
+                     ConsoleRegion = (byte)consoleRegion,
+                     Country = (byte)country,
+                     Region = (byte)region,
+                 };
+
+        string speciesName = GameInfo.Strings.Species[species];
+        string setStr = speciesName;
+        if (form > 0)
+            setStr += $"-{form}";
+
+        bool isEventOnlyMythical = IsEventOnlyMythical((Species)species);
+
+        if (isShiny && !SimpleEdits.IsShinyLockedSpeciesForm(species, form) && !IsShinyLockedMythicalGen7((Species)species))
+        {
+            setStr += "\nShiny: Yes";
+        }
+
+        if (!isEventOnlyMythical)
+        {
+            setStr += $"\nVersion: {GetVersionShowdownName(originVersion)}";
+        }
+
+        var sset = new ShowdownSet(setStr);
+        var template = EntityBlank.GetBlank(targetSav);
+        var set = new RegenTemplate(sset) { Nickname = string.Empty };
+
+        var res = tr.TryAPIConvert(set, template);
+        if (res.Status == LegalizationResult.Regenerated && res.Created is not null)
+        {
+            var pk = res.Created;
+
+            if (!isEventOnlyMythical || IsInGameCatchableMythical((Species)species, pk.Version))
+            {
+                pk.OriginalTrainerName = otName;
+                pk.TID16 = targetSav.TID16;
+                pk.SID16 = sid;
+                pk.Language = targetSav.Language;
+            }
+
+            return pk;
+        }
+
+        var fallbackSet = new ShowdownSet(isShiny && !SimpleEdits.IsShinyLockedSpeciesForm(species, form) ? $"{speciesName}\nShiny: Yes" : speciesName);
+        var fallbackTemplate = EntityBlank.GetBlank(targetSav);
+        var fallbackRegen = new RegenTemplate(fallbackSet) { Nickname = string.Empty };
+        var fallbackRes = targetSav.TryAPIConvert(fallbackRegen, fallbackTemplate);
+        if (fallbackRes.Status == LegalizationResult.Regenerated && fallbackRes.Created is not null)
+        {
+            return fallbackRes.Created;
+        }
+
+        return null;
+    }
+
+    private static string GetVersionShowdownName(GameVersion v) => v switch
+    {
+        GameVersion.RD => "Red",
+        GameVersion.BU => "Blue",
+        GameVersion.YW => "Yellow",
+        GameVersion.GD => "Gold",
+        GameVersion.SI => "Silver",
+        GameVersion.C => "Crystal",
+        GameVersion.R => "Ruby",
+        GameVersion.S => "Sapphire",
+        GameVersion.E => "Emerald",
+        GameVersion.FR => "FireRed",
+        GameVersion.LG => "LeafGreen",
+        GameVersion.D => "Diamond",
+        GameVersion.P => "Pearl",
+        GameVersion.Pt => "Platinum",
+        GameVersion.HG => "HeartGold",
+        GameVersion.SS => "SoulSilver",
+        GameVersion.B => "Black",
+        GameVersion.W => "White",
+        GameVersion.B2 => "Black 2",
+        GameVersion.W2 => "White 2",
+        GameVersion.X => "X",
+        GameVersion.Y => "Y",
+        GameVersion.OR => "Omega Ruby",
+        GameVersion.AS => "Alpha Sapphire",
+        GameVersion.SN => "Sun",
+        GameVersion.MN => "Moon",
+        GameVersion.US => "Ultra Sun",
+        GameVersion.UM => "Ultra Moon",
+        _ => "Ultra Sun"
+    };
+
+    private static bool IsEventOnlyMythical(Species s) => s is
+        Species.Mew or Species.Jirachi or
+        Species.Phione or Species.Manaphy or
+        Species.Victini or Species.Keldeo or Species.Meloetta or Species.Genesect or
+        Species.Diancie or Species.Hoopa or Species.Volcanion or
+        Species.Marshadow or Species.Zeraora;
+
+    private static bool IsInGameCatchableMythical(Species s, GameVersion v)
+    {
+        if (s == Species.Celebi && v == GameVersion.C) return true;
+        if (s == Species.Deoxys && (v == GameVersion.OR || v == GameVersion.AS)) return true;
+        if (s == Species.Darkrai && v == GameVersion.Pt) return true;
+        if (s == Species.Shaymin && v == GameVersion.Pt) return true;
+        if (s == Species.Arceus && v == GameVersion.Pt) return true;
+        if (s == Species.Magearna && (v == GameVersion.US || v == GameVersion.UM || v == GameVersion.SN || v == GameVersion.MN)) return true;
+        return false;
+    }
+
+    private static bool IsShinyLockedMythicalGen7(Species s) => s is
+        Species.Victini or Species.Keldeo or Species.Meloetta or
+        Species.Hoopa or Species.Volcanion or Species.Cosmog or Species.Cosmoem or
+        Species.Magearna or Species.Marshadow or Species.Zeraora;
 
     private static void ApplyCustomBall(PKM pk, BallSelectionPreference pref, Random random, IPersonalTable personal)
     {
@@ -593,7 +778,7 @@ public sealed class CombinedLivingDex : AutoModPlugin
 }
 
 /// <summary>
-/// Customization Dialog Form with live capacity and box preview calculation.
+/// Customization Dialog Form with live capacity, preset modes, and box preview calculation.
 /// </summary>
 public sealed class LivingDexOptionsForm : Form
 {
@@ -617,7 +802,7 @@ public sealed class LivingDexOptionsForm : Form
     {
         _sav = sav;
 
-        Text = "Configurador Avançado de Living Dex (Nintendo Switch)";
+        Text = "Configurador Avançado de Living Dex";
         ClientSize = new Size(620, 610);
         FormBorderStyle = FormBorderStyle.FixedDialog;
         StartPosition = FormStartPosition.CenterScreen;
@@ -643,7 +828,7 @@ public sealed class LivingDexOptionsForm : Form
 
         var lblHeaderSub = new Label
         {
-            Text = $"Jogo: {sav.Version} | Treinador: {sav.OT} (TID: {sav.TID16}) | Armazenamento: {sav.BoxCount} Caixas ({sav.BoxCount * sav.BoxSlotCount} slots)",
+            Text = $"Jogo: {sav.Version} (Gen {sav.Generation}) | Treinador: {sav.OT} (TID: {sav.TID16}) | Armazenamento: {sav.BoxCount} Caixas ({sav.BoxCount * sav.BoxSlotCount} slots)",
             ForeColor = Color.FromArgb(200, 220, 255),
             Font = new Font(Font.FontFamily, 9f, FontStyle.Regular),
             Location = new Point(15, 36),
@@ -670,18 +855,34 @@ public sealed class LivingDexOptionsForm : Form
             DropDownStyle = ComboBoxStyle.DropDownList,
             Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
         };
-        _cbMode.Items.AddRange([
-            "Normal Living Dex (Todas as espécies normais + expansões)",
-            "Shiny Living Dex (Todas as espécies brilhantes legais)",
-            "Normal + Shiny Living Dex (Coleção Combinada)",
-            "Base Species Only (Apenas espécies base sem variantes cosméticas)"
-        ]);
-        _cbMode.SelectedIndex = 0;
+
+        if (sav.Generation == 7)
+        {
+            _cbMode.Items.AddRange([
+                "🎮 Gen 7: Normal Canonical Origins (VC Gens 1/2 + ORAS Gen 3 + Alola + Eventos)",
+                "✨ Gen 7: Shiny Canonical Origins (VC Shiny Celebi + USUM Shinies + Locks)",
+                "📦 Normal Living Dex Padrão (Espécies normais nativas)",
+                "✨ Shiny Living Dex Padrão (Espécies brilhantes nativas)",
+                "🌟 Normal + Shiny Combinado",
+                "🏆 Base Species Only (Apenas espécies base)"
+            ]);
+            _cbMode.SelectedIndex = 0;
+        }
+        else
+        {
+            _cbMode.Items.AddRange([
+                "Normal Living Dex (Todas as espécies normais + expansões)",
+                "Shiny Living Dex (Todas as espécies brilhantes legais)",
+                "Normal + Shiny Living Dex (Coleção Combinada)",
+                "Base Species Only (Apenas espécies base sem variantes cosméticas)"
+            ]);
+            _cbMode.SelectedIndex = 0;
+        }
         _cbMode.SelectedIndexChanged += (_, _) => UpdateEstimations();
 
         _chkIncludeForms = new CheckBox
         {
-            Text = "Incluir Formas Regionais & Alternativas (Alola, Galar, Hisui, Paldea, Vivillon, Alcremie, etc.)",
+            Text = "Incluir Formas Regionais & Alternativas (Alola, Galar, Hisui, Paldea, Vivillon, etc.)",
             Location = new Point(15, 55),
             Size = new Size(560, 22),
             Checked = true,
@@ -924,6 +1125,20 @@ public sealed class LivingDexOptionsForm : Form
 
     private int GetEstimatedCount(int modeIdx, bool includeForms)
     {
+        if (_sav.Generation == 7)
+        {
+            return modeIdx switch
+            {
+                0 => 807, // Gen 7 Canonical Normal (Base 807)
+                1 => 807, // Gen 7 Canonical Shiny (Base 807)
+                2 => includeForms ? 982 : 807, // Normal Padrão
+                3 => includeForms ? 953 : 807, // Shiny Padrão
+                4 => (includeForms ? 982 : 807) * 2, // Combinado
+                5 => 807, // Base
+                _ => 807,
+            };
+        }
+
         int baseCount = _sav.Version switch
         {
             GameVersion.GP or GameVersion.GE => 153,
@@ -949,7 +1164,7 @@ public sealed class LivingDexOptionsForm : Form
         return modeIdx switch
         {
             0 => perSection,
-            1 => (int)(perSection * 0.95), // Shiny locks deduction
+            1 => (int)(perSection * 0.95),
             2 => perSection + (int)(perSection * 0.95),
             3 => baseCount,
             _ => perSection,
@@ -958,14 +1173,30 @@ public sealed class LivingDexOptionsForm : Form
 
     private void OnGenerateClicked()
     {
-        Options.Mode = _cbMode.SelectedIndex switch
+        if (_sav.Generation == 7)
         {
-            0 => LivingDexMode.Normal,
-            1 => LivingDexMode.Shiny,
-            2 => LivingDexMode.Combined,
-            3 => LivingDexMode.BaseSpeciesOnly,
-            _ => LivingDexMode.Normal,
-        };
+            Options.Mode = _cbMode.SelectedIndex switch
+            {
+                0 => LivingDexMode.Gen7CanonicalNormal,
+                1 => LivingDexMode.Gen7CanonicalShiny,
+                2 => LivingDexMode.Normal,
+                3 => LivingDexMode.Shiny,
+                4 => LivingDexMode.Combined,
+                5 => LivingDexMode.BaseSpeciesOnly,
+                _ => LivingDexMode.Gen7CanonicalNormal,
+            };
+        }
+        else
+        {
+            Options.Mode = _cbMode.SelectedIndex switch
+            {
+                0 => LivingDexMode.Normal,
+                1 => LivingDexMode.Shiny,
+                2 => LivingDexMode.Combined,
+                3 => LivingDexMode.BaseSpeciesOnly,
+                _ => LivingDexMode.Normal,
+            };
+        }
 
         Options.IncludeForms = _chkIncludeForms.Checked;
         Options.RespectShinyLocks = _chkRespectShinyLocks.Checked;
@@ -1192,11 +1423,12 @@ public sealed class LivingDexProgressForm : Form
         string shinyTag = pk.IsShiny ? " ★ (Shiny)" : "";
         string speciesName = GameInfo.Strings.Species[pk.Species];
         string gmaxTag = (pk is IGigantamax g2 && g2.CanGigantamax) ? " [G-Max]" : "";
+        string mark = (pk.Version is GameVersion.RD or GameVersion.BU or GameVersion.YW or GameVersion.GD or GameVersion.SI or GameVersion.C) ? " [GB Mark]" : (pk.Version is GameVersion.X or GameVersion.Y or GameVersion.OR or GameVersion.AS) ? " [Pentagon]" : (pk.Version is GameVersion.SN or GameVersion.MN or GameVersion.US or GameVersion.UM) ? " [Alola Clover]" : "";
         
-        _lblPokemon.Text = $"{speciesName}{shinyTag}{gmaxTag} — Lv. {pk.CurrentLevel} (Met {pk.MetLevel})";
+        _lblPokemon.Text = $"{speciesName}{shinyTag}{gmaxTag} — Lv. {pk.CurrentLevel} ({pk.Version}{mark})";
         _lblBox.Text = $"📍 Caixa {box + 1}, Slot {slot + 1}";
         _lblBall.Text = $"⚽ Bola: {(Ball)pk.Ball}";
-        _lblIVs.Text = $"📊 IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE} | Nature: {(Nature)pk.Nature}";
+        _lblIVs.Text = $"📊 IVs: {pk.IV_HP}/{pk.IV_ATK}/{pk.IV_DEF}/{pk.IV_SPA}/{pk.IV_SPD}/{pk.IV_SPE} | OT: {pk.OriginalTrainerName}";
 
         var elapsed = DateTime.Now - _startTime;
         _lblStats.Text = $"⏱️ Tempo: {elapsed:mm\\:ss} | ✨ Shinies: {_shinyCount} | 🦖 G-Max: {_gmaxCount}";
