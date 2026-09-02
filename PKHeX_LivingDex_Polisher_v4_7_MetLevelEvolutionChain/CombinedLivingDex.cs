@@ -355,10 +355,9 @@ public sealed class CombinedLivingDex : AutoModPlugin
                     if (pk.CurrentLevel < 100 && pk is IHyperTrain ht2)
                         ht2.HyperTrainFlags = 0;
 
-                    LivingDexPolisher.TryApplyNaturalMoves(pk, sav.Personal);
-
-                    // 2. Pokéball selection (Preserve Cherish ball for event mythicals)
-                    if (pk.Ball != (byte)Ball.Cherish)
+                    // 2. Pokéball selection (Preserve Cherish ball and VC Poke ball)
+                    bool isVC = pk.Version is GameVersion.RD or GameVersion.BU or GameVersion.YW or GameVersion.GD or GameVersion.SI or GameVersion.C;
+                    if (pk.Ball != (byte)Ball.Cherish && !isVC)
                     {
                         ApplyCustomBall(pk, options.BallPreference, random, sav.Personal);
                         if (options.BallPreference == BallSelectionPreference.ThematicAuto)
@@ -460,6 +459,33 @@ public sealed class CombinedLivingDex : AutoModPlugin
         var personal = sav.Personal;
         int maxSpecies = Math.Min(807, (int)personal.MaxSpeciesID);
 
+        int consoleRegion = (sav as SAV7)?.ConsoleRegion ?? 1;
+        int country = (sav as SAV7)?.Country ?? 49;
+        int region = (sav as SAV7)?.Region ?? 1;
+
+        string vcOT = sav.OT.Length > 7 ? sav.OT[..7] : sav.OT;
+        var trVC = new SimpleTrainerInfo(GameVersion.C)
+        {
+            OT = vcOT,
+            TID16 = sav.TID16,
+            SID16 = 0,
+            Language = sav.Language,
+            ConsoleRegion = (byte)consoleRegion,
+            Country = (byte)country,
+            Region = (byte)region,
+        };
+
+        var trORAS = new SimpleTrainerInfo(GameVersion.OR)
+        {
+            OT = sav.OT,
+            TID16 = sav.TID16,
+            SID16 = sav.SID16,
+            Language = sav.Language,
+            ConsoleRegion = (byte)consoleRegion,
+            Country = (byte)country,
+            Region = (byte)region,
+        };
+
         Parallel.For(1, maxSpecies + 1, id =>
         {
             var s = (ushort)id;
@@ -467,10 +493,46 @@ public sealed class CombinedLivingDex : AutoModPlugin
                 return;
 
             var species = (Species)s;
-            var origin = GetCanonicalOriginVersion(species, sav.Version);
-            var pk = GenerateOriginPKM(sav, s, 0, isShiny, origin);
-            if (pk is not null)
-                bag.Add(pk);
+            bool isMythical = IsEventOnlyMythical(species);
+
+            PKM? resultPKM = null;
+
+            // Direct encounter generation
+            if (!isMythical)
+            {
+                ITrainerInfo tr = s <= 251 ? trVC : s <= 386 ? trORAS : sav;
+                bool allowShiny = isShiny && !SimpleEdits.IsShinyLockedSpeciesForm(s, 0) && !IsShinyLockedMythicalGen7(species);
+
+                if (tr.GetRandomEncounter(s, 0, allowShiny, false, out var pk) && pk is not null)
+                {
+                    resultPKM = EntityConverter.ConvertToType(pk, typeof(PK7), out _);
+                    if (resultPKM is not null)
+                    {
+                        if (s <= 251)
+                        {
+                            resultPKM.OriginalTrainerName = vcOT;
+                            resultPKM.TID16 = sav.TID16;
+                            resultPKM.SID16 = 0;
+                        }
+                        else
+                        {
+                            resultPKM.OriginalTrainerName = sav.OT;
+                            resultPKM.TID16 = sav.TID16;
+                            resultPKM.SID16 = sav.SID16;
+                        }
+                    }
+                }
+            }
+
+            // Fallback / Event Mythical generation
+            if (resultPKM is null)
+            {
+                var origin = GetCanonicalOriginVersion(species, sav.Version);
+                resultPKM = GenerateOriginPKM(sav, s, 0, isShiny, origin);
+            }
+
+            if (resultPKM is not null)
+                bag.Add(resultPKM);
         });
 
         return bag.OrderBy(z => z.Species).ToList();

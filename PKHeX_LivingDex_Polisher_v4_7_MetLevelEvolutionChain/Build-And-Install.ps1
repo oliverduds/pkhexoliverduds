@@ -17,6 +17,13 @@ if (!(Test-Path $CombinedDexFile)) {
     throw "CombinedLivingDex.cs was not found beside this script."
 }
 
+if ([string]::IsNullOrWhiteSpace($PKHeXPath)) {
+    $defaultCandidate = Join-Path (Split-Path -Parent $ScriptDir) "pkhex\PKHeX.exe"
+    if (Test-Path $defaultCandidate) {
+        $PKHeXPath = $defaultCandidate
+    }
+}
+
 if ([string]::IsNullOrWhiteSpace($WorkDir)) {
     $WorkDir = Join-Path $ScriptDir "_build"
 }
