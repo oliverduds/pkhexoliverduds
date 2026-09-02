@@ -563,7 +563,46 @@ public sealed class CombinedLivingDex : AutoModPlugin
             PKM? resultPKM = null;
 
             // Direct encounter generation
-            if (!isMythical)
+            if (species == Species.Zygarde)
+            {
+                if (isShiny)
+                {
+                    var ssetZyg = new ShowdownSet("Zygarde\nShiny: Yes");
+                    var setZyg = new RegenTemplate(ssetZyg) { Nickname = string.Empty };
+                    var resZyg = sav.TryAPIConvert(setZyg, EntityBlank.GetBlank(sav));
+                    if (resZyg.Status == LegalizationResult.Regenerated && resZyg.Created != null)
+                        resultPKM = resZyg.Created;
+                }
+                else
+                {
+                    string zygVer = sav.Version == GameVersion.UM ? "Ultra Moon" : "Ultra Sun";
+                    var ssetZyg = new ShowdownSet($"Zygarde\nLevel: 60\nVersion: {zygVer}");
+                    var setZyg = new RegenTemplate(ssetZyg) { Nickname = string.Empty };
+                    var resZyg = sav.TryAPIConvert(setZyg, EntityBlank.GetBlank(sav));
+                    if (resZyg.Status == LegalizationResult.Regenerated && resZyg.Created != null)
+                    {
+                        resultPKM = resZyg.Created;
+                        resultPKM.OriginalTrainerName = sav.OT;
+                        resultPKM.TID16 = sav.TID16;
+                        resultPKM.SID16 = sav.SID16;
+                    }
+                }
+            }
+            else if (species == Species.Reshiram)
+            {
+                string shinyStr = isShiny ? "\nShiny: Yes" : "";
+                var ssetRes = new ShowdownSet($"Reshiram\nLevel: 60\nVersion: Ultra Sun{shinyStr}");
+                var setRes = new RegenTemplate(ssetRes) { Nickname = string.Empty };
+                var resRes = sav.TryAPIConvert(setRes, EntityBlank.GetBlank(sav));
+                if (resRes.Status == LegalizationResult.Regenerated && resRes.Created != null)
+                {
+                    resultPKM = resRes.Created;
+                    resultPKM.OriginalTrainerName = sav.OT;
+                    resultPKM.TID16 = sav.TID16;
+                    resultPKM.SID16 = sav.SID16;
+                }
+            }
+            else if (!isMythical)
             {
                 ITrainerInfo tr;
 
@@ -616,15 +655,20 @@ public sealed class CombinedLivingDex : AutoModPlugin
                     }
                     else
                     {
-                        if (species is Species.Zekrom or Species.Thundurus) tr = trMirror;
-                        else if (species is Species.Reshiram or Species.Tornadus) tr = sav;
+                        if (species is Species.Reshiram or Species.Tornadus) tr = sav.Version == GameVersion.US ? sav : trMirror;
+                        else if (species is Species.Zekrom or Species.Thundurus) tr = sav.Version == GameVersion.UM ? sav : trMirror;
                         else tr = trB;
                     }
                 }
                 // 5. Kalos (#650-#721)
                 else if (s <= 721)
                 {
-                    if (species is Species.Scatterbug or Species.Spewpa or Species.Vivillon)
+                    if (species is Species.Zygarde)
+                    {
+                        // Zygarde 50% is native to Alola in Resolution Cave (Lv. 60)
+                        tr = sav;
+                    }
+                    else if (species is Species.Scatterbug or Species.Spewpa or Species.Vivillon)
                         tr = sav;
                     else
                         tr = trX;
@@ -647,26 +691,30 @@ public sealed class CombinedLivingDex : AutoModPlugin
                     resultPKM = pk is PK7 ? pk : EntityConverter.ConvertToType(pk, typeof(PK7), out _);
                     if (resultPKM is not null && !ReferenceEquals(tr, sav))
                     {
-                        bool isVC = resultPKM.Version is GameVersion.RD or GameVersion.BU or GameVersion.YW or GameVersion.GD or GameVersion.SI or GameVersion.C;
-                        bool isDS = resultPKM.Version is GameVersion.D or GameVersion.P or GameVersion.Pt or GameVersion.HG or GameVersion.SS or GameVersion.B or GameVersion.W or GameVersion.B2 or GameVersion.W2;
+                        bool isEvent = resultPKM.FatefulEncounter || resultPKM.Ball == (byte)Ball.Cherish;
+                        if (!isEvent)
+                        {
+                            bool isVC = resultPKM.Version is GameVersion.RD or GameVersion.BU or GameVersion.YW or GameVersion.GD or GameVersion.SI or GameVersion.C;
+                            bool isDS = resultPKM.Version is GameVersion.D or GameVersion.P or GameVersion.Pt or GameVersion.HG or GameVersion.SS or GameVersion.B or GameVersion.W or GameVersion.B2 or GameVersion.W2;
 
-                        if (isVC)
-                        {
-                            resultPKM.OriginalTrainerName = shortOT;
-                            resultPKM.TID16 = sav.TID16;
-                            resultPKM.SID16 = 0;
-                        }
-                        else if (isDS)
-                        {
-                            resultPKM.OriginalTrainerName = shortOT;
-                            resultPKM.TID16 = sav.TID16;
-                            resultPKM.SID16 = sav.SID16;
-                        }
-                        else
-                        {
-                            resultPKM.OriginalTrainerName = sav.OT;
-                            resultPKM.TID16 = sav.TID16;
-                            resultPKM.SID16 = sav.SID16;
+                            if (isVC)
+                            {
+                                resultPKM.OriginalTrainerName = shortOT;
+                                resultPKM.TID16 = sav.TID16;
+                                resultPKM.SID16 = 0;
+                            }
+                            else if (isDS)
+                            {
+                                resultPKM.OriginalTrainerName = shortOT;
+                                resultPKM.TID16 = sav.TID16;
+                                resultPKM.SID16 = sav.SID16;
+                            }
+                            else
+                            {
+                                resultPKM.OriginalTrainerName = sav.OT;
+                                resultPKM.TID16 = sav.TID16;
+                                resultPKM.SID16 = sav.SID16;
+                            }
                         }
                     }
                 }
@@ -764,7 +812,8 @@ public sealed class CombinedLivingDex : AutoModPlugin
         {
             var pk = res.Created;
 
-            if (!isEventOnlyMythical || IsInGameCatchableMythical((Species)species, pk.Version))
+            bool isEvent = pk.FatefulEncounter || pk.Ball == (byte)Ball.Cherish;
+            if (!isEvent && (!isEventOnlyMythical || IsInGameCatchableMythical((Species)species, pk.Version)))
             {
                 pk.OriginalTrainerName = otName;
                 pk.TID16 = targetSav.TID16;
