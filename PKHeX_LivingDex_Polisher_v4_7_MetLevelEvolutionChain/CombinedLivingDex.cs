@@ -244,6 +244,12 @@ public sealed class CombinedLivingDex : AutoModPlugin
                 };
             }
 
+            if (targetList.Count == 0)
+            {
+                WinFormsUtil.Alert("Aviso", "Nenhum Pokémon pôde ser gerado para a configuração selecionada.");
+                return;
+            }
+
             int startSlot = Math.Max(0, (options.StartBox - 1) * sav.BoxSlotCount);
             if (sav.Version is GameVersion.GP or GameVersion.GE && startSlot == 0)
             {
@@ -500,7 +506,8 @@ public sealed class CombinedLivingDex : AutoModPlugin
             // Direct encounter generation
             if (!isMythical)
             {
-                ITrainerInfo tr = s <= 251 ? trVC : s <= 386 ? trORAS : sav;
+                bool isBoxLegendary = IsUltraWormholeLegendary(species);
+                ITrainerInfo tr = (s <= 251 && !isBoxLegendary) ? trVC : (s <= 386 && !isBoxLegendary) ? trORAS : sav;
                 bool allowShiny = isShiny && !SimpleEdits.IsShinyLockedSpeciesForm(s, 0) && !IsShinyLockedMythicalGen7(species);
 
                 if (tr.GetRandomEncounter(s, 0, allowShiny, false, out var pk) && pk is not null)
@@ -508,7 +515,8 @@ public sealed class CombinedLivingDex : AutoModPlugin
                     resultPKM = EntityConverter.ConvertToType(pk, typeof(PK7), out _);
                     if (resultPKM is not null)
                     {
-                        if (s <= 251)
+                        bool isVC = resultPKM.Version is GameVersion.RD or GameVersion.BU or GameVersion.YW or GameVersion.GD or GameVersion.SI or GameVersion.C;
+                        if (isVC)
                         {
                             resultPKM.OriginalTrainerName = vcOT;
                             resultPKM.TID16 = sav.TID16;
@@ -537,6 +545,17 @@ public sealed class CombinedLivingDex : AutoModPlugin
 
         return bag.OrderBy(z => z.Species).ToList();
     }
+
+    private static bool IsUltraWormholeLegendary(Species s) => s is
+        Species.Articuno or Species.Zapdos or Species.Moltres or Species.Mewtwo or
+        Species.Raikou or Species.Entei or Species.Suicune or Species.Lugia or Species.HoOh or
+        Species.Regirock or Species.Regice or Species.Registeel or Species.Latias or Species.Latios or
+        Species.Kyogre or Species.Groudon or Species.Rayquaza or
+        Species.Uxie or Species.Mesprit or Species.Azelf or Species.Dialga or Species.Palkia or
+        Species.Heatran or Species.Regigigas or Species.Giratina or Species.Cresselia or
+        Species.Cobalion or Species.Terrakion or Species.Virizion or Species.Tornadus or Species.Thundurus or
+        Species.Reshiram or Species.Zekrom or Species.Landorus or Species.Kyurem or
+        Species.Xerneas or Species.Yveltal;
 
     private static GameVersion GetCanonicalOriginVersion(Species species, GameVersion defaultVersion)
     {
@@ -810,6 +829,9 @@ public sealed class CombinedLivingDex : AutoModPlugin
 
     private static bool IsProtectedGameplaySlot(SaveFile sav, int index)
     {
+        if (sav.Generation <= 7)
+            return false;
+
         var flags = sav.GetBoxSlotFlags(index);
         if (flags.IsOverwriteProtected())
             return true;
