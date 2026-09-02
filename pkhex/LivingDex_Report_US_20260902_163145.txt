@@ -1,0 +1,818 @@
+﻿===============================================================================
+                 LIVING DEX GENERATION & AUDIT REPORT
+===============================================================================
+Date & Time : 2026-09-02 16:31:45
+Game Version: US (Context: Gen7)
+Trainer Info: OT = Oliverduds, TID = 63517, SID = 11102
+Boxes Used  : Caixa 1 a Caixa 27 (807 Pokémon colocados)
+Themed Balls: 540 | Gigantamax Factor: 0
+-------------------------------------------------------------------------------
+DETALHES DOS SLOTS GRAVADOS:
+Box  1, Slot  1:   1 Bulbasaur          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot  2:   2 Ivysaur            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot  3:   3 Venusaur           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot  4:   4 Charmander         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot  5:   5 Charmeleon         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot  6:   6 Charizard          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot  7:   7 Squirtle           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot  8:   8 Wartortle          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot  9:   9 Blastoise          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 10:  10 Caterpie           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 11:  11 Metapod            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 12:  12 Butterfree         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  1, Slot 13:  13 Weedle             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 14:  14 Kakuna             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 15:  15 Beedrill           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 16:  16 Pidgey             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 17:  17 Pidgeotto          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 18:  18 Pidgeot            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 19:  19 Rattata            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 20:  20 Raticate           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 21:  21 Spearow            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 22:  22 Fearow             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 23:  23 Ekans              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 24:  24 Arbok              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 25:  25 Pikachu            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 26:  26 Raichu             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 27:  27 Sandshrew          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 28:  28 Sandslash          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 29:  29 Nidoran♀           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  1, Slot 30:  30 Nidorina           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot  1:  31 Nidoqueen          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot  2:  32 Nidoran♂           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot  3:  33 Nidorino           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot  4:  34 Nidoking           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot  5:  35 Clefairy           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot  6:  36 Clefable           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot  7:  37 Vulpix             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot  8:  38 Ninetales          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot  9:  39 Jigglypuff         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 10:  40 Wigglytuff         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 11:  41 Zubat              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 12:  42 Golbat             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 13:  43 Oddish             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 14:  44 Gloom              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 15:  45 Vileplume          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  2, Slot 16:  46 Paras              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 17:  47 Parasect           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 18:  48 Venonat            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 19:  49 Venomoth           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 20:  50 Diglett            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 21:  51 Dugtrio            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 22:  52 Meowth             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 23:  53 Persian            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 24:  54 Psyduck            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 25:  55 Golduck            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 26:  56 Mankey             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 27:  57 Primeape           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 28:  58 Growlithe          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 29:  59 Arcanine           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  2, Slot 30:  60 Poliwag            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot  1:  61 Poliwhirl          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot  2:  62 Poliwrath          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot  3:  63 Abra               Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  3, Slot  4:  64 Kadabra            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  3, Slot  5:  65 Alakazam           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  3, Slot  6:  66 Machop             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot  7:  67 Machoke            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot  8:  68 Machamp            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot  9:  69 Bellsprout         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 10:  70 Weepinbell         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 11:  71 Victreebel         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 12:  72 Tentacool          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 13:  73 Tentacruel         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 14:  74 Geodude            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 15:  75 Graveler           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 16:  76 Golem              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 17:  77 Ponyta             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 18:  78 Rapidash           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 19:  79 Slowpoke           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 20:  80 Slowbro            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 21:  81 Magnemite          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  3, Slot 22:  82 Magneton           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  3, Slot 23:  83 Farfetch’d         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 24:  84 Doduo              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 25:  85 Dodrio             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 26:  86 Seel               Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 27:  87 Dewgong            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 28:  88 Grimer             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 29:  89 Muk                Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  3, Slot 30:  90 Shellder           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot  1:  91 Cloyster           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot  2:  92 Gastly             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  4, Slot  3:  93 Haunter            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  4, Slot  4:  94 Gengar             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  4, Slot  5:  95 Onix               Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot  6:  96 Drowzee            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot  7:  97 Hypno              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot  8:  98 Krabby             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot  9:  99 Kingler            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 10: 100 Voltorb            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 11: 101 Electrode          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  4, Slot 12: 102 Exeggcute          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 13: 103 Exeggutor          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  4, Slot 14: 104 Cubone             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 15: 105 Marowak            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 16: 106 Hitmonlee          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 17: 107 Hitmonchan         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 18: 108 Lickitung          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 19: 109 Koffing            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 20: 110 Weezing            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 21: 111 Rhyhorn            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 22: 112 Rhydon             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 23: 113 Chansey            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  4, Slot 24: 114 Tangela            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  4, Slot 25: 115 Kangaskhan         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 26: 116 Horsea             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  4, Slot 27: 117 Seadra             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  4, Slot 28: 118 Goldeen            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 29: 119 Seaking            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  4, Slot 30: 120 Staryu             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot  1: 121 Starmie            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot  2: 122 Mr. Mime           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  5, Slot  3: 123 Scyther            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot  4: 124 Jynx               Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  5, Slot  5: 125 Electabuzz         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot  6: 126 Magmar             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot  7: 127 Pinsir             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot  8: 128 Tauros             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot  9: 129 Magikarp           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 10: 130 Gyarados           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 11: 131 Lapras             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 12: 132 Ditto              Lv.100 | Origin: C      | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 13: 133 Eevee              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 14: 134 Vaporeon           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  5, Slot 15: 135 Jolteon            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  5, Slot 16: 136 Flareon            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 17: 137 Porygon            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 18: 138 Omanyte            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  5, Slot 19: 139 Omastar            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  5, Slot 20: 140 Kabuto             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 21: 141 Kabutops           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 22: 142 Aerodactyl         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 23: 143 Snorlax            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 24: 144 Articuno           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 25: 145 Zapdos             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  5, Slot 26: 146 Moltres            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 27: 147 Dratini            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 28: 148 Dragonair          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 29: 149 Dragonite          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  5, Slot 30: 150 Mewtwo             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  6, Slot  1: 151 Mew                Lv.  5 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot  2: 152 Chikorita          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot  3: 153 Bayleef            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot  4: 154 Meganium           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot  5: 155 Cyndaquil          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot  6: 156 Quilava            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot  7: 157 Typhlosion         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot  8: 158 Totodile           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot  9: 159 Croconaw           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 10: 160 Feraligatr         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 11: 161 Sentret            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 12: 162 Furret             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 13: 163 Hoothoot           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 14: 164 Noctowl            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  6, Slot 15: 165 Ledyba             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 16: 166 Ledian             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 17: 167 Spinarak           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 18: 168 Ariados            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 19: 169 Crobat             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 20: 170 Chinchou           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 21: 171 Lanturn            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 22: 172 Pichu              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 23: 173 Cleffa             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 24: 174 Igglybuff          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 25: 175 Togepi             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 26: 176 Togetic            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  6, Slot 27: 177 Natu               Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 28: 178 Xatu               Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 29: 179 Mareep             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  6, Slot 30: 180 Flaaffy            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot  1: 181 Ampharos           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  7, Slot  2: 182 Bellossom          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot  3: 183 Marill             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot  4: 184 Azumarill          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot  5: 185 Sudowoodo          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot  6: 186 Politoed           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot  7: 187 Hoppip             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot  8: 188 Skiploom           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot  9: 189 Jumpluff           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 10: 190 Aipom              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 11: 191 Sunkern            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 12: 192 Sunflora           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  7, Slot 13: 193 Yanma              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 14: 194 Wooper             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 15: 195 Quagsire           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 16: 196 Espeon             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  7, Slot 17: 197 Umbreon            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 18: 198 Murkrow            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 19: 199 Slowking           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 20: 200 Misdreavus         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 21: 201 Unown              Lv.100 | Origin: C      | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 22: 202 Wobbuffet          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 23: 203 Girafarig          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 24: 204 Pineco             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 25: 205 Forretress         Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 26: 206 Dunsparce          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 27: 207 Gligar             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 28: 208 Steelix            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 29: 209 Snubbull           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  7, Slot 30: 210 Granbull           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot  1: 211 Qwilfish           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot  2: 212 Scizor             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot  3: 213 Shuckle            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot  4: 214 Heracross          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot  5: 215 Sneasel            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot  6: 216 Teddiursa          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot  7: 217 Ursaring           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot  8: 218 Slugma             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  8, Slot  9: 219 Magcargo           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  8, Slot 10: 220 Swinub             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 11: 221 Piloswine        ★ Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 12: 222 Corsola            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 13: 223 Remoraid           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 14: 224 Octillery          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 15: 225 Delibird           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 16: 226 Mantine            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  8, Slot 17: 227 Skarmory           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 18: 228 Houndour           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 19: 229 Houndoom           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 20: 230 Kingdra            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 21: 231 Phanpy             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 22: 232 Donphan            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 23: 233 Porygon2           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 24: 234 Stantler           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 25: 235 Smeargle           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 26: 236 Tyrogue            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 27: 237 Hitmontop          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 28: 238 Smoochum           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  8, Slot 29: 239 Elekid             Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  8, Slot 30: 240 Magby              Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot  1: 241 Miltank            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot  2: 242 Blissey            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  9, Slot  3: 243 Raikou             Lv.100 | Origin: C      | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box  9, Slot  4: 244 Entei              Lv.100 | Origin: C      | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot  5: 245 Suicune            Lv.100 | Origin: C      | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot  6: 246 Larvitar           Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot  7: 247 Pupitar            Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot  8: 248 Tyranitar          Lv.100 | Origin: SI     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot  9: 249 Lugia              Lv.100 | Origin: C      | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 10: 250 Ho-Oh              Lv.100 | Origin: C      | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 11: 251 Celebi             Lv.100 | Origin: C      | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 12: 252 Treecko            Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 13: 253 Grovyle            Lv. 16 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 14: 254 Sceptile           Lv. 36 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 15: 255 Torchic            Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 16: 256 Combusken          Lv. 16 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 17: 257 Blaziken           Lv. 36 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 18: 258 Mudkip             Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 19: 259 Marshtomp          Lv. 16 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 20: 260 Swampert           Lv. 36 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box  9, Slot 21: 261 Poochyena          Lv.  1 | Origin: OR     | Ball: Dream      | IVs: 31/31/31/31/31/31
+Box  9, Slot 22: 262 Mightyena          Lv. 18 | Origin: OR     | Ball: Dream      | IVs: 31/31/31/31/31/31
+Box  9, Slot 23: 263 Zigzagoon          Lv.  1 | Origin: OR     | Ball: Heavy      | IVs: 31/31/31/31/31/31
+Box  9, Slot 24: 264 Linoone            Lv. 20 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box  9, Slot 25: 265 Wurmple            Lv.  1 | Origin: OR     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box  9, Slot 26: 266 Silcoon            Lv.  7 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box  9, Slot 27: 267 Beautifly          Lv. 10 | Origin: OR     | Ball: Nest       | IVs: 31/0/31/31/31/31
+Box  9, Slot 28: 268 Cascoon            Lv.  7 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box  9, Slot 29: 269 Dustox             Lv. 10 | Origin: OR     | Ball: Sport      | IVs: 31/31/31/31/31/31
+Box  9, Slot 30: 270 Lotad              Lv.  1 | Origin: OR     | Ball: Great      | IVs: 31/31/31/31/31/31
+Box 10, Slot  1: 271 Lombre             Lv. 14 | Origin: OR     | Ball: Great      | IVs: 31/31/31/31/31/31
+Box 10, Slot  2: 272 Ludicolo           Lv. 14 | Origin: OR     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 10, Slot  3: 273 Seedot             Lv.  1 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 10, Slot  4: 274 Nuzleaf            Lv. 14 | Origin: OR     | Ball: Moon       | IVs: 31/31/31/31/31/31
+Box 10, Slot  5: 275 Shiftry            Lv. 14 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 10, Slot  6: 276 Taillow            Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 10, Slot  7: 277 Swellow            Lv. 22 | Origin: OR     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 10, Slot  8: 278 Wingull            Lv.  1 | Origin: OR     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box 10, Slot  9: 279 Pelipper           Lv. 25 | Origin: OR     | Ball: Net        | IVs: 31/0/31/31/31/31
+Box 10, Slot 10: 280 Ralts              Lv.  1 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 10, Slot 11: 281 Kirlia             Lv. 20 | Origin: OR     | Ball: Dusk       | IVs: 31/0/31/31/31/31
+Box 10, Slot 12: 282 Gardevoir          Lv. 30 | Origin: OR     | Ball: Dream      | IVs: 31/0/31/31/31/31
+Box 10, Slot 13: 283 Surskit            Lv.  1 | Origin: OR     | Ball: Great      | IVs: 31/31/31/31/31/31
+Box 10, Slot 14: 284 Masquerain         Lv. 22 | Origin: OR     | Ball: Safari     | IVs: 31/0/31/31/31/31
+Box 10, Slot 15: 285 Shroomish          Lv.  1 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 10, Slot 16: 286 Breloom            Lv. 23 | Origin: OR     | Ball: Safari     | IVs: 31/31/31/31/31/31
+Box 10, Slot 17: 287 Slakoth            Lv.  1 | Origin: OR     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 10, Slot 18: 288 Vigoroth           Lv. 18 | Origin: OR     | Ball: Heavy      | IVs: 31/31/31/31/31/31
+Box 10, Slot 19: 289 Slaking            Lv. 36 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 10, Slot 20: 290 Nincada            Lv.  1 | Origin: OR     | Ball: Sport      | IVs: 31/31/31/31/31/31
+Box 10, Slot 21: 291 Ninjask            Lv. 20 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 10, Slot 22: 292 Shedinja           Lv. 20 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 10, Slot 23: 293 Whismur            Lv.  1 | Origin: OR     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 10, Slot 24: 294 Loudred            Lv. 20 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 10, Slot 25: 295 Exploud            Lv. 40 | Origin: OR     | Ball: Heavy      | IVs: 31/31/31/31/31/31
+Box 10, Slot 26: 296 Makuhita           Lv.  1 | Origin: OR     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 10, Slot 27: 297 Hariyama           Lv. 24 | Origin: OR     | Ball: Heavy      | IVs: 31/31/31/31/31/31
+Box 10, Slot 28: 298 Azurill            Lv.  1 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 10, Slot 29: 299 Nosepass           Lv.  1 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 10, Slot 30: 300 Skitty             Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 11, Slot  1: 301 Delcatty           Lv.  1 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 11, Slot  2: 302 Sableye            Lv.  1 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 11, Slot  3: 303 Mawile             Lv.  1 | Origin: OR     | Ball: Dream      | IVs: 31/31/31/31/31/31
+Box 11, Slot  4: 304 Aron               Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 11, Slot  5: 305 Lairon             Lv. 32 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 11, Slot  6: 306 Aggron             Lv. 42 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 11, Slot  7: 307 Meditite           Lv.  1 | Origin: OR     | Ball: Dream      | IVs: 31/31/31/31/31/31
+Box 11, Slot  8: 308 Medicham           Lv. 37 | Origin: OR     | Ball: Moon       | IVs: 31/31/31/31/31/31
+Box 11, Slot  9: 309 Electrike          Lv.  1 | Origin: OR     | Ball: Repeat     | IVs: 31/31/31/31/31/31
+Box 11, Slot 10: 310 Manectric          Lv. 26 | Origin: OR     | Ball: Ultra      | IVs: 31/0/31/31/31/31
+Box 11, Slot 11: 311 Plusle             Lv.  1 | Origin: OR     | Ball: Level      | IVs: 31/0/31/31/31/31
+Box 11, Slot 12: 312 Minun              Lv.  1 | Origin: OR     | Ball: Repeat     | IVs: 31/0/31/31/31/31
+Box 11, Slot 13: 313 Volbeat            Lv.  1 | Origin: OR     | Ball: Sport      | IVs: 31/31/31/31/31/31
+Box 11, Slot 14: 314 Illumise           Lv.  1 | Origin: OR     | Ball: Sport      | IVs: 31/0/31/31/31/31
+Box 11, Slot 15: 315 Roselia            Lv.  2 | Origin: OR     | Ball: Nest       | IVs: 31/0/31/31/31/31
+Box 11, Slot 16: 316 Gulpin             Lv.  1 | Origin: OR     | Ball: Friend     | IVs: 31/31/31/31/31/31
+Box 11, Slot 17: 317 Swalot             Lv. 26 | Origin: OR     | Ball: Safari     | IVs: 31/31/31/31/31/31
+Box 11, Slot 18: 318 Carvanha           Lv.  1 | Origin: OR     | Ball: Dream      | IVs: 31/31/31/31/31/31
+Box 11, Slot 19: 319 Sharpedo           Lv. 30 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 11, Slot 20: 320 Wailmer            Lv.  1 | Origin: OR     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box 11, Slot 21: 321 Wailord            Lv. 40 | Origin: OR     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 11, Slot 22: 322 Numel              Lv.  1 | Origin: OR     | Ball: Repeat     | IVs: 31/31/31/31/31/31
+Box 11, Slot 23: 323 Camerupt           Lv. 33 | Origin: OR     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 11, Slot 24: 324 Torkoal            Lv.  1 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 11, Slot 25: 325 Spoink             Lv.  1 | Origin: OR     | Ball: Dream      | IVs: 31/0/31/31/31/31
+Box 11, Slot 26: 326 Grumpig            Lv. 32 | Origin: OR     | Ball: Dusk       | IVs: 31/0/31/31/31/31
+Box 11, Slot 27: 327 Spinda             Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 11, Slot 28: 328 Trapinch           Lv.  1 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 11, Slot 29: 329 Vibrava            Lv. 35 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 11, Slot 30: 330 Flygon             Lv. 45 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 12, Slot  1: 331 Cacnea             Lv.  1 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 12, Slot  2: 332 Cacturne           Lv. 32 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 12, Slot  3: 333 Swablu             Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 12, Slot  4: 334 Altaria            Lv. 35 | Origin: OR     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 12, Slot  5: 335 Zangoose           Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 12, Slot  6: 336 Seviper            Lv.  1 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 12, Slot  7: 337 Lunatone           Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 12, Slot  8: 338 Solrock            Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 12, Slot  9: 339 Barboach           Lv.  1 | Origin: OR     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 12, Slot 10: 340 Whiscash           Lv. 30 | Origin: OR     | Ball: Lure       | IVs: 31/31/31/31/31/31
+Box 12, Slot 11: 341 Corphish           Lv.  1 | Origin: OR     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 12, Slot 12: 342 Crawdaunt          Lv. 30 | Origin: OR     | Ball: Dream      | IVs: 31/31/31/31/31/31
+Box 12, Slot 13: 343 Baltoy             Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 12, Slot 14: 344 Claydol            Lv. 36 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 12, Slot 15: 345 Lileep             Lv.  1 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 12, Slot 16: 346 Cradily            Lv. 40 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 12, Slot 17: 347 Anorith            Lv.  1 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 12, Slot 18: 348 Armaldo            Lv. 40 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 12, Slot 19: 349 Feebas             Lv.  1 | Origin: OR     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box 12, Slot 20: 350 Milotic            Lv.  1 | Origin: OR     | Ball: Dive       | IVs: 31/0/31/31/31/31
+Box 12, Slot 21: 351 Castform           Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 12, Slot 22: 352 Kecleon            Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 12, Slot 23: 353 Shuppet            Lv.  1 | Origin: OR     | Ball: Dream      | IVs: 31/31/31/31/31/31
+Box 12, Slot 24: 354 Banette            Lv. 37 | Origin: OR     | Ball: Heal       | IVs: 31/31/31/31/31/31
+Box 12, Slot 25: 355 Duskull            Lv.  1 | Origin: OR     | Ball: Heal       | IVs: 31/31/31/31/31/31
+Box 12, Slot 26: 356 Dusclops           Lv. 37 | Origin: OR     | Ball: Heal       | IVs: 31/31/31/31/31/31
+Box 12, Slot 27: 357 Tropius            Lv.  1 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 12, Slot 28: 358 Chimecho           Lv.  2 | Origin: OR     | Ball: Moon       | IVs: 31/0/31/31/31/31
+Box 12, Slot 29: 359 Absol              Lv.  1 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 12, Slot 30: 360 Wynaut             Lv.  1 | Origin: OR     | Ball: Moon       | IVs: 31/31/31/31/31/31
+Box 13, Slot  1: 361 Snorunt            Lv.  1 | Origin: OR     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box 13, Slot  2: 362 Glalie             Lv. 42 | Origin: OR     | Ball: Great      | IVs: 31/31/31/31/31/31
+Box 13, Slot  3: 363 Spheal             Lv.  1 | Origin: OR     | Ball: Great      | IVs: 31/31/31/31/31/31
+Box 13, Slot  4: 364 Sealeo             Lv. 32 | Origin: OR     | Ball: Great      | IVs: 31/31/31/31/31/31
+Box 13, Slot  5: 365 Walrein            Lv. 44 | Origin: OR     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box 13, Slot  6: 366 Clamperl           Lv.  1 | Origin: OR     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box 13, Slot  7: 367 Huntail            Lv.  1 | Origin: OR     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 13, Slot  8: 368 Gorebyss           Lv.  1 | Origin: OR     | Ball: Lure       | IVs: 31/0/31/31/31/31
+Box 13, Slot  9: 369 Relicanth          Lv.  1 | Origin: OR     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 13, Slot 10: 370 Luvdisc            Lv.  1 | Origin: OR     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 13, Slot 11: 371 Bagon              Lv.  1 | Origin: OR     | Ball: Repeat     | IVs: 31/31/31/31/31/31
+Box 13, Slot 12: 372 Shelgon            Lv. 30 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 13, Slot 13: 373 Salamence          Lv. 50 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 13, Slot 14: 374 Beldum             Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 13, Slot 15: 375 Metang             Lv. 20 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 13, Slot 16: 376 Metagross          Lv. 45 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 13, Slot 17: 377 Regirock           Lv. 40 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 13, Slot 18: 378 Regice             Lv. 40 | Origin: OR     | Ball: Great      | IVs: 31/0/31/31/31/31
+Box 13, Slot 19: 379 Registeel          Lv. 40 | Origin: OR     | Ball: Timer      | IVs: 31/31/31/31/31/31
+Box 13, Slot 20: 380 Latias             Lv. 60 | Origin: UM     | Ball: Love       | IVs: 31/0/31/31/31/31
+Box 13, Slot 21: 381 Latios             Lv.100 | Origin: UM     | Ball: Cherish    | IVs: 31/0/31/31/31/31
+Box 13, Slot 22: 382 Kyogre             Lv. 60 | Origin: UM     | Ball: Dive       | IVs: 31/0/31/31/31/31
+Box 13, Slot 23: 383 Groudon            Lv.100 | Origin: UM     | Ball: Cherish    | IVs: 31/31/31/31/31/31
+Box 13, Slot 24: 384 Rayquaza           Lv. 70 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 13, Slot 25: 385 Jirachi            Lv. 15 | Origin: US     | Ball: Cherish    | IVs: 31/31/31/31/31/31
+Box 13, Slot 26: 386 Deoxys             Lv. 80 | Origin: OR     | Ball: Heal       | IVs: 31/31/31/31/31/31
+Box 13, Slot 27: 387 Turtwig            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 13, Slot 28: 388 Grotle             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 13, Slot 29: 389 Torterra           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 13, Slot 30: 390 Chimchar           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot  1: 391 Monferno           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot  2: 392 Infernape          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot  3: 393 Piplup             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot  4: 394 Prinplup           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot  5: 395 Empoleon           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot  6: 396 Starly             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot  7: 397 Staravia           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot  8: 398 Staraptor          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot  9: 399 Bidoof             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 10: 400 Bibarel            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 11: 401 Kricketot          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 12: 402 Kricketune         Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 13: 403 Shinx              Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 14: 404 Luxio              Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 15: 405 Luxray             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 16: 406 Budew              Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 17: 407 Roserade           Lv.100 | Origin: CXD    | Ball: Ultra      | IVs: 20/2/23/27/2/28
+Box 14, Slot 18: 408 Cranidos           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 19: 409 Rampardos          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 20: 410 Shieldon           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 21: 411 Bastiodon          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 22: 412 Burmy              Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 23: 413 Wormadam           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 24: 414 Mothim             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 25: 415 Combee             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 26: 416 Vespiquen          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 27: 417 Pachirisu          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 28: 418 Buizel             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 29: 419 Floatzel           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 14, Slot 30: 420 Cherubi            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 15, Slot  1: 421 Cherrim            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 15, Slot  2: 422 Shellos            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot  3: 423 Gastrodon          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot  4: 424 Ambipom            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot  5: 425 Drifloon           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot  6: 426 Drifblim           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot  7: 427 Buneary            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot  8: 428 Lopunny            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot  9: 429 Mismagius          Lv.100 | Origin: CXD    | Ball: Ultra      | IVs: 22/8/25/10/31/28
+Box 15, Slot 10: 430 Honchkrow          Lv.100 | Origin: CXD    | Ball: Premier    | IVs: 4/0/19/23/10/3
+Box 15, Slot 11: 431 Glameow            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 12: 432 Purugly            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 13: 433 Chingling          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 15, Slot 14: 434 Stunky             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 15: 435 Skuntank           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 16: 436 Bronzor            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 17: 437 Bronzong           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 18: 438 Bonsly             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 19: 439 Mime Jr.           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 15, Slot 20: 440 Happiny            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 21: 441 Chatot             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 15, Slot 22: 442 Spiritomb          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 23: 443 Gible              Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 24: 444 Gabite             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 25: 445 Garchomp           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 26: 446 Munchlax           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 27: 447 Riolu              Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 28: 448 Lucario            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 29: 449 Hippopotas         Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 15, Slot 30: 450 Hippowdon          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot  1: 451 Skorupi            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot  2: 452 Drapion            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot  3: 453 Croagunk           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot  4: 454 Toxicroak          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot  5: 455 Carnivine          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot  6: 456 Finneon            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot  7: 457 Lumineon           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot  8: 458 Mantyke            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 16, Slot  9: 459 Snover             Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot 10: 460 Abomasnow          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot 11: 461 Weavile            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot 12: 462 Magnezone          Lv.100 | Origin: CXD    | Ball: Ultra      | IVs: 29/22/4/11/9/19
+Box 16, Slot 13: 463 Lickilicky         Lv.100 | Origin: CXD    | Ball: Ultra      | IVs: 15/16/18/28/21/29
+Box 16, Slot 14: 464 Rhyperior          Lv.100 | Origin: CXD    | Ball: Ultra      | IVs: 9/26/0/30/16/11
+Box 16, Slot 15: 465 Tangrowth          Lv.100 | Origin: CXD    | Ball: Nest       | IVs: 6/2/20/30/7/15
+Box 16, Slot 16: 466 Electivire         Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot 17: 467 Magmortar          Lv.100 | Origin: CXD    | Ball: Ultra      | IVs: 31/0/25/3/0/18
+Box 16, Slot 18: 468 Togekiss           Lv.100 | Origin: CXD    | Ball: Premier    | IVs: 11/17/4/0/15/11
+Box 16, Slot 19: 469 Yanmega            Lv.100 | Origin: CXD    | Ball: Ultra      | IVs: 19/11/3/25/8/20
+Box 16, Slot 20: 470 Leafeon            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot 21: 471 Glaceon            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 16, Slot 22: 472 Gliscor            Lv.100 | Origin: CXD    | Ball: Ultra      | IVs: 24/17/25/6/14/10
+Box 16, Slot 23: 473 Mamoswine          Lv.100 | Origin: CXD    | Ball: Great      | IVs: 15/15/5/24/29/10
+Box 16, Slot 24: 474 Porygon-Z          Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 16, Slot 25: 475 Gallade            Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot 26: 476 Probopass          Lv.100 | Origin: CXD    | Ball: Timer      | IVs: 17/19/16/8/30/14
+Box 16, Slot 27: 477 Dusknoir           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot 28: 478 Froslass           Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 16, Slot 29: 479 Rotom              Lv.100 | Origin: Pt     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 16, Slot 30: 480 Uxie               Lv.100 | Origin: Pt     | Ball: Premier    | IVs: 24/19/2/8/21/13
+Box 17, Slot  1: 481 Mesprit            Lv.100 | Origin: Pt     | Ball: Heal       | IVs: 26/5/14/1/7/18
+Box 17, Slot  2: 482 Azelf              Lv.100 | Origin: Pt     | Ball: Dusk       | IVs: 14/22/12/7/22/3
+Box 17, Slot  3: 483 Dialga             Lv.100 | Origin: Pt     | Ball: Ultra      | IVs: 14/0/3/6/17/30
+Box 17, Slot  4: 484 Palkia             Lv.100 | Origin: Pt     | Ball: Net        | IVs: 28/1/2/20/7/5
+Box 17, Slot  5: 485 Heatran            Lv.100 | Origin: Pt     | Ball: Repeat     | IVs: 18/24/4/21/20/20
+Box 17, Slot  6: 486 Regigigas          Lv.100 | Origin: Pt     | Ball: Timer      | IVs: 21/31/5/6/25/3
+Box 17, Slot  7: 487 Giratina           Lv.100 | Origin: Pt     | Ball: Heal       | IVs: 6/6/21/7/7/12
+Box 17, Slot  8: 488 Cresselia          Lv.100 | Origin: Pt     | Ball: Heal       | IVs: 4/25/20/10/19/10
+Box 17, Slot  9: 489 Phione             Lv.  1 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 10: 490 Manaphy            Lv. 15 | Origin: US     | Ball: Cherish    | IVs: 31/31/31/31/31/31
+Box 17, Slot 11: 491 Darkrai            Lv.100 | Origin: Pt     | Ball: Heal       | IVs: 29/12/9/27/29/29
+Box 17, Slot 12: 492 Shaymin            Lv.100 | Origin: Pt     | Ball: Nest       | IVs: 6/22/8/4/8/21
+Box 17, Slot 13: 493 Arceus             Lv.100 | Origin: D      | Ball: Cherish    | IVs: 0/0/0/0/0/0
+Box 17, Slot 14: 494 Victini            Lv. 15 | Origin: MN     | Ball: Cherish    | IVs: 31/31/31/31/31/31
+Box 17, Slot 15: 495 Snivy              Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 16: 496 Servine            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 17: 497 Serperior          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 18: 498 Tepig              Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 19: 499 Pignite            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 20: 500 Emboar             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 21: 501 Oshawott           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 22: 502 Dewott             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 23: 503 Samurott           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 24: 504 Patrat             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 25: 505 Watchog            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 26: 506 Lillipup           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 27: 507 Herdier            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 28: 508 Stoutland          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 29: 509 Purrloin           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 17, Slot 30: 510 Liepard            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot  1: 511 Pansage            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot  2: 512 Simisage           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot  3: 513 Pansear            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot  4: 514 Simisear           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot  5: 515 Panpour            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot  6: 516 Simipour           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot  7: 517 Munna              Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot  8: 518 Musharna           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot  9: 519 Pidove             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 10: 520 Tranquill          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 11: 521 Unfezant           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 12: 522 Blitzle            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 13: 523 Zebstrika          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 14: 524 Roggenrola         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 15: 525 Boldore            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 16: 526 Gigalith           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 17: 527 Woobat             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 18: 528 Swoobat            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 19: 529 Drilbur            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 20: 530 Excadrill          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 21: 531 Audino             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 22: 532 Timburr            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 23: 533 Gurdurr            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 24: 534 Conkeldurr         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 25: 535 Tympole            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 26: 536 Palpitoad          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 27: 537 Seismitoad         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 28: 538 Throh              Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 29: 539 Sawk               Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 18, Slot 30: 540 Sewaddle           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot  1: 541 Swadloon           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot  2: 542 Leavanny           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot  3: 543 Venipede           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot  4: 544 Whirlipede         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot  5: 545 Scolipede          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot  6: 546 Cottonee           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot  7: 547 Whimsicott         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot  8: 548 Petilil            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot  9: 549 Lilligant          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 10: 550 Basculin           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 11: 551 Sandile            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 12: 552 Krokorok           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 13: 553 Krookodile         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 14: 554 Darumaka           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 15: 555 Darmanitan         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 16: 556 Maractus           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 17: 557 Dwebble            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 18: 558 Crustle            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 19: 559 Scraggy            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 20: 560 Scrafty            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 21: 561 Sigilyph           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 22: 562 Yamask             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 23: 563 Cofagrigus         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 24: 564 Tirtouga           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 25: 565 Carracosta         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 26: 566 Archen             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 27: 567 Archeops           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 28: 568 Trubbish           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 29: 569 Garbodor           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 19, Slot 30: 570 Zorua              Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot  1: 571 Zoroark            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot  2: 572 Minccino           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot  3: 573 Cinccino           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot  4: 574 Gothita            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot  5: 575 Gothorita          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot  6: 576 Gothitelle         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot  7: 577 Solosis            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot  8: 578 Duosion            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot  9: 579 Reuniclus          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 10: 580 Ducklett           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 11: 581 Swanna             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 12: 582 Vanillite          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 13: 583 Vanillish          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 14: 584 Vanilluxe          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 15: 585 Deerling           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 16: 586 Sawsbuck           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 17: 587 Emolga             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 18: 588 Karrablast         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 19: 589 Escavalier         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 20: 590 Foongus            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 21: 591 Amoonguss          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 22: 592 Frillish           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 23: 593 Jellicent          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 24: 594 Alomomola          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 25: 595 Joltik             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 26: 596 Galvantula         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 27: 597 Ferroseed          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 28: 598 Ferrothorn         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 29: 599 Klink              Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 20, Slot 30: 600 Klang              Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot  1: 601 Klinklang          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot  2: 602 Tynamo             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot  3: 603 Eelektrik          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot  4: 604 Eelektross         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot  5: 605 Elgyem             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot  6: 606 Beheeyem           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot  7: 607 Litwick            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot  8: 608 Lampent            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot  9: 609 Chandelure         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 10: 610 Axew               Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 11: 611 Fraxure            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 12: 612 Haxorus            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 13: 613 Cubchoo            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 14: 614 Beartic            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 15: 615 Cryogonal          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 16: 616 Shelmet            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 17: 617 Accelgor           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 18: 618 Stunfisk           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 19: 619 Mienfoo            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 20: 620 Mienshao           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 21: 621 Druddigon          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 22: 622 Golett             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 23: 623 Golurk             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 24: 624 Pawniard           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 25: 625 Bisharp            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 26: 626 Bouffalant         Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 27: 627 Rufflet            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 28: 628 Braviary           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 29: 629 Vullaby            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 21, Slot 30: 630 Mandibuzz          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 22, Slot  1: 631 Heatmor            Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 22, Slot  2: 632 Durant             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 22, Slot  3: 633 Deino              Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 22, Slot  4: 634 Zweilous           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 22, Slot  5: 635 Hydreigon          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 22, Slot  6: 636 Larvesta           Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 22, Slot  7: 637 Volcarona          Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 22, Slot  8: 638 Cobalion           Lv. 60 | Origin: US     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 22, Slot  9: 639 Terrakion          Lv. 60 | Origin: US     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 22, Slot 10: 640 Virizion           Lv. 60 | Origin: US     | Ball: Friend     | IVs: 31/31/31/31/31/31
+Box 22, Slot 11: 641 Tornadus           Lv.100 | Origin: B2     | Ball: Dream      | IVs: 31/31/31/31/31/31
+Box 22, Slot 12: 642 Thundurus          Lv.100 | Origin: B2     | Ball: Dream      | IVs: 31/31/31/31/31/31
+Box 22, Slot 13: 643 Reshiram           Lv.100 | Origin: W2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 22, Slot 14: 644 Zekrom             Lv.100 | Origin: B2     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 22, Slot 15: 645 Landorus           Lv. 60 | Origin: US     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 22, Slot 16: 646 Kyurem             Lv. 60 | Origin: US     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 22, Slot 17: 647 Keldeo             Lv.100 | Origin: OR     | Ball: Cherish    | IVs: 31/0/31/31/31/31
+Box 22, Slot 18: 648 Meloetta           Lv. 50 | Origin: US     | Ball: Cherish    | IVs: 31/0/31/31/31/31
+Box 22, Slot 19: 649 Genesect           Lv.100 | Origin: OR     | Ball: Cherish    | IVs: 31/31/31/31/31/31
+Box 22, Slot 20: 650 Chespin            Lv.  1 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 22, Slot 21: 651 Quilladin          Lv. 16 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 22, Slot 22: 652 Chesnaught         Lv. 36 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 22, Slot 23: 653 Fennekin           Lv.  1 | Origin: OR     | Ball: Repeat     | IVs: 31/31/31/31/31/31
+Box 22, Slot 24: 654 Braixen            Lv. 16 | Origin: OR     | Ball: Ultra      | IVs: 31/0/31/31/31/31
+Box 22, Slot 25: 655 Delphox            Lv. 36 | Origin: OR     | Ball: Premier    | IVs: 31/0/31/31/31/31
+Box 22, Slot 26: 656 Froakie            Lv.  1 | Origin: OR     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 22, Slot 27: 657 Frogadier          Lv. 16 | Origin: OR     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 22, Slot 28: 658 Greninja           Lv. 36 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 22, Slot 29: 659 Bunnelby           Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 22, Slot 30: 660 Diggersby          Lv. 20 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 23, Slot  1: 661 Fletchling         Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 23, Slot  2: 662 Fletchinder        Lv. 17 | Origin: OR     | Ball: Repeat     | IVs: 31/31/31/31/31/31
+Box 23, Slot  3: 663 Talonflame         Lv. 35 | Origin: OR     | Ball: Repeat     | IVs: 31/31/31/31/31/31
+Box 23, Slot  4: 664 Scatterbug         Lv.  1 | Origin: UM     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box 23, Slot  5: 665 Spewpa             Lv.  9 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 23, Slot  6: 666 Vivillon           Lv. 12 | Origin: UM     | Ball: Net        | IVs: 31/0/31/31/31/31
+Box 23, Slot  7: 667 Litleo             Lv.  1 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 23, Slot  8: 668 Pyroar             Lv. 35 | Origin: OR     | Ball: Repeat     | IVs: 31/0/31/31/31/31
+Box 23, Slot  9: 669 Flabébé            Lv.  1 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 23, Slot 10: 670 Floette            Lv. 19 | Origin: OR     | Ball: Heal       | IVs: 31/0/31/31/31/31
+Box 23, Slot 11: 671 Florges            Lv. 19 | Origin: OR     | Ball: Dusk       | IVs: 31/0/31/31/31/31
+Box 23, Slot 12: 672 Skiddo             Lv.  1 | Origin: OR     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 23, Slot 13: 673 Gogoat             Lv. 32 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 23, Slot 14: 674 Pancham            Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 23, Slot 15: 675 Pangoro            Lv. 32 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 23, Slot 16: 676 Furfrou            Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 23, Slot 17: 677 Espurr             Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 23, Slot 18: 678 Meowstic           Lv. 25 | Origin: OR     | Ball: Heal       | IVs: 31/0/31/31/31/31
+Box 23, Slot 19: 679 Honedge            Lv.  1 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 23, Slot 20: 680 Doublade           Lv. 35 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 23, Slot 21: 681 Aegislash          Lv. 35 | Origin: OR     | Ball: Heal       | IVs: 31/31/31/31/31/31
+Box 23, Slot 22: 682 Spritzee           Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 23, Slot 23: 683 Aromatisse         Lv.  1 | Origin: OR     | Ball: Heal       | IVs: 31/0/31/31/31/31
+Box 23, Slot 24: 684 Swirlix            Lv.  1 | Origin: OR     | Ball: Heal       | IVs: 31/31/31/31/31/31
+Box 23, Slot 25: 685 Slurpuff           Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 23, Slot 26: 686 Inkay              Lv.  1 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 23, Slot 27: 687 Malamar            Lv. 30 | Origin: OR     | Ball: Heal       | IVs: 31/31/31/31/31/31
+Box 23, Slot 28: 688 Binacle            Lv.  1 | Origin: OR     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box 23, Slot 29: 689 Barbaracle         Lv. 39 | Origin: OR     | Ball: Great      | IVs: 31/31/31/31/31/31
+Box 23, Slot 30: 690 Skrelp             Lv.  1 | Origin: OR     | Ball: Great      | IVs: 31/31/31/31/31/31
+Box 24, Slot  1: 691 Dragalge           Lv. 48 | Origin: OR     | Ball: Repeat     | IVs: 31/31/31/31/31/31
+Box 24, Slot  2: 692 Clauncher          Lv.  1 | Origin: OR     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 24, Slot  3: 693 Clawitzer          Lv. 37 | Origin: OR     | Ball: Net        | IVs: 31/0/31/31/31/31
+Box 24, Slot  4: 694 Helioptile         Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 24, Slot  5: 695 Heliolisk          Lv.  1 | Origin: OR     | Ball: Repeat     | IVs: 31/0/31/31/31/31
+Box 24, Slot  6: 696 Tyrunt             Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 24, Slot  7: 697 Tyrantrum          Lv. 39 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 24, Slot  8: 698 Amaura             Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 24, Slot  9: 699 Aurorus            Lv. 39 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 24, Slot 10: 700 Sylveon            Lv.  2 | Origin: OR     | Ball: Heal       | IVs: 31/0/31/31/31/31
+Box 24, Slot 11: 701 Hawlucha           Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 24, Slot 12: 702 Dedenne            Lv.  1 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 24, Slot 13: 703 Carbink            Lv.  1 | Origin: OR     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 24, Slot 14: 704 Goomy              Lv.  1 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 24, Slot 15: 705 Sliggoo            Lv. 40 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 24, Slot 16: 706 Goodra             Lv. 50 | Origin: OR     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 24, Slot 17: 707 Klefki             Lv.  1 | Origin: OR     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 24, Slot 18: 708 Phantump           Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 24, Slot 19: 709 Trevenant          Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 24, Slot 20: 710 Pumpkaboo          Lv.  1 | Origin: OR     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 24, Slot 21: 711 Gourgeist          Lv.  1 | Origin: OR     | Ball: Heal       | IVs: 31/31/31/31/31/31
+Box 24, Slot 22: 712 Bergmite           Lv.  1 | Origin: OR     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 24, Slot 23: 713 Avalugg            Lv. 37 | Origin: OR     | Ball: Great      | IVs: 31/31/31/31/31/31
+Box 24, Slot 24: 714 Noibat             Lv.  1 | Origin: OR     | Ball: Repeat     | IVs: 31/31/31/31/31/31
+Box 24, Slot 25: 715 Noivern            Lv. 48 | Origin: OR     | Ball: Repeat     | IVs: 31/0/31/31/31/31
+Box 24, Slot 26: 716 Xerneas            Lv. 50 | Origin: X      | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 24, Slot 27: 717 Yveltal            Lv. 50 | Origin: Y      | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 24, Slot 28: 718 Zygarde            Lv.100 | Origin: OR     | Ball: Cherish    | IVs: 31/31/31/31/31/31
+Box 24, Slot 29: 719 Diancie            Lv. 50 | Origin: OR     | Ball: Cherish    | IVs: 31/31/31/31/31/31
+Box 24, Slot 30: 720 Hoopa              Lv. 15 | Origin: US     | Ball: Cherish    | IVs: 31/0/31/31/31/31
+Box 25, Slot  1: 721 Volcanion          Lv. 70 | Origin: OR     | Ball: Cherish    | IVs: 31/31/31/31/31/31
+Box 25, Slot  2: 722 Rowlet             Lv.  1 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 25, Slot  3: 723 Dartrix            Lv. 17 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 25, Slot  4: 724 Decidueye          Lv. 34 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 25, Slot  5: 725 Litten             Lv.  1 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 25, Slot  6: 726 Torracat           Lv. 17 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 25, Slot  7: 727 Incineroar         Lv. 34 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 25, Slot  8: 728 Popplio            Lv.  1 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 25, Slot  9: 729 Brionne            Lv. 17 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 25, Slot 10: 730 Primarina          Lv. 34 | Origin: UM     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 25, Slot 11: 731 Pikipek            Lv.  1 | Origin: UM     | Ball: Great      | IVs: 31/31/31/31/31/31
+Box 25, Slot 12: 732 Trumbeak           Lv. 14 | Origin: UM     | Ball: Heavy      | IVs: 31/31/31/31/31/31
+Box 25, Slot 13: 733 Toucannon          Lv. 28 | Origin: UM     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 25, Slot 14: 734 Yungoos            Lv.  1 | Origin: UM     | Ball: Great      | IVs: 31/31/31/31/31/31
+Box 25, Slot 15: 735 Gumshoos           Lv. 20 | Origin: UM     | Ball: Heavy      | IVs: 31/31/31/31/31/31
+Box 25, Slot 16: 736 Grubbin            Lv.  1 | Origin: UM     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 25, Slot 17: 737 Charjabug          Lv. 20 | Origin: UM     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 25, Slot 18: 738 Vikavolt           Lv. 21 | Origin: UM     | Ball: Net        | IVs: 31/0/31/31/31/31
+Box 25, Slot 19: 739 Crabrawler         Lv.  1 | Origin: UM     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 25, Slot 20: 740 Crabominable       Lv.  2 | Origin: UM     | Ball: Lure       | IVs: 31/31/31/31/31/31
+Box 25, Slot 21: 741 Oricorio           Lv.  1 | Origin: UM     | Ball: Level      | IVs: 31/0/31/31/31/31
+Box 25, Slot 22: 742 Cutiefly           Lv.  1 | Origin: UM     | Ball: Moon       | IVs: 31/31/31/31/31/31
+Box 25, Slot 23: 743 Ribombee           Lv. 25 | Origin: UM     | Ball: Dusk       | IVs: 31/0/31/31/31/31
+Box 25, Slot 24: 744 Rockruff           Lv.  1 | Origin: UM     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 25, Slot 25: 745 Lycanroc           Lv. 25 | Origin: UM     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 25, Slot 26: 746 Wishiwashi         Lv.  1 | Origin: UM     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 25, Slot 27: 747 Mareanie           Lv.  1 | Origin: UM     | Ball: Lure       | IVs: 31/31/31/31/31/31
+Box 25, Slot 28: 748 Toxapex            Lv. 38 | Origin: UM     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box 25, Slot 29: 749 Mudbray            Lv.  1 | Origin: UM     | Ball: Heavy      | IVs: 31/31/31/31/31/31
+Box 25, Slot 30: 750 Mudsdale           Lv. 30 | Origin: UM     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 26, Slot  1: 751 Dewpider           Lv.  1 | Origin: UM     | Ball: Lure       | IVs: 31/31/31/31/31/31
+Box 26, Slot  2: 752 Araquanid          Lv. 22 | Origin: UM     | Ball: Dive       | IVs: 31/31/31/31/31/31
+Box 26, Slot  3: 753 Fomantis           Lv.  1 | Origin: UM     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 26, Slot  4: 754 Lurantis           Lv. 34 | Origin: UM     | Ball: Friend     | IVs: 31/31/31/31/31/31
+Box 26, Slot  5: 755 Morelull           Lv.  1 | Origin: UM     | Ball: Moon       | IVs: 31/0/31/31/31/31
+Box 26, Slot  6: 756 Shiinotic          Lv. 24 | Origin: UM     | Ball: Love       | IVs: 31/0/31/31/31/31
+Box 26, Slot  7: 757 Salandit           Lv.  1 | Origin: UM     | Ball: Fast       | IVs: 31/0/31/31/31/31
+Box 26, Slot  8: 758 Salazzle           Lv. 33 | Origin: UM     | Ball: Nest       | IVs: 31/0/31/31/31/31
+Box 26, Slot  9: 759 Stufful            Lv.  1 | Origin: UM     | Ball: Premier    | IVs: 31/31/31/31/31/31
+Box 26, Slot 10: 760 Bewear             Lv. 27 | Origin: UM     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 26, Slot 11: 761 Bounsweet          Lv.  1 | Origin: UM     | Ball: Friend     | IVs: 31/31/31/31/31/31
+Box 26, Slot 12: 762 Steenee            Lv. 18 | Origin: UM     | Ball: Friend     | IVs: 31/31/31/31/31/31
+Box 26, Slot 13: 763 Tsareena           Lv. 19 | Origin: UM     | Ball: Friend     | IVs: 31/31/31/31/31/31
+Box 26, Slot 14: 764 Comfey             Lv.  1 | Origin: UM     | Ball: Dusk       | IVs: 31/0/31/31/31/31
+Box 26, Slot 15: 765 Oranguru           Lv.  1 | Origin: UM     | Ball: Love       | IVs: 31/0/31/31/31/31
+Box 26, Slot 16: 766 Passimian          Lv.  1 | Origin: UM     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 26, Slot 17: 767 Wimpod             Lv.  1 | Origin: UM     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box 26, Slot 18: 768 Golisopod          Lv. 30 | Origin: UM     | Ball: Lure       | IVs: 31/31/31/31/31/31
+Box 26, Slot 19: 769 Sandygast          Lv.  1 | Origin: UM     | Ball: Moon       | IVs: 31/31/31/31/31/31
+Box 26, Slot 20: 770 Palossand          Lv. 42 | Origin: UM     | Ball: Moon       | IVs: 31/31/31/31/31/31
+Box 26, Slot 21: 771 Pyukumuku          Lv.  1 | Origin: UM     | Ball: Lure       | IVs: 31/31/31/31/31/31
+Box 26, Slot 22: 772 Type: Null         Lv. 60 | Origin: US     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 26, Slot 23: 773 Silvally           Lv. 61 | Origin: US     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 26, Slot 24: 774 Minior             Lv.  1 | Origin: UM     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 26, Slot 25: 775 Komala             Lv.  1 | Origin: UM     | Ball: Heavy      | IVs: 31/31/31/31/31/31
+Box 26, Slot 26: 776 Turtonator         Lv.  1 | Origin: UM     | Ball: Fast       | IVs: 31/31/31/31/31/31
+Box 26, Slot 27: 777 Togedemaru         Lv.  1 | Origin: UM     | Ball: Fast       | IVs: 31/31/31/31/31/31
+Box 26, Slot 28: 778 Mimikyu            Lv.  1 | Origin: UM     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 26, Slot 29: 779 Bruxish            Lv.  1 | Origin: UM     | Ball: Love       | IVs: 31/31/31/31/31/31
+Box 26, Slot 30: 780 Drampa             Lv.  1 | Origin: UM     | Ball: Repeat     | IVs: 31/0/31/31/31/31
+Box 27, Slot  1: 781 Dhelmise           Lv.  1 | Origin: UM     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 27, Slot  2: 782 Jangmo-o           Lv.  1 | Origin: UM     | Ball: Fast       | IVs: 31/31/31/31/31/31
+Box 27, Slot  3: 783 Hakamo-o           Lv. 35 | Origin: UM     | Ball: Fast       | IVs: 31/31/31/31/31/31
+Box 27, Slot  4: 784 Kommo-o            Lv. 45 | Origin: UM     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 27, Slot  5: 785 Tapu Koko          Lv. 60 | Origin: US     | Ball: Moon       | IVs: 31/31/31/31/31/31
+Box 27, Slot  6: 786 Tapu Lele          Lv. 60 | Origin: US     | Ball: Moon       | IVs: 31/0/31/31/31/31
+Box 27, Slot  7: 787 Tapu Bulu          Lv. 60 | Origin: US     | Ball: Dusk       | IVs: 31/31/31/31/31/31
+Box 27, Slot  8: 788 Tapu Fini          Lv. 60 | Origin: US     | Ball: Love       | IVs: 31/31/31/31/31/31
+Box 27, Slot  9: 789 Cosmog             Lv.  5 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 27, Slot 10: 790 Cosmoem            Lv. 43 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 27, Slot 11: 791 Solgaleo           Lv. 53 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 27, Slot 12: 792 Lunala             Lv. 53 | Origin: UM     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 27, Slot 13: 793 Nihilego           Lv. 60 | Origin: US     | Ball: Nest       | IVs: 31/0/31/31/31/31
+Box 27, Slot 14: 794 Buzzwole           Lv. 60 | Origin: US     | Ball: Nest       | IVs: 31/31/31/31/31/31
+Box 27, Slot 15: 795 Pheromosa          Lv. 60 | Origin: UM     | Ball: Net        | IVs: 31/31/31/31/31/31
+Box 27, Slot 16: 796 Xurkitree          Lv. 60 | Origin: US     | Ball: Repeat     | IVs: 31/0/31/31/31/31
+Box 27, Slot 17: 797 Celesteela         Lv. 60 | Origin: UM     | Ball: Level      | IVs: 31/31/31/31/31/31
+Box 27, Slot 18: 798 Kartana            Lv. 60 | Origin: US     | Ball: Friend     | IVs: 31/31/31/31/31/31
+Box 27, Slot 19: 799 Guzzlord           Lv. 60 | Origin: US     | Ball: Love       | IVs: 31/31/31/31/31/31
+Box 27, Slot 20: 800 Necrozma           Lv. 65 | Origin: US     | Ball: Moon       | IVs: 31/31/31/31/31/31
+Box 27, Slot 21: 801 Magearna           Lv. 50 | Origin: US     | Ball: Cherish    | IVs: 31/0/31/31/31/31
+Box 27, Slot 22: 802 Marshadow          Lv. 50 | Origin: US     | Ball: Cherish    | IVs: 31/31/31/31/31/31
+Box 27, Slot 23: 803 Poipole            Lv. 40 | Origin: US     | Ball: Poke       | IVs: 31/31/31/31/31/31
+Box 27, Slot 24: 804 Naganadel          Lv. 41 | Origin: US     | Ball: Poke       | IVs: 31/0/31/31/31/31
+Box 27, Slot 25: 805 Stakataka          Lv. 60 | Origin: UM     | Ball: Ultra      | IVs: 31/31/31/31/31/31
+Box 27, Slot 26: 806 Blacephalon        Lv. 60 | Origin: US     | Ball: Love       | IVs: 31/31/31/31/31/31
+Box 27, Slot 27: 807 Zeraora            Lv. 50 | Origin: US     | Ball: Cherish    | IVs: 31/31/31/31/31/31
+===============================================================================

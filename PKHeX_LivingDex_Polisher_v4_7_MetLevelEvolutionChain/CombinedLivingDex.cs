@@ -646,7 +646,6 @@ public sealed class CombinedLivingDex : AutoModPlugin
                             resultPKM.OriginalTrainerName = shortOT;
                             resultPKM.TID16 = sav.TID16;
                             resultPKM.SID16 = sav.SID16;
-                            resultPKM.MetLocation = 30001; // Poké Transfer
                         }
                         else
                         {
@@ -809,6 +808,7 @@ public sealed class CombinedLivingDex : AutoModPlugin
     private static bool IsEventOnlyMythical(Species s) => s is
         Species.Mew or Species.Jirachi or
         Species.Phione or Species.Manaphy or
+        Species.Darkrai or Species.Shaymin or Species.Arceus or
         Species.Victini or Species.Keldeo or Species.Meloetta or Species.Genesect or
         Species.Diancie or Species.Hoopa or Species.Volcanion or
         Species.Marshadow or Species.Zeraora;
@@ -817,9 +817,6 @@ public sealed class CombinedLivingDex : AutoModPlugin
     {
         if (s == Species.Celebi && v == GameVersion.C) return true;
         if (s == Species.Deoxys && (v == GameVersion.OR || v == GameVersion.AS)) return true;
-        if (s == Species.Darkrai && v == GameVersion.Pt) return true;
-        if (s == Species.Shaymin && v == GameVersion.Pt) return true;
-        if (s == Species.Arceus && v == GameVersion.Pt) return true;
         if (s == Species.Magearna && (v == GameVersion.US || v == GameVersion.UM || v == GameVersion.SN || v == GameVersion.MN)) return true;
         return false;
     }
