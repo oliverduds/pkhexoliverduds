@@ -55,6 +55,36 @@ public enum BoxPlacementPreference
     ClearBoxesFirst
 }
 
+public enum RegionalOriginKantoJohto
+{
+    VirtualConsole,
+    NintendoDS_HGSS,
+}
+
+public enum RegionalOriginHoenn
+{
+    OmegaRubyAlphaSapphire,
+    NintendoDS_HGSS,
+}
+
+public enum RegionalOriginSinnoh
+{
+    NintendoDS_PlatinumDP,
+    Nintendo3DS_Alola,
+}
+
+public enum RegionalOriginUnova
+{
+    NintendoDS_BlackWhite,
+    Nintendo3DS_Alola,
+}
+
+public enum RegionalOriginMirrorLegendary
+{
+    NintendoDS_Transfer,
+    Nintendo3DS_MirrorVersion,
+}
+
 public sealed class LivingDexCustomOptions
 {
     public LivingDexMode Mode { get; set; } = LivingDexMode.Normal;
@@ -67,6 +97,13 @@ public sealed class LivingDexCustomOptions
     public int StartBox { get; set; } = 1;
     public BoxPlacementPreference BoxPreference { get; set; } = BoxPlacementPreference.Overwrite;
     public bool ExportReport { get; set; } = true;
+
+    // Regional Origin Customization (Gen 7)
+    public RegionalOriginKantoJohto OriginKantoJohto { get; set; } = RegionalOriginKantoJohto.VirtualConsole;
+    public RegionalOriginHoenn OriginHoenn { get; set; } = RegionalOriginHoenn.OmegaRubyAlphaSapphire;
+    public RegionalOriginSinnoh OriginSinnoh { get; set; } = RegionalOriginSinnoh.NintendoDS_PlatinumDP;
+    public RegionalOriginUnova OriginUnova { get; set; } = RegionalOriginUnova.NintendoDS_BlackWhite;
+    public RegionalOriginMirrorLegendary OriginMirrorLegendary { get; set; } = RegionalOriginMirrorLegendary.NintendoDS_Transfer;
 }
 
 /// <summary>
@@ -470,18 +507,19 @@ public sealed class CombinedLivingDex : AutoModPlugin
         int country = (sav as SAV7)?.Country ?? 49;
         int region = (sav as SAV7)?.Region ?? 1;
 
-        string vcOT = sav.OT.Length > 7 ? sav.OT[..7] : sav.OT;
-        var trVC = new SimpleTrainerInfo(GameVersion.C)
-        {
-            OT = vcOT,
-            TID16 = sav.TID16,
-            SID16 = 0,
-            Language = sav.Language,
-            ConsoleRegion = (byte)consoleRegion,
-            Country = (byte)country,
-            Region = (byte)region,
-        };
+        string shortOT = sav.OT.Length > 7 ? sav.OT[..7] : sav.OT;
+        var trVC = new SimpleTrainerInfo(GameVersion.C) { OT = shortOT, TID16 = sav.TID16, SID16 = 0, Language = sav.Language, ConsoleRegion = (byte)consoleRegion, Country = (byte)country, Region = (byte)region };
 
+        // DS Trainers (OT max 7 chars for English games)
+        var trPt = new SimpleTrainerInfo(GameVersion.Pt) { OT = shortOT, TID16 = sav.TID16, SID16 = sav.SID16, Language = sav.Language, ConsoleRegion = (byte)consoleRegion, Country = (byte)country, Region = (byte)region };
+        var trD = new SimpleTrainerInfo(GameVersion.D) { OT = shortOT, TID16 = sav.TID16, SID16 = sav.SID16, Language = sav.Language, ConsoleRegion = (byte)consoleRegion, Country = (byte)country, Region = (byte)region };
+        var trP = new SimpleTrainerInfo(GameVersion.P) { OT = shortOT, TID16 = sav.TID16, SID16 = sav.SID16, Language = sav.Language, ConsoleRegion = (byte)consoleRegion, Country = (byte)country, Region = (byte)region };
+        var trHG = new SimpleTrainerInfo(GameVersion.HG) { OT = shortOT, TID16 = sav.TID16, SID16 = sav.SID16, Language = sav.Language, ConsoleRegion = (byte)consoleRegion, Country = (byte)country, Region = (byte)region };
+        var trSS = new SimpleTrainerInfo(GameVersion.SS) { OT = shortOT, TID16 = sav.TID16, SID16 = sav.SID16, Language = sav.Language, ConsoleRegion = (byte)consoleRegion, Country = (byte)country, Region = (byte)region };
+        var trB = new SimpleTrainerInfo(GameVersion.B) { OT = shortOT, TID16 = sav.TID16, SID16 = sav.SID16, Language = sav.Language, ConsoleRegion = (byte)consoleRegion, Country = (byte)country, Region = (byte)region };
+        var trW = new SimpleTrainerInfo(GameVersion.W) { OT = shortOT, TID16 = sav.TID16, SID16 = sav.SID16, Language = sav.Language, ConsoleRegion = (byte)consoleRegion, Country = (byte)country, Region = (byte)region };
+
+        // 3DS Trainers (OT up to 12 chars)
         GameVersion mirrorVersion = sav.Version == GameVersion.US ? GameVersion.UM : GameVersion.US;
         var trMirror = new SimpleTrainerInfo(mirrorVersion)
         {
@@ -494,17 +532,9 @@ public sealed class CombinedLivingDex : AutoModPlugin
             Region = (byte)region,
         };
 
-        GameVersion orasVersion = sav.Version == GameVersion.US ? GameVersion.OR : GameVersion.AS;
-        var trORAS = new SimpleTrainerInfo(orasVersion)
-        {
-            OT = sav.OT,
-            TID16 = sav.TID16,
-            SID16 = sav.SID16,
-            Language = sav.Language,
-            ConsoleRegion = (byte)consoleRegion,
-            Country = (byte)country,
-            Region = (byte)region,
-        };
+        var trOR = new SimpleTrainerInfo(GameVersion.OR) { OT = sav.OT, TID16 = sav.TID16, SID16 = sav.SID16, Language = sav.Language, ConsoleRegion = (byte)consoleRegion, Country = (byte)country, Region = (byte)region };
+        var trAS = new SimpleTrainerInfo(GameVersion.AS) { OT = sav.OT, TID16 = sav.TID16, SID16 = sav.SID16, Language = sav.Language, ConsoleRegion = (byte)consoleRegion, Country = (byte)country, Region = (byte)region };
+        var trX = new SimpleTrainerInfo(GameVersion.X) { OT = sav.OT, TID16 = sav.TID16, SID16 = sav.SID16, Language = sav.Language, ConsoleRegion = (byte)consoleRegion, Country = (byte)country, Region = (byte)region };
 
         Parallel.For(1, maxSpecies + 1, id =>
         {
@@ -520,24 +550,79 @@ public sealed class CombinedLivingDex : AutoModPlugin
             // Direct encounter generation
             if (!isMythical)
             {
-                bool isMirror = sav.Version == GameVersion.US ? IsUltraMoonExclusive(species) : IsUltraSunExclusive(species);
                 ITrainerInfo tr;
 
-                if (isMirror)
+                // 1. Kanto & Johto (#001-#251)
+                if (s <= 251)
                 {
-                    tr = trMirror; // Transferred from mirror counterpart version!
+                    tr = options.OriginKantoJohto == RegionalOriginKantoJohto.VirtualConsole ? trVC : trHG;
                 }
-                else if (s <= 251)
+                // 2. Hoenn (#252-#386)
+                else if (s <= 386)
                 {
-                    tr = trVC; // VC Crystal
+                    if (options.OriginHoenn == RegionalOriginHoenn.OmegaRubyAlphaSapphire)
+                    {
+                        if (species is Species.Kyogre or Species.Latias) tr = trMirror; // Ultra Moon / Alpha Sapphire
+                        else if (species is Species.Groudon or Species.Latios) tr = sav; // Ultra Sun / Omega Ruby
+                        else tr = trOR;
+                    }
+                    else
+                    {
+                        if (species is Species.Kyogre) tr = trHG;
+                        else if (species is Species.Groudon) tr = trSS;
+                        else tr = trHG;
+                    }
                 }
-                else if (s <= 386 && !IsUltraWormholeLegendary(species))
+                // 3. Sinnoh (#387-#493)
+                else if (s <= 493)
                 {
-                    tr = trORAS; // ORAS
+                    if (options.OriginSinnoh == RegionalOriginSinnoh.NintendoDS_PlatinumDP)
+                    {
+                        if (species is Species.Palkia) tr = trP;
+                        else if (species is Species.Dialga) tr = trD;
+                        else tr = trPt;
+                    }
+                    else
+                    {
+                        if (species is Species.Palkia or Species.Regigigas) tr = trMirror;
+                        else if (species is Species.Dialga or Species.Heatran) tr = sav;
+                        else tr = trPt;
+                    }
                 }
+                // 4. Unova (#494-#649)
+                else if (s <= 649)
+                {
+                    if (options.OriginUnova == RegionalOriginUnova.NintendoDS_BlackWhite)
+                    {
+                        if (species is Species.Reshiram or Species.Tornadus) tr = trB;
+                        else if (species is Species.Zekrom or Species.Thundurus) tr = trW;
+                        else if (species is Species.Cobalion or Species.Terrakion or Species.Virizion or Species.Landorus or Species.Kyurem) tr = sav;
+                        else tr = trB;
+                    }
+                    else
+                    {
+                        if (species is Species.Zekrom or Species.Thundurus) tr = trMirror;
+                        else if (species is Species.Reshiram or Species.Tornadus) tr = sav;
+                        else tr = trB;
+                    }
+                }
+                // 5. Kalos (#650-#721)
+                else if (s <= 721)
+                {
+                    if (species is Species.Scatterbug or Species.Spewpa or Species.Vivillon)
+                        tr = sav;
+                    else
+                        tr = trX;
+                }
+                // 6. Alola (#722-#807)
                 else
                 {
-                    tr = sav; // Ultra Sun / Ultra Moon native!
+                    if (IsUltraMoonExclusive(species))
+                        tr = sav.Version == GameVersion.US ? trMirror : sav;
+                    else if (IsUltraSunExclusive(species))
+                        tr = sav.Version == GameVersion.UM ? trMirror : sav;
+                    else
+                        tr = sav;
                 }
 
                 bool allowShiny = isShiny && !SimpleEdits.IsShinyLockedSpeciesForm(s, 0) && !IsShinyLockedMythicalGen7(species);
@@ -548,11 +633,20 @@ public sealed class CombinedLivingDex : AutoModPlugin
                     if (resultPKM is not null && !ReferenceEquals(tr, sav))
                     {
                         bool isVC = resultPKM.Version is GameVersion.RD or GameVersion.BU or GameVersion.YW or GameVersion.GD or GameVersion.SI or GameVersion.C;
+                        bool isDS = resultPKM.Version is GameVersion.D or GameVersion.P or GameVersion.Pt or GameVersion.HG or GameVersion.SS or GameVersion.B or GameVersion.W or GameVersion.B2 or GameVersion.W2;
+
                         if (isVC)
                         {
-                            resultPKM.OriginalTrainerName = vcOT;
+                            resultPKM.OriginalTrainerName = shortOT;
                             resultPKM.TID16 = sav.TID16;
                             resultPKM.SID16 = 0;
+                        }
+                        else if (isDS)
+                        {
+                            resultPKM.OriginalTrainerName = shortOT;
+                            resultPKM.TID16 = sav.TID16;
+                            resultPKM.SID16 = sav.SID16;
+                            resultPKM.MetLocation = 30001; // Poké Transfer
                         }
                         else
                         {
@@ -911,6 +1005,17 @@ public sealed class LivingDexOptionsForm : Form
     private readonly ComboBox _cbMode;
     private readonly CheckBox _chkIncludeForms;
     private readonly CheckBox _chkRespectShinyLocks;
+
+    // Regional Origins (Gen 7)
+    private readonly GroupBox? _grpOrigins;
+    private readonly ComboBox? _cbOriginPreset;
+    private readonly ComboBox? _cbOriginKantoJohto;
+    private readonly ComboBox? _cbOriginHoenn;
+    private readonly ComboBox? _cbOriginSinnoh;
+    private readonly ComboBox? _cbOriginUnova;
+    private readonly ComboBox? _cbOriginMirror;
+    private bool _updatingOriginPreset = false;
+
     private readonly ComboBox _cbBallPref;
     private readonly ComboBox _cbIVPref;
     private readonly ComboBox _cbLevelPref;
@@ -925,8 +1030,9 @@ public sealed class LivingDexOptionsForm : Form
     {
         _sav = sav;
 
+        int formHeight = sav.Generation == 7 ? 815 : 610;
         Text = "Configurador Avançado de Living Dex";
-        ClientSize = new Size(620, 610);
+        ClientSize = new Size(620, formHeight);
         FormBorderStyle = FormBorderStyle.FixedDialog;
         StartPosition = FormStartPosition.CenterScreen;
         MaximizeBox = false;
@@ -1027,12 +1133,170 @@ public sealed class LivingDexOptionsForm : Form
         grpMode.Controls.Add(_chkIncludeForms);
         grpMode.Controls.Add(_chkRespectShinyLocks);
 
-        // Group 2: Personalização & Polimento
+        // Group: Origens Canônicas por Região (Exclusivo Gen 7)
+        if (sav.Generation == 7)
+        {
+            _grpOrigins = new GroupBox
+            {
+                Text = " 🕹️ 2. Origens Canônicas por Região (Nintendo DS vs 3DS) ",
+                Font = new Font(Font.FontFamily, 9f, FontStyle.Bold),
+                Location = new Point(15, 200),
+                Size = new Size(590, 205),
+            };
+
+            var lblPreset = new Label { Text = "Preset Canônico:", Location = new Point(15, 23), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Bold) };
+            _cbOriginPreset = new ComboBox
+            {
+                Location = new Point(140, 20),
+                Size = new Size(430, 24),
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+            };
+            _cbOriginPreset.Items.AddRange([
+                "🏆 Canônica Perfeita (VC 1/2 + ORAS 3 + DS 4/5 + 3DS 6/7) [Recomendado]",
+                "🕹️ Nostalgia Nintendo DS (Gens 1 a 5 no DS via Poké Transfer)",
+                "🍀 Coleção 3DS Nativa (Ultra Wormholes Alola)",
+                "⚙️ Personalizado..."
+            ]);
+            _cbOriginPreset.SelectedIndex = 0;
+
+            var lblKJ = new Label { Text = "Gens 1 & 2 (Kanto/Johto):", Location = new Point(15, 53), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular) };
+            _cbOriginKantoJohto = new ComboBox
+            {
+                Location = new Point(175, 50),
+                Size = new Size(395, 24),
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+            };
+            _cbOriginKantoJohto.Items.AddRange([
+                "🎮 Virtual Console 3DS (Game Boy Mark, HA, OT Oliverd)",
+                "🕹️ Nintendo DS (HeartGold / SoulSilver Transfer, OT Oliverd)"
+            ]);
+            _cbOriginKantoJohto.SelectedIndex = 0;
+
+            var lblH = new Label { Text = "Gen 3 (Hoenn):", Location = new Point(15, 82), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular) };
+            _cbOriginHoenn = new ComboBox
+            {
+                Location = new Point(175, 79),
+                Size = new Size(395, 24),
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+            };
+            _cbOriginHoenn.Items.AddRange([
+                "⬟ 3DS Remakes (Omega Ruby / Alpha Sapphire, OT Oliverduds)",
+                "🕹️ Nintendo DS (HGSS Safari / Pal Park Transfer, OT Oliverd)"
+            ]);
+            _cbOriginHoenn.SelectedIndex = 0;
+
+            var lblSin = new Label { Text = "Gen 4 (Sinnoh):", Location = new Point(15, 111), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular) };
+            _cbOriginSinnoh = new ComboBox
+            {
+                Location = new Point(175, 108),
+                Size = new Size(395, 24),
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+            };
+            _cbOriginSinnoh.Items.AddRange([
+                "🕹️ Nintendo DS (Platinum / Diamond / Pearl Transfer, OT Oliverd)",
+                "🍀 3DS Alola (Ultra Space Wilds / Island Scan, OT Oliverduds)"
+            ]);
+            _cbOriginSinnoh.SelectedIndex = 0;
+
+            var lblUno = new Label { Text = "Gen 5 (Unova):", Location = new Point(15, 140), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular) };
+            _cbOriginUnova = new ComboBox
+            {
+                Location = new Point(175, 137),
+                Size = new Size(395, 24),
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+            };
+            _cbOriginUnova.Items.AddRange([
+                "🕹️ Nintendo DS (Black / White / B2 / W2 Transfer, OT Oliverd)",
+                "🍀 3DS Alola (Ultra Space Wilds / Island Scan, OT Oliverduds)"
+            ]);
+            _cbOriginUnova.SelectedIndex = 0;
+
+            var lblMir = new Label { Text = "Lendários Espelho:", Location = new Point(15, 169), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular) };
+            _cbOriginMirror = new ComboBox
+            {
+                Location = new Point(175, 166),
+                Size = new Size(395, 24),
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+            };
+            _cbOriginMirror.Items.AddRange([
+                "🕹️ Nintendo DS (Pearl, HeartGold, White Transfer, OT Oliverd)",
+                "🍀 3DS Versão Espelho (Ultra Moon / Ultra Sun Transfer, OT Oliverduds)"
+            ]);
+            _cbOriginMirror.SelectedIndex = 0;
+
+            _cbOriginPreset.SelectedIndexChanged += (_, _) =>
+            {
+                if (_updatingOriginPreset) return;
+                _updatingOriginPreset = true;
+                int p = _cbOriginPreset.SelectedIndex;
+                if (p == 0) // Canônica Perfeita
+                {
+                    _cbOriginKantoJohto.SelectedIndex = 0;
+                    _cbOriginHoenn.SelectedIndex = 0;
+                    _cbOriginSinnoh.SelectedIndex = 0;
+                    _cbOriginUnova.SelectedIndex = 0;
+                    _cbOriginMirror.SelectedIndex = 0;
+                }
+                else if (p == 1) // Nostalgia Nintendo DS
+                {
+                    _cbOriginKantoJohto.SelectedIndex = 1;
+                    _cbOriginHoenn.SelectedIndex = 1;
+                    _cbOriginSinnoh.SelectedIndex = 0;
+                    _cbOriginUnova.SelectedIndex = 0;
+                    _cbOriginMirror.SelectedIndex = 0;
+                }
+                else if (p == 2) // 3DS Nativa
+                {
+                    _cbOriginKantoJohto.SelectedIndex = 0;
+                    _cbOriginHoenn.SelectedIndex = 0;
+                    _cbOriginSinnoh.SelectedIndex = 1;
+                    _cbOriginUnova.SelectedIndex = 1;
+                    _cbOriginMirror.SelectedIndex = 1;
+                }
+                _updatingOriginPreset = false;
+            };
+
+            void OnIndividualOriginChanged()
+            {
+                if (_updatingOriginPreset) return;
+                _updatingOriginPreset = true;
+                _cbOriginPreset.SelectedIndex = 3; // Personalizado...
+                _updatingOriginPreset = false;
+            }
+
+            _cbOriginKantoJohto.SelectedIndexChanged += (_, _) => OnIndividualOriginChanged();
+            _cbOriginHoenn.SelectedIndexChanged += (_, _) => OnIndividualOriginChanged();
+            _cbOriginSinnoh.SelectedIndexChanged += (_, _) => OnIndividualOriginChanged();
+            _cbOriginUnova.SelectedIndexChanged += (_, _) => OnIndividualOriginChanged();
+            _cbOriginMirror.SelectedIndexChanged += (_, _) => OnIndividualOriginChanged();
+
+            _grpOrigins.Controls.Add(lblPreset);
+            _grpOrigins.Controls.Add(_cbOriginPreset);
+            _grpOrigins.Controls.Add(lblKJ);
+            _grpOrigins.Controls.Add(_cbOriginKantoJohto);
+            _grpOrigins.Controls.Add(lblH);
+            _grpOrigins.Controls.Add(_cbOriginHoenn);
+            _grpOrigins.Controls.Add(lblSin);
+            _grpOrigins.Controls.Add(_cbOriginSinnoh);
+            _grpOrigins.Controls.Add(lblUno);
+            _grpOrigins.Controls.Add(_cbOriginUnova);
+            _grpOrigins.Controls.Add(lblMir);
+            _grpOrigins.Controls.Add(_cbOriginMirror);
+        }
+
+        // Group 2/3: Personalização & Polimento
+        int polishY = sav.Generation == 7 ? 415 : 200;
         var grpPolish = new GroupBox
         {
-            Text = " 🪄 2. Personalização & Polimento dos Pokémon ",
+            Text = sav.Generation == 7 ? " 🪄 3. Personalização & Polimento dos Pokémon " : " 🪄 2. Personalização & Polimento dos Pokémon ",
             Font = new Font(Font.FontFamily, 9f, FontStyle.Bold),
-            Location = new Point(15, 200),
+            Location = new Point(15, polishY),
             Size = new Size(590, 150),
         };
 
@@ -1103,12 +1367,13 @@ public sealed class LivingDexOptionsForm : Form
         grpPolish.Controls.Add(_cbLevelPref);
         grpPolish.Controls.Add(_chkGMax);
 
-        // Group 3: Caixas e Destino
+        // Group 3/4: Caixas e Destino
+        int boxY = sav.Generation == 7 ? 575 : 360;
         var grpBox = new GroupBox
         {
-            Text = " 🗄️ 3. Localização das Caixas & Gravação ",
+            Text = sav.Generation == 7 ? " 🗄️ 4. Localização das Caixas & Gravação " : " 🗄️ 3. Localização das Caixas & Gravação ",
             Font = new Font(Font.FontFamily, 9f, FontStyle.Bold),
-            Location = new Point(15, 360),
+            Location = new Point(15, boxY),
             Size = new Size(590, 110),
         };
 
@@ -1155,9 +1420,10 @@ public sealed class LivingDexOptionsForm : Form
         grpBox.Controls.Add(_chkExportReport);
 
         // Previsão de Capacidade
+        int previewY = sav.Generation == 7 ? 695 : 480;
         var pnlPreview = new Panel
         {
-            Location = new Point(15, 480),
+            Location = new Point(15, previewY),
             Size = new Size(590, 60),
             BackColor = Color.FromArgb(240, 244, 250),
             BorderStyle = BorderStyle.FixedSingle,
@@ -1185,10 +1451,11 @@ public sealed class LivingDexOptionsForm : Form
         pnlPreview.Controls.Add(_lblCapacityStatus);
 
         // Bottom buttons
+        int buttonY = sav.Generation == 7 ? 765 : 555;
         var btnGenerate = new Button
         {
             Text = "🚀 Gerar Living Dex Agora",
-            Location = new Point(370, 555),
+            Location = new Point(370, buttonY),
             Size = new Size(235, 38),
             Font = new Font(Font.FontFamily, 10f, FontStyle.Bold),
             BackColor = Color.FromArgb(0, 120, 215),
@@ -1200,7 +1467,7 @@ public sealed class LivingDexOptionsForm : Form
         var btnCancel = new Button
         {
             Text = "Cancelar",
-            Location = new Point(255, 555),
+            Location = new Point(255, buttonY),
             Size = new Size(105, 38),
             Font = new Font(Font.FontFamily, 9f, FontStyle.Regular),
             UseVisualStyleBackColor = true,
@@ -1209,6 +1476,8 @@ public sealed class LivingDexOptionsForm : Form
 
         Controls.Add(pnlHeader);
         Controls.Add(grpMode);
+        if (_grpOrigins != null)
+            Controls.Add(_grpOrigins);
         Controls.Add(grpPolish);
         Controls.Add(grpBox);
         Controls.Add(pnlPreview);
@@ -1323,6 +1592,15 @@ public sealed class LivingDexOptionsForm : Form
 
         Options.IncludeForms = _chkIncludeForms.Checked;
         Options.RespectShinyLocks = _chkRespectShinyLocks.Checked;
+
+        if (_sav.Generation == 7 && _cbOriginKantoJohto != null && _cbOriginHoenn != null && _cbOriginSinnoh != null && _cbOriginUnova != null && _cbOriginMirror != null)
+        {
+            Options.OriginKantoJohto = _cbOriginKantoJohto.SelectedIndex == 0 ? RegionalOriginKantoJohto.VirtualConsole : RegionalOriginKantoJohto.NintendoDS_HGSS;
+            Options.OriginHoenn = _cbOriginHoenn.SelectedIndex == 0 ? RegionalOriginHoenn.OmegaRubyAlphaSapphire : RegionalOriginHoenn.NintendoDS_HGSS;
+            Options.OriginSinnoh = _cbOriginSinnoh.SelectedIndex == 0 ? RegionalOriginSinnoh.NintendoDS_PlatinumDP : RegionalOriginSinnoh.Nintendo3DS_Alola;
+            Options.OriginUnova = _cbOriginUnova.SelectedIndex == 0 ? RegionalOriginUnova.NintendoDS_BlackWhite : RegionalOriginUnova.Nintendo3DS_Alola;
+            Options.OriginMirrorLegendary = _cbOriginMirror.SelectedIndex == 0 ? RegionalOriginMirrorLegendary.NintendoDS_Transfer : RegionalOriginMirrorLegendary.Nintendo3DS_MirrorVersion;
+        }
 
         Options.BallPreference = _cbBallPref.SelectedIndex switch
         {

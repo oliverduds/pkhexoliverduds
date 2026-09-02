@@ -12,7 +12,7 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        TestFull807Legality.Run();
+        TestAllOriginOptions.Run();
         return;
         Console.WriteLine("=== Testing Full Polisher Suite with Thematic Balls, Smart IVs & Reports ===");
 
