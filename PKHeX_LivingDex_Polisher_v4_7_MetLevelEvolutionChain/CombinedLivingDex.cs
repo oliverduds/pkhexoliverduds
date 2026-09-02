@@ -146,7 +146,12 @@ public sealed class CombinedLivingDex : AutoModPlugin
         var quickCombined = new ToolStripMenuItem("🌟 Quick: Generate Normal + Shiny Living Dex (Combined)");
         quickCombined.Click += async (_, _) => await GenerateQuick(LivingDexMode.Combined);
 
+        var rareEventItem = new ToolStripMenuItem("🎁 Rare Event & Mythical Pokémon Wizard (MGDB)...");
+        rareEventItem.Font = new Font(rareEventItem.Font, FontStyle.Bold);
+        rareEventItem.Click += (_, _) => OpenRareEventWizard();
+
         root.DropDownItems.Add(customItem);
+        root.DropDownItems.Add(rareEventItem);
         root.DropDownItems.Add(new ToolStripSeparator());
         root.DropDownItems.Add(gen7Normal);
         root.DropDownItems.Add(gen7Shiny);
@@ -156,6 +161,16 @@ public sealed class CombinedLivingDex : AutoModPlugin
         root.DropDownItems.Add(quickCombined);
 
         modmenu.DropDownItems.Add(root);
+    }
+
+    private void OpenRareEventWizard()
+    {
+        var sav = SaveFileEditor.SAV;
+        using var form = new RareEventPickerWizardForm(sav, () =>
+        {
+            SaveFileEditor.ReloadSlots();
+        });
+        form.ShowDialog();
     }
 
     private async Task OpenCustomWizard()

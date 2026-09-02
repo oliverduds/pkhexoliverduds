@@ -9,12 +9,20 @@ $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $PolisherFile = Join-Path $ScriptDir "LivingDexPolisher.cs"
 $CombinedDexFile = Join-Path $ScriptDir "CombinedLivingDex.cs"
 $ExportAllFile = Join-Path $ScriptDir "ExportBoxToShowdown.cs"
+$RareCatalogFile = Join-Path $ScriptDir "RareEventCatalog.cs"
+$RareFormFile = Join-Path $ScriptDir "RareEventPickerWizardForm.cs"
 
 if (!(Test-Path $PolisherFile)) {
     throw "LivingDexPolisher.cs was not found beside this script."
 }
 if (!(Test-Path $CombinedDexFile)) {
     throw "CombinedLivingDex.cs was not found beside this script."
+}
+if (!(Test-Path $RareCatalogFile)) {
+    throw "RareEventCatalog.cs was not found beside this script."
+}
+if (!(Test-Path $RareFormFile)) {
+    throw "RareEventPickerWizardForm.cs was not found beside this script."
 }
 
 if ([string]::IsNullOrWhiteSpace($PKHeXPath)) {
@@ -71,7 +79,9 @@ if (Test-Path $OldNormalizer) {
 
 Copy-Item $PolisherFile (Join-Path $PluginDir "LivingDexPolisher.cs") -Force
 Copy-Item $CombinedDexFile (Join-Path $PluginDir "CombinedLivingDex.cs") -Force
-Write-Host "Including Normal + Shiny Living Dex generator." -ForegroundColor Green
+Copy-Item $RareCatalogFile (Join-Path $PluginDir "RareEventCatalog.cs") -Force
+Copy-Item $RareFormFile (Join-Path $PluginDir "RareEventPickerWizardForm.cs") -Force
+Write-Host "Including Normal + Shiny Living Dex generator & Rare Event Wizard." -ForegroundColor Green
 
 if (Test-Path $ExportAllFile) {
     $TargetExport = Join-Path $PluginDir "ExportBoxToShowdown.cs"

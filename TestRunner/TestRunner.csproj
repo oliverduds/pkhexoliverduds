@@ -15,6 +15,7 @@
     <Reference Include="AutoModPlugins">
       <HintPath>..\pkhex\plugins\AutoModPlugins.dll</HintPath>
     </Reference>
+    <Compile Include="..\PKHeX_LivingDex_Polisher_v4_7_MetLevelEvolutionChain\RareEventCatalog.cs" Link="RareEventCatalog.cs" />
   </ItemGroup>
 
 </Project>
