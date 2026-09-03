@@ -1171,7 +1171,7 @@ public sealed class LivingDexOptionsForm : Form
         {
             Text = "Living Dex Generator & Customizer",
             ForeColor = Color.White,
-            Font = new Font(Font.FontFamily, 12f, FontStyle.Bold),
+            Font = new Font("Segoe UI", 12.5f, FontStyle.Bold),
             Location = new Point(15, 10),
             AutoSize = true,
         };
@@ -1179,8 +1179,8 @@ public sealed class LivingDexOptionsForm : Form
         var lblHeaderSub = new Label
         {
             Text = $"Jogo: {sav.Version} (Gen {sav.Generation}) | Treinador: {sav.OT} (TID: {sav.TID16}) | Armazenamento: {sav.BoxCount} Caixas ({sav.BoxCount * sav.BoxSlotCount} slots)",
-            ForeColor = Color.FromArgb(200, 220, 255),
-            Font = new Font(Font.FontFamily, 9f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(240, 248, 255),
+            Font = new Font("Segoe UI", 9.5f, FontStyle.Regular),
             Location = new Point(15, 36),
             AutoSize = true,
         };
@@ -1566,18 +1566,18 @@ public sealed class LivingDexOptionsForm : Form
         _lblEstimation = new Label
         {
             Location = new Point(10, 8),
-            Size = new Size(570, 20),
-            Font = new Font(Font.FontFamily, 9f, FontStyle.Bold),
-            ForeColor = Color.FromArgb(30, 50, 90),
+            Size = new Size(570, 22),
+            Font = new Font("Segoe UI", 9.75f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
             Text = "Calculando estimativa...",
         };
 
         _lblCapacityStatus = new Label
         {
-            Location = new Point(10, 30),
+            Location = new Point(10, 32),
             Size = new Size(570, 22),
-            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
-            ForeColor = Color.DarkGreen,
+            Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 110, 45),
             Text = "",
         };
 

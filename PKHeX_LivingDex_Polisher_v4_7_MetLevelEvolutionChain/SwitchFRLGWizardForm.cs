@@ -14,7 +14,7 @@ namespace AutoModPlugins;
 /// <summary>
 /// Assistente dedicado com abas para geração de Living Dex em Pokémon LeafGreen e FireRed
 /// no Nintendo Switch Edition (eShop 2026).
-/// Garante que apenas espécies legítimas e acessíveis no Switch sejam geradas.
+/// Garante alta legibilidade, contraste perfeito e que espécies de Hoenn não sejam geradas.
 /// </summary>
 public sealed class SwitchFRLGWizardForm : Form
 {
@@ -51,36 +51,37 @@ public sealed class SwitchFRLGWizardForm : Form
         _reloadCallback = reloadCallback;
 
         Text = "🍃 Pokémon LeafGreen & FireRed — Nintendo Switch Edition";
-        ClientSize = new Size(680, 560);
+        ClientSize = new Size(740, 630);
         FormBorderStyle = FormBorderStyle.FixedDialog;
         StartPosition = FormStartPosition.CenterScreen;
         MaximizeBox = false;
         MinimizeBox = false;
         ShowInTaskbar = true;
+        Font = new Font("Segoe UI", 9.5f, FontStyle.Regular);
 
         // Top Header
         var pnlHeader = new Panel
         {
             Dock = DockStyle.Top,
-            Height = 70,
-            BackColor = Color.FromArgb(18, 52, 38),
+            Height = 76,
+            BackColor = Color.FromArgb(16, 55, 38),
         };
 
         var lblTitle = new Label
         {
             Text = "🍃 Pokémon LeafGreen & FireRed — Nintendo Switch Edition",
             ForeColor = Color.White,
-            Font = new Font(Font.FontFamily, 11.5f, FontStyle.Bold),
-            Location = new Point(15, 12),
+            Font = new Font("Segoe UI", 12.5f, FontStyle.Bold),
+            Location = new Point(16, 12),
             AutoSize = true,
         };
 
         var lblSub = new Label
         {
             Text = $"Jogo: {sav.Version} (Switch eShop) | Treinador: {sav.OT} (TID: {sav.TID16}) | Caixas: {sav.BoxCount} ({sav.BoxCount * sav.BoxSlotCount} slots)",
-            ForeColor = Color.FromArgb(190, 240, 215),
-            Font = new Font(Font.FontFamily, 9f, FontStyle.Regular),
-            Location = new Point(15, 38),
+            ForeColor = Color.FromArgb(240, 252, 245),
+            Font = new Font("Segoe UI", 9.5f, FontStyle.Regular),
+            Location = new Point(16, 40),
             AutoSize = true,
         };
 
@@ -90,9 +91,9 @@ public sealed class SwitchFRLGWizardForm : Form
         // TabControl
         _tabs = new TabControl
         {
-            Location = new Point(15, 80),
-            Size = new Size(650, 380),
-            Font = new Font(Font.FontFamily, 9f, FontStyle.Regular),
+            Location = new Point(16, 88),
+            Size = new Size(708, 435),
+            Font = new Font("Segoe UI", 10f, FontStyle.Bold),
         };
 
         // Tab 1: Kanto 151
@@ -101,18 +102,70 @@ public sealed class SwitchFRLGWizardForm : Form
         BuildTabBanner(tabKanto,
             "Pokédex Regional de Kanto Oficial (#001 Bulbasaur a #151 Mew)",
             "• Coleção pura com os 151 Pokémon clássicos de Kanto.\n" +
-            "• Fiel ao objetivo principal de LeafGreen no Nintendo Switch.\n" +
-            "• Ocupa exatamente 5 caixas e 1 slot (sobrando 9 caixas inteiras livres para o jogo!).");
+            "• Fiel ao objetivo principal do jogo no Nintendo Switch.\n" +
+            "• Ocupa exatamente 5 caixas e 1 slot (sobrando 9 caixas inteiras livres no save!).");
 
-        _rbKantoNormal = new RadioButton { Text = "🌟 Coleção Normal (151 Pokémon)", Location = new Point(30, 150), AutoSize = true, Checked = true };
-        _rbKantoShiny = new RadioButton { Text = "✨ Coleção Shiny (151 Pokémon - 100% Legais)", Location = new Point(30, 185), AutoSize = true };
-        _rbKantoCombined = new RadioButton { Text = "💫 Normal + Shiny Combinado (302 Pokémon - Ocupa 11 caixas)", Location = new Point(30, 220), AutoSize = true };
+        _rbKantoNormal = new RadioButton
+        {
+            Text = "🌟 Coleção Normal (151 Pokémon de Kanto)",
+            Font = new Font("Segoe UI", 10.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            Location = new Point(35, 165),
+            AutoSize = true,
+            Checked = true
+        };
+        var lblKantoNormalDesc = new Label
+        {
+            Text = "Gera de #001 Bulbasaur a #151 Mew com seu próprio OT e dados 100% legais.",
+            Font = new Font("Segoe UI", 9.25f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(71, 85, 105),
+            Location = new Point(60, 192),
+            AutoSize = true
+        };
+
+        _rbKantoShiny = new RadioButton
+        {
+            Text = "✨ Coleção Shiny (151 Pokémon Brilhantes Legais)",
+            Font = new Font("Segoe UI", 10.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            Location = new Point(35, 222),
+            AutoSize = true
+        };
+        var lblKantoShinyDesc = new Label
+        {
+            Text = "Gera todos os 151 Pokémon em forma Shiny (com Shiny Locks de evento respeitados).",
+            Font = new Font("Segoe UI", 9.25f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(71, 85, 105),
+            Location = new Point(60, 249),
+            AutoSize = true
+        };
+
+        _rbKantoCombined = new RadioButton
+        {
+            Text = "💫 Normal + Shiny Combinado (302 Pokémon)",
+            Font = new Font("Segoe UI", 10.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            Location = new Point(35, 279),
+            AutoSize = true
+        };
+        var lblKantoCombinedDesc = new Label
+        {
+            Text = "Gera ambas as coleções Normal e Shiny em sequência (ocupa 11 caixas das 14 disponíveis).",
+            Font = new Font("Segoe UI", 9.25f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(71, 85, 105),
+            Location = new Point(60, 306),
+            AutoSize = true
+        };
 
         _rbKantoNormal.CheckedChanged += (_, _) => UpdateEstimations();
         _rbKantoShiny.CheckedChanged += (_, _) => UpdateEstimations();
         _rbKantoCombined.CheckedChanged += (_, _) => UpdateEstimations();
 
-        tabKanto.Controls.AddRange([_rbKantoNormal, _rbKantoShiny, _rbKantoCombined]);
+        tabKanto.Controls.AddRange([
+            _rbKantoNormal, lblKantoNormalDesc,
+            _rbKantoShiny, lblKantoShinyDesc,
+            _rbKantoCombined, lblKantoCombinedDesc
+        ]);
 
         // Tab 2: Kanto + Sevii Islands
         var tabSevii = new TabPage("🏝️ Kanto + Sevii Islands (281)");
@@ -124,15 +177,67 @@ public sealed class SwitchFRLGWizardForm : Form
             "• ZERO Pokémon de Hoenn (sem Treecko, Torchic, Mudkip, Rayquaza, etc., já que Hoenn não existe no Switch!).\n" +
             "• Ocupa cerca de 10 caixas (sobrando 4 caixas livres no save).");
 
-        _rbSeviiNormal = new RadioButton { Text = "🌟 Coleção Normal (281 Pokémon)", Location = new Point(30, 160), AutoSize = true, Checked = true };
-        _rbSeviiShiny = new RadioButton { Text = "✨ Coleção Shiny (281 Pokémon - 100% Legais)", Location = new Point(30, 195), AutoSize = true };
-        _rbSeviiCombined = new RadioButton { Text = "💫 Normal + Shiny Combinado (562 Pokémon - Excede 14 caixas)", Location = new Point(30, 230), AutoSize = true };
+        _rbSeviiNormal = new RadioButton
+        {
+            Text = "🌟 Coleção Normal (281 Pokémon)",
+            Font = new Font("Segoe UI", 10.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            Location = new Point(35, 165),
+            AutoSize = true,
+            Checked = true
+        };
+        var lblSeviiNormalDesc = new Label
+        {
+            Text = "Todos os 151 de Kanto + Pokémon de Johto das Sevii Islands + Tickets nativos do Switch.",
+            Font = new Font("Segoe UI", 9.25f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(71, 85, 105),
+            Location = new Point(60, 192),
+            AutoSize = true
+        };
+
+        _rbSeviiShiny = new RadioButton
+        {
+            Text = "✨ Coleção Shiny (281 Pokémon Brilhantes Legais)",
+            Font = new Font("Segoe UI", 10.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            Location = new Point(35, 222),
+            AutoSize = true
+        };
+        var lblSeviiShinyDesc = new Label
+        {
+            Text = "Versão brilhante de todos os 281 Pokémon legítimos de Kanto e Sevii Islands.",
+            Font = new Font("Segoe UI", 9.25f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(71, 85, 105),
+            Location = new Point(60, 249),
+            AutoSize = true
+        };
+
+        _rbSeviiCombined = new RadioButton
+        {
+            Text = "💫 Normal + Shiny Combinado (562 Pokémon — Excede 14 caixas)",
+            Font = new Font("Segoe UI", 10.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            Location = new Point(35, 279),
+            AutoSize = true
+        };
+        var lblSeviiCombinedDesc = new Label
+        {
+            Text = "Atenção: o save suporta até 420 Pokémon. Os slots excedentes serão ignorados.",
+            Font = new Font("Segoe UI", 9.25f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(180, 40, 20),
+            Location = new Point(60, 306),
+            AutoSize = true
+        };
 
         _rbSeviiNormal.CheckedChanged += (_, _) => UpdateEstimations();
         _rbSeviiShiny.CheckedChanged += (_, _) => UpdateEstimations();
         _rbSeviiCombined.CheckedChanged += (_, _) => UpdateEstimations();
 
-        tabSevii.Controls.AddRange([_rbSeviiNormal, _rbSeviiShiny, _rbSeviiCombined]);
+        tabSevii.Controls.AddRange([
+            _rbSeviiNormal, lblSeviiNormalDesc,
+            _rbSeviiShiny, lblSeviiShinyDesc,
+            _rbSeviiCombined, lblSeviiCombinedDesc
+        ]);
 
         // Tab 3: Versão Nativa
         string verName = sav.Version == GameVersion.LG ? "LeafGreen" : "FireRed";
@@ -145,26 +250,88 @@ public sealed class SwitchFRLGWizardForm : Form
             $"• Exclui os Pokémon exclusivos de {oppName} que exigiriam trocas via cabo.\n" +
             "• Ocupa cerca de 9 caixas (sobrando 5 caixas livres no save).");
 
-        _rbNativeNormal = new RadioButton { Text = $"🌟 Coleção Normal Nativa (~259 Pokémon)", Location = new Point(30, 150), AutoSize = true, Checked = true };
-        _rbNativeShiny = new RadioButton { Text = $"✨ Coleção Shiny Nativa (~259 Pokémon)", Location = new Point(30, 185), AutoSize = true };
-        _rbNativeCombined = new RadioButton { Text = $"💫 Normal + Shiny Combinado (~518 Pokémon)", Location = new Point(30, 220), AutoSize = true };
+        _rbNativeNormal = new RadioButton
+        {
+            Text = $"🌟 Coleção Normal Nativa (~259 Pokémon)",
+            Font = new Font("Segoe UI", 10.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            Location = new Point(35, 165),
+            AutoSize = true,
+            Checked = true
+        };
+        var lblNativeNormalDesc = new Label
+        {
+            Text = $"Somente as espécies capturáveis diretamente no {verName} sem trocas.",
+            Font = new Font("Segoe UI", 9.25f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(71, 85, 105),
+            Location = new Point(60, 192),
+            AutoSize = true
+        };
+
+        _rbNativeShiny = new RadioButton
+        {
+            Text = $"✨ Coleção Shiny Nativa (~259 Pokémon)",
+            Font = new Font("Segoe UI", 10.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            Location = new Point(35, 222),
+            AutoSize = true
+        };
+        var lblNativeShinyDesc = new Label
+        {
+            Text = $"Versão brilhante de todos os Pokémon nativos exclusivos de {verName}.",
+            Font = new Font("Segoe UI", 9.25f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(71, 85, 105),
+            Location = new Point(60, 249),
+            AutoSize = true
+        };
+
+        _rbNativeCombined = new RadioButton
+        {
+            Text = $"💫 Normal + Shiny Combinado (~518 Pokémon)",
+            Font = new Font("Segoe UI", 10.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            Location = new Point(35, 279),
+            AutoSize = true
+        };
+        var lblNativeCombinedDesc = new Label
+        {
+            Text = "Combinação de normais e brilhantes nativos da versão.",
+            Font = new Font("Segoe UI", 9.25f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(71, 85, 105),
+            Location = new Point(60, 306),
+            AutoSize = true
+        };
 
         _rbNativeNormal.CheckedChanged += (_, _) => UpdateEstimations();
         _rbNativeShiny.CheckedChanged += (_, _) => UpdateEstimations();
         _rbNativeCombined.CheckedChanged += (_, _) => UpdateEstimations();
 
-        tabNative.Controls.AddRange([_rbNativeNormal, _rbNativeShiny, _rbNativeCombined]);
+        tabNative.Controls.AddRange([
+            _rbNativeNormal, lblNativeNormalDesc,
+            _rbNativeShiny, lblNativeShinyDesc,
+            _rbNativeCombined, lblNativeCombinedDesc
+        ]);
 
         // Tab 4: Personalização & Caixas
         var tabSettings = new TabPage("⚙️ Personalização & Caixas");
         tabSettings.BackColor = Color.White;
 
-        var lblBall = new Label { Text = "Pokébola Preferida:", Location = new Point(25, 25), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Bold) };
+        var lblBall = new Label
+        {
+            Text = "Pokébola Preferida:",
+            Location = new Point(25, 25),
+            AutoSize = true,
+            Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42)
+        };
         _cbBallPref = new ComboBox
         {
-            Location = new Point(175, 22),
-            Size = new Size(420, 24),
+            Location = new Point(200, 22),
+            Size = new Size(460, 28),
             DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font("Segoe UI", 9.5f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            BackColor = Color.White
         };
         _cbBallPref.Items.AddRange([
             "🔴 Poké Ball Clássica (Vermelho & Branco original para todos)",
@@ -176,12 +343,22 @@ public sealed class SwitchFRLGWizardForm : Form
         ]);
         _cbBallPref.SelectedIndex = 0;
 
-        var lblIV = new Label { Text = "Otimização de IVs:", Location = new Point(25, 65), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Bold) };
+        var lblIV = new Label
+        {
+            Text = "Otimização de IVs:",
+            Location = new Point(25, 70),
+            AutoSize = true,
+            Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42)
+        };
         _cbIVPref = new ComboBox
         {
-            Location = new Point(175, 62),
-            Size = new Size(420, 24),
+            Location = new Point(200, 67),
+            Size = new Size(460, 28),
             DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font("Segoe UI", 9.5f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            BackColor = Color.White
         };
         _cbIVPref.Items.AddRange([
             "⚡ Smart IVs (6x31 ou 0 Atk para Special Attackers) [Recomendado]",
@@ -190,12 +367,22 @@ public sealed class SwitchFRLGWizardForm : Form
         ]);
         _cbIVPref.SelectedIndex = 0;
 
-        var lblLevel = new Label { Text = "Progressão de Nível:", Location = new Point(25, 105), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Bold) };
+        var lblLevel = new Label
+        {
+            Text = "Progressão de Nível:",
+            Location = new Point(25, 115),
+            AutoSize = true,
+            Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42)
+        };
         _cbLevelPref = new ComboBox
         {
-            Location = new Point(175, 102),
-            Size = new Size(420, 24),
+            Location = new Point(200, 112),
+            Size = new Size(460, 28),
             DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font("Segoe UI", 9.5f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            BackColor = Color.White
         };
         _cbLevelPref.Items.AddRange([
             "📈 Mínimo Canônico de Evolução (MetLevel progressivo legal)",
@@ -204,22 +391,42 @@ public sealed class SwitchFRLGWizardForm : Form
         ]);
         _cbLevelPref.SelectedIndex = 0;
 
-        var lblStartBox = new Label { Text = "Caixa Inicial:", Location = new Point(25, 155), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Bold) };
+        var lblStartBox = new Label
+        {
+            Text = "Caixa Inicial:",
+            Location = new Point(25, 165),
+            AutoSize = true,
+            Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42)
+        };
         _nudStartBox = new NumericUpDown
         {
-            Location = new Point(175, 152),
-            Size = new Size(70, 24),
+            Location = new Point(200, 162),
+            Size = new Size(80, 28),
             Minimum = 1,
             Maximum = Math.Max(1, sav.BoxCount),
             Value = 1,
+            Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            BackColor = Color.White
         };
 
-        var lblBoxMode = new Label { Text = "Modo de Gravação:", Location = new Point(25, 195), AutoSize = true, Font = new Font(Font.FontFamily, 8.5f, FontStyle.Bold) };
+        var lblBoxMode = new Label
+        {
+            Text = "Modo de Gravação:",
+            Location = new Point(25, 210),
+            AutoSize = true,
+            Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42)
+        };
         _cbBoxPref = new ComboBox
         {
-            Location = new Point(175, 192),
-            Size = new Size(420, 24),
+            Location = new Point(200, 207),
+            Size = new Size(460, 28),
             DropDownStyle = ComboBoxStyle.DropDownList,
+            Font = new Font("Segoe UI", 9.5f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(15, 23, 42),
+            BackColor = Color.White
         };
         _cbBoxPref.Items.AddRange([
             "Sobrescrever slots necessários (Preserva caixas além do alcance)",
@@ -230,10 +437,12 @@ public sealed class SwitchFRLGWizardForm : Form
 
         _chkExportReport = new CheckBox
         {
-            Text = "Exportar relatório detalhado da coleção em arquivo de texto (.txt)",
-            Location = new Point(25, 240),
+            Text = "📄 Exportar relatório detalhado da coleção em arquivo de texto (.txt)",
+            Location = new Point(25, 260),
             AutoSize = true,
             Checked = true,
+            Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42)
         };
 
         tabSettings.Controls.AddRange([
@@ -252,34 +461,34 @@ public sealed class SwitchFRLGWizardForm : Form
         var pnlBottom = new Panel
         {
             Dock = DockStyle.Bottom,
-            Height = 90,
-            BackColor = Color.FromArgb(245, 247, 250),
+            Height = 96,
+            BackColor = Color.FromArgb(245, 248, 250),
         };
 
         _lblEstimation = new Label
         {
-            Location = new Point(15, 12),
-            Size = new Size(420, 22),
-            Font = new Font(Font.FontFamily, 9f, FontStyle.Bold),
-            ForeColor = Color.FromArgb(20, 30, 50),
+            Location = new Point(16, 15),
+            Size = new Size(470, 26),
+            Font = new Font("Segoe UI", 11f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 23, 42),
         };
 
         _lblCapacityStatus = new Label
         {
-            Location = new Point(15, 34),
-            Size = new Size(420, 22),
-            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
-            ForeColor = Color.FromArgb(60, 130, 60),
+            Location = new Point(16, 45),
+            Size = new Size(470, 26),
+            Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(15, 110, 45),
         };
 
         _btnGenerate = new Button
         {
             Text = "🚀 Gerar no Save do Switch",
-            Location = new Point(460, 15),
-            Size = new Size(205, 42),
-            BackColor = Color.FromArgb(24, 134, 75),
+            Location = new Point(500, 16),
+            Size = new Size(220, 46),
+            BackColor = Color.FromArgb(20, 120, 65),
             ForeColor = Color.White,
-            Font = new Font(Font.FontFamily, 9.5f, FontStyle.Bold),
+            Font = new Font("Segoe UI", 10.5f, FontStyle.Bold),
             FlatStyle = FlatStyle.Flat,
             Cursor = Cursors.Hand,
         };
@@ -289,9 +498,9 @@ public sealed class SwitchFRLGWizardForm : Form
         var btnCancel = new Button
         {
             Text = "Fechar",
-            Location = new Point(460, 60),
-            Size = new Size(205, 24),
-            Font = new Font(Font.FontFamily, 8.5f, FontStyle.Regular),
+            Location = new Point(500, 66),
+            Size = new Size(220, 26),
+            Font = new Font("Segoe UI", 9.5f, FontStyle.Regular),
             FlatStyle = FlatStyle.System,
             DialogResult = DialogResult.Cancel,
         };
@@ -309,28 +518,28 @@ public sealed class SwitchFRLGWizardForm : Form
     {
         var pnl = new Panel
         {
-            Location = new Point(15, 15),
-            Size = new Size(615, 110),
-            BackColor = Color.FromArgb(235, 248, 240),
+            Location = new Point(16, 16),
+            Size = new Size(674, 130),
+            BackColor = Color.FromArgb(240, 248, 244),
             BorderStyle = BorderStyle.FixedSingle,
         };
 
         var lblH = new Label
         {
             Text = header,
-            Font = new Font(page.Font.FontFamily, 9.5f, FontStyle.Bold),
-            ForeColor = Color.FromArgb(16, 75, 42),
-            Location = new Point(12, 10),
+            Font = new Font("Segoe UI", 11.5f, FontStyle.Bold),
+            ForeColor = Color.FromArgb(12, 60, 35),
+            Location = new Point(16, 12),
             AutoSize = true,
         };
 
         var lblD = new Label
         {
             Text = details,
-            Font = new Font(page.Font.FontFamily, 8.5f, FontStyle.Regular),
-            ForeColor = Color.FromArgb(40, 60, 50),
-            Location = new Point(12, 34),
-            Size = new Size(590, 68),
+            Font = new Font("Segoe UI", 10f, FontStyle.Regular),
+            ForeColor = Color.FromArgb(15, 23, 42), // Solid dark slate for 100% contrast!
+            Location = new Point(16, 40),
+            Size = new Size(642, 80),
         };
 
         pnl.Controls.Add(lblH);
@@ -370,19 +579,19 @@ public sealed class SwitchFRLGWizardForm : Form
         int boxesNeeded = (count + _sav.BoxSlotCount - 1) / _sav.BoxSlotCount;
         int freeBoxes = _sav.BoxCount - boxesNeeded;
 
-        _lblEstimation.Text = $"📦 {desc}: {count} Pokémon ({boxesNeeded} caixas necessárias)";
+        _lblEstimation.Text = $"📦 {desc}: {count} Pokémon ({boxesNeeded} caixas)";
 
         if (count > totalCapacity)
         {
-            _lblCapacityStatus.Text = $"⚠️ Excede a capacidade do save ({totalCapacity} slots / {_sav.BoxCount} caixas). Slots extras serão ignorados.";
-            _lblCapacityStatus.ForeColor = Color.Firebrick;
+            _lblCapacityStatus.Text = $"⚠️ Excede a capacidade do save ({totalCapacity} slots / {_sav.BoxCount} caixas).";
+            _lblCapacityStatus.ForeColor = Color.FromArgb(185, 28, 28);
             _btnGenerate.BackColor = Color.FromArgb(180, 50, 40);
         }
         else
         {
-            _lblCapacityStatus.Text = $"✅ Cabe perfeitamente no save! Sobrarão {freeBoxes} caixas livres de armazenamento.";
-            _lblCapacityStatus.ForeColor = Color.FromArgb(24, 134, 75);
-            _btnGenerate.BackColor = Color.FromArgb(24, 134, 75);
+            _lblCapacityStatus.Text = $"✅ Cabe perfeitamente no save! Sobrarão {freeBoxes} caixas livres.";
+            _lblCapacityStatus.ForeColor = Color.FromArgb(15, 110, 45);
+            _btnGenerate.BackColor = Color.FromArgb(20, 120, 65);
         }
     }
 
