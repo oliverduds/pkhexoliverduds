@@ -757,6 +757,7 @@ public sealed class SwitchFRLGWizardForm : Form
 
             await Task.Run(() =>
             {
+                var legalBalls = new Ball[BallApplicator.MaxBallSpanAlloc];
                 for (int i = 0; i < toPlace; i++)
                 {
                     if (cts.Token.IsCancellationRequested)
@@ -767,39 +768,50 @@ public sealed class SwitchFRLGWizardForm : Form
                     int box = slotIndex / _sav.BoxSlotCount;
                     int slot = slotIndex % _sav.BoxSlotCount;
 
-                    // Apply Ball
-                    if (ballPref == BallSelectionPreference.StandardPokeBall)
-                        pkm.Ball = (byte)Ball.Poke;
-                    else if (ballPref == BallSelectionPreference.PremierBall)
-                        pkm.Ball = (byte)Ball.Premier;
-                    else if (ballPref == BallSelectionPreference.UltraBall)
-                        pkm.Ball = (byte)Ball.Ultra;
-
-                    // Apply IVs
-                    if (ivPref == IVOptimizationPreference.SmartIVs)
-                    {
-                        bool isSpecialAttacker = pkm.PersonalInfo.SPA > pkm.PersonalInfo.ATK + 25;
-                        pkm.IV_HP = 31;
-                        pkm.IV_DEF = 31;
-                        pkm.IV_SPA = 31;
-                        pkm.IV_SPD = 31;
-                        pkm.IV_SPE = 31;
-                        pkm.IV_ATK = isSpecialAttacker ? 0 : 31;
-                    }
-                    else if (ivPref == IVOptimizationPreference.All31)
-                    {
-                        pkm.IV_HP = 31;
-                        pkm.IV_ATK = 31;
-                        pkm.IV_DEF = 31;
-                        pkm.IV_SPA = 31;
-                        pkm.IV_SPD = 31;
-                        pkm.IV_SPE = 31;
-                    }
-
-                    // Apply Level
+                    // 1. Level adjustment
                     if (lvlPref == LevelPreference.Level100)
                     {
                         pkm.CurrentLevel = 100;
+                        LivingDexPolisher.RefreshLevelDependentData(pkm);
+                    }
+                    else if (lvlPref == LevelPreference.CanonicalFloor)
+                    {
+                        var beforeLA = new LegalityAnalysis(pkm, _sav.Personal);
+                        if (LivingDexPolisher.TryNormalizeToEvolutionMinimum(pkm, _sav.Personal, beforeLA, out var normalized, out _))
+                        {
+                            pkm = normalized;
+                        }
+                    }
+
+                    // 2. Pokéball adjustment (Verified legal per encounter)
+                    var baseLA = new LegalityAnalysis(pkm, _sav.Personal);
+                    int ballCount = BallApplicator.GetLegalBalls(legalBalls, pkm, baseLA);
+                    var legalSpan = legalBalls.AsSpan(0, ballCount);
+
+                    if (ballPref == BallSelectionPreference.StandardPokeBall && legalSpan.Contains(Ball.Poke))
+                    {
+                        pkm.Ball = (byte)Ball.Poke;
+                    }
+                    else if (ballPref == BallSelectionPreference.PremierBall && legalSpan.Contains(Ball.Premier))
+                    {
+                        pkm.Ball = (byte)Ball.Premier;
+                    }
+                    else if (ballPref == BallSelectionPreference.UltraBall && legalSpan.Contains(Ball.Ultra))
+                    {
+                        pkm.Ball = (byte)Ball.Ultra;
+                    }
+                    else if (ballPref == BallSelectionPreference.ThematicAuto)
+                    {
+                        if (baseLA.Valid && LivingDexPolisher.TryApplyThematicBall(pkm, baseLA, out _))
+                        {
+                            // Applied safely
+                        }
+                    }
+
+                    // 3. IVs adjustment (Safe check maintaining Gen 3 PID-IV correlation)
+                    if (ivPref is IVOptimizationPreference.SmartIVs or IVOptimizationPreference.All31)
+                    {
+                        LivingDexPolisher.TryOptimizeIVs(pkm, _sav.Personal);
                     }
 
                     pkm.RefreshChecksum();

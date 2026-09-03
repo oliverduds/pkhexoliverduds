@@ -95,7 +95,7 @@ public sealed class LivingDexPolisher : AutoModPlugin
             return;
         }
 
-        if (!auditOnly && ParseSettings.Settings.HOMETransfer.HOMETransferTrackerNotPresent != Severity.Invalid)
+        if (sav.Generation >= 8 && !auditOnly && ParseSettings.Settings.HOMETransfer.HOMETransferTrackerNotPresent != Severity.Invalid)
         {
             WinFormsUtil.Alert(
                 "PKHeX HOME transfer checks are currently relaxed.",
@@ -578,6 +578,7 @@ public sealed class LivingDexPolisher : AutoModPlugin
         GameVersion.PLA => true,
         GameVersion.SL or GameVersion.VL => true,
         GameVersion.ZA => true,
+        GameVersion.FR or GameVersion.LG => true,
         _ => false,
     };
 
@@ -647,7 +648,17 @@ public sealed class LivingDexPolisher : AutoModPlugin
         return false;
     }
 
-    private static bool TryNormalizeToEvolutionMinimum(
+    public static bool TryNormalizeToEvolutionMinimum(
+        PKM source,
+        IPersonalTable personal,
+        LegalityAnalysis sourceLA,
+        out PKM result,
+        out int targetLevel)
+    {
+        return TryNormalizeToEvolutionMinimum(source, personal, sourceLA, out result, out targetLevel, out _, out _);
+    }
+
+    public static bool TryNormalizeToEvolutionMinimum(
         PKM source,
         IPersonalTable personal,
         LegalityAnalysis sourceLA,
@@ -1106,6 +1117,7 @@ public sealed class LivingDexPolisher : AutoModPlugin
         GameVersion.SL or GameVersion.VL => origin is GameVersion.SL or GameVersion.VL,
         GameVersion.PLA => origin == GameVersion.PLA,
         GameVersion.ZA => origin == GameVersion.ZA,
+        GameVersion.FR or GameVersion.LG => origin is GameVersion.FR or GameVersion.LG,
         _ => false,
     };
 
