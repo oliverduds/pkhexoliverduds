@@ -20,7 +20,13 @@ public enum LivingDexMode
     Combined,
     BaseSpeciesOnly,
     Gen7CanonicalNormal,
-    Gen7CanonicalShiny
+    Gen7CanonicalShiny,
+    SwitchFRLGKanto151Normal,
+    SwitchFRLGKanto151Shiny,
+    SwitchFRLGSeviiNativeNormal,
+    SwitchFRLGSeviiNativeShiny,
+    SwitchFRLGExclusiveLeafGreenNormal,
+    SwitchFRLGExclusiveLeafGreenShiny
 }
 
 public enum BallSelectionPreference
@@ -150,7 +156,12 @@ public sealed class CombinedLivingDex : AutoModPlugin
         rareEventItem.Font = new Font(rareEventItem.Font, FontStyle.Bold);
         rareEventItem.Click += (_, _) => OpenRareEventWizard();
 
+        var switchItem = new ToolStripMenuItem("🍃 Pokémon LeafGreen / FireRed (Nintendo Switch Edition)...");
+        switchItem.Font = new Font(switchItem.Font, FontStyle.Bold);
+        switchItem.Click += (_, _) => OpenSwitchWizard();
+
         root.DropDownItems.Add(customItem);
+        root.DropDownItems.Add(switchItem);
         root.DropDownItems.Add(rareEventItem);
         root.DropDownItems.Add(new ToolStripSeparator());
         root.DropDownItems.Add(gen7Normal);
@@ -161,6 +172,29 @@ public sealed class CombinedLivingDex : AutoModPlugin
         root.DropDownItems.Add(quickCombined);
 
         modmenu.DropDownItems.Add(root);
+    }
+
+    private void OpenSwitchWizard()
+    {
+        var sav = SaveFileEditor.SAV;
+        if (sav.Generation != 3)
+        {
+            var res = MessageBox.Show(
+                "O assistente do Nintendo Switch Edition é especializado para Pokémon LeafGreen e FireRed.\n\n" +
+                $"O save carregado atualmente é da Geração {sav.Generation} ({sav.Version}).\n" +
+                "Deseja abrir o assistente mesmo assim?",
+                "Nintendo Switch Edition",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+            if (res != DialogResult.Yes)
+                return;
+        }
+
+        using var form = new SwitchFRLGWizardForm(sav, () =>
+        {
+            SaveFileEditor.ReloadSlots();
+        });
+        form.ShowDialog();
     }
 
     private void OpenRareEventWizard()
@@ -254,6 +288,32 @@ public sealed class CombinedLivingDex : AutoModPlugin
             {
                 bool isShiny = options.Mode == LivingDexMode.Gen7CanonicalShiny;
                 targetList = await Task.Run(() => GenerateGen7CanonicalDexList(sav, isShiny, options));
+            }
+            else if (options.Mode is LivingDexMode.SwitchFRLGKanto151Normal or LivingDexMode.SwitchFRLGKanto151Shiny or
+                     LivingDexMode.SwitchFRLGSeviiNativeNormal or LivingDexMode.SwitchFRLGSeviiNativeShiny or
+                     LivingDexMode.SwitchFRLGExclusiveLeafGreenNormal or LivingDexMode.SwitchFRLGExclusiveLeafGreenShiny)
+            {
+                bool isShiny = options.Mode is LivingDexMode.SwitchFRLGKanto151Shiny or
+                               LivingDexMode.SwitchFRLGSeviiNativeShiny or
+                               LivingDexMode.SwitchFRLGExclusiveLeafGreenShiny;
+
+                var cfg = new LivingDexConfig
+                {
+                    IncludeForms = options.IncludeForms,
+                    SetShiny = isShiny,
+                    SetAlpha = false,
+                    TransferVersion = sav.Version,
+                };
+                var gen = await Task.Run(() => sav.GenerateLivingDex(sav.Personal, cfg));
+                var list = isShiny ? gen.Where(p => p.IsShiny).ToList() : gen.ToList();
+                list = FilterValidBoxPokemon(list, sav).ToList();
+
+                if (options.Mode is LivingDexMode.SwitchFRLGKanto151Normal or LivingDexMode.SwitchFRLGKanto151Shiny)
+                    targetList = SwitchFRLGDex.FilterKanto(list);
+                else if (options.Mode is LivingDexMode.SwitchFRLGSeviiNativeNormal or LivingDexMode.SwitchFRLGSeviiNativeShiny)
+                    targetList = SwitchFRLGDex.FilterFRLGNative(list);
+                else
+                    targetList = SwitchFRLGDex.FilterVersionNative(list, sav.Version);
             }
             else
             {
@@ -1158,6 +1218,19 @@ public sealed class LivingDexOptionsForm : Form
             ]);
             _cbMode.SelectedIndex = 0;
         }
+        else if (sav.Generation == 3)
+        {
+            _cbMode.Items.AddRange([
+                "🍃 Switch: Pokédex de Kanto (151 Pokémon)",
+                "✨ Switch: Pokédex de Kanto Shiny (151 Pokémon)",
+                "🏝️ Switch: Kanto + Sevii Islands + Tickets (281 Pokémon — Sem Hoenn)",
+                "🌿 Switch: Apenas Nativos de " + (sav.Version == GameVersion.LG ? "LeafGreen" : "FireRed"),
+                "🎮 GBA Legado: Pokédex Nacional Completa (386 Pokémon — Inclui Hoenn)",
+                "🌟 Normal + Shiny Combinado",
+                "🏆 Base Species Only (Apenas espécies base)"
+            ]);
+            _cbMode.SelectedIndex = 0;
+        }
         else
         {
             _cbMode.Items.AddRange([
@@ -1592,6 +1665,21 @@ public sealed class LivingDexOptionsForm : Form
             };
         }
 
+        if (_sav.Generation == 3)
+        {
+            return modeIdx switch
+            {
+                0 => 151, // Kanto 151 Normal
+                1 => 151, // Kanto 151 Shiny
+                2 => 281, // Kanto + Sevii + Tickets
+                3 => 259, // Nativos de Versão
+                4 => includeForms ? 413 : 386, // GBA Legado
+                5 => (includeForms ? 413 : 386) * 2, // Combinado
+                6 => 386, // Base
+                _ => 151,
+            };
+        }
+
         int baseCount = _sav.Version switch
         {
             GameVersion.GP or GameVersion.GE => 153,
@@ -1637,6 +1725,20 @@ public sealed class LivingDexOptionsForm : Form
                 4 => LivingDexMode.Combined,
                 5 => LivingDexMode.BaseSpeciesOnly,
                 _ => LivingDexMode.Gen7CanonicalNormal,
+            };
+        }
+        else if (_sav.Generation == 3)
+        {
+            Options.Mode = _cbMode.SelectedIndex switch
+            {
+                0 => LivingDexMode.SwitchFRLGKanto151Normal,
+                1 => LivingDexMode.SwitchFRLGKanto151Shiny,
+                2 => LivingDexMode.SwitchFRLGSeviiNativeNormal,
+                3 => LivingDexMode.SwitchFRLGExclusiveLeafGreenNormal,
+                4 => LivingDexMode.Normal,
+                5 => LivingDexMode.Combined,
+                6 => LivingDexMode.BaseSpeciesOnly,
+                _ => LivingDexMode.SwitchFRLGKanto151Normal,
             };
         }
         else
